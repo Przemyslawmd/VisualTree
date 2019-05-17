@@ -1,4 +1,4 @@
-VisualTreeNET/obj/*
-VisualTreeNET/bin/*
-VisualTreeNET/Properties/*
+Source/obj/*
+Source/bin/*
+Source/Properties/*
 .vs/*
