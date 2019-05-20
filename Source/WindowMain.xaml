@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="" Height="450" Width="800">
     <Grid>
+       
         <DockPanel>
             <Menu Name="MenuMain" DockPanel.Dock="Top" >
                 <MenuItem Header="Tree">
@@ -15,7 +16,7 @@
                     <Separator />
                     <MenuItem Name="MenuTreeAVL" Click="ActionTreeAVL" Header="AVL Tree" />
                     <Separator />
-                    <MenuItem Name="MenuTreeRB" Click="ActionTreeRB" Header="Red Black Tree"/>                    
+                    <MenuItem Name="MenuTreeRB" Click="ActionTreeRB" Header="Red Black Tree"/>
                     <Separator />
                 </MenuItem>
                 <MenuItem Name="MenuSettings" Click="ActionSettings" Header="Settings">
@@ -24,6 +25,35 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
+
+        <Grid Margin="0, 20, 30, 40">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+
+            <Border Name="BorderAction" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Background="Yellow">
+            </Border>
+            
+            <Border Name="BorderInput" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" Margin="20, 10, 0, 0" >
+            </Border>
+            
+            <Border Name="BorderTree" Grid.Row="2" Grid.Column="0"  Background="Blue" Margin="20, 0, 10, 0" >
+            </Border>
+            
+            <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1"  Background="Orange" Margin="20, 0, 10, 0" >
+            </Border>
+            
+            <Border Name="BorderNotifyAction" Grid.Row="2" Grid.Column="2"  Background="Green" Margin="20, 0, 10, 0" >
+            </Border>
+
+        </Grid>
     </Grid>
 </Window>
     
