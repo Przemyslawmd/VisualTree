@@ -55,7 +55,7 @@
 
                 <Button>
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinusStep }"/>
-                </Button>               
+                </Button>
 
             </StackPanel>
 
