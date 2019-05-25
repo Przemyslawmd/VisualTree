@@ -29,7 +29,7 @@
 
         <Grid Margin="0, 20, 30, 40">
             <Grid.RowDefinitions>
-                <RowDefinition Height="45" />
+                <RowDefinition Height="55" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -42,12 +42,20 @@
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Background="Yellow">
 
                 <Button>
-                    <Rectangle Width="40" Height="40" Fill="{ StaticResource IconPlus }"/>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlus }"/>
                 </Button>
 
                 <Button>
-                    <Rectangle Width="40" Height="40" Fill="{ StaticResource IconMinus }"/>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlusStep }"/>
                 </Button>
+                
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinus }"/>
+                </Button>
+
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinusStep }"/>
+                </Button>               
 
             </StackPanel>
 
