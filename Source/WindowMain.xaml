@@ -41,6 +41,10 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Background="Yellow">
 
+                <Button Click="DrawTree">
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
+                </Button>
+                
                 <Button>
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlus }"/>
                 </Button>
@@ -58,10 +62,6 @@
                 </Button>
 
                 <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
-                </Button>
-
-                <Button>
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource TreeStep }"/>
                 </Button>
 
@@ -71,10 +71,12 @@
 
             </StackPanel>
 
-            <Border Name="BorderInput" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" Margin="20, 10, 0, 0" >
+            <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
+                <TextBox Name="TextNode" VerticalContentAlignment="Center" Padding="10, 5, 10, 5"  FontSize="15"/>
             </Border>
             
-            <Border Name="BorderTree" Grid.Row="2" Grid.Column="0"  Background="Blue" Margin="20, 0, 10, 0" >
+            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 0">
+                <Canvas Name="CanvasTree" Background="White" />
             </Border>
             
             <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1"  Background="Orange" Margin="20, 0, 10, 0" >
