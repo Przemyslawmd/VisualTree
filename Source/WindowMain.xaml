@@ -57,6 +57,18 @@
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinusStep }"/>
                 </Button>
 
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
+                </Button>
+
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource TreeStep }"/>
+                </Button>
+
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Balance }"/>
+                </Button>
+
             </StackPanel>
 
             <Border Name="BorderInput" Grid.Row="1" Grid.ColumnSpan="2"  Background="Red" Margin="20, 10, 0, 0" >
