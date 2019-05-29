@@ -1,3 +1,5 @@
 Source/obj/*
 Source/bin/*
 .vs/*
+Tests/bin/*
+Tests/obj/*
