@@ -1,10 +1,10 @@
 ﻿
-<Window x:Class="VisualTreeNET.WindowMain"
+<Window x:Class="VisualTree.WindowMain"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VisualTreeNET"
+        xmlns:local="clr-namespace:VisualTree"
         mc:Ignorable="d"
         Title="" Height="600" Width="1000">
 
@@ -13,16 +13,16 @@
         <DockPanel>
             <Menu Name="MenuMain" DockPanel.Dock="Top" >
                 <MenuItem Header="Tree">
-                    <MenuItem  Name="MenuTreeBST"  Click="ActionTreeBST" Header="Classic BST Tree" />
+                    <MenuItem  Name="MenuTreeBST"  Click="ActionMenuTreeBST" Header="Classic BST Tree" />
                     <Separator />
-                    <MenuItem Name="MenuTreeAVL" Click="ActionTreeAVL" Header="AVL Tree" />
+                    <MenuItem Name="MenuTreeAVL" Click="ActionMenuTreeAVL" Header="AVL Tree" />
                     <Separator />
-                    <MenuItem Name="MenuTreeRB" Click="ActionTreeRB" Header="Red Black Tree"/>
+                    <MenuItem Name="MenuTreeRB" Click="ActionMenuTreeRB" Header="Red Black Tree"/>
                     <Separator />
                 </MenuItem>
-                <MenuItem Name="MenuSettings" Click="ActionSettings" Header="Settings">
+                <MenuItem Name="MenuSettings" Click="ActionMenuSettings" Header="Settings">
                 </MenuItem>
-                <MenuItem Name="MenuAbout" Click="ActionAbout" Header="About">
+                <MenuItem Name="MenuAbout" Click="ActionMenuAbout" Header="About">
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -41,7 +41,7 @@
 
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Background="Yellow">
 
-                <Button Click="DrawTree">
+                <Button Click="ActionDrawTree">
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
                 </Button>
                 

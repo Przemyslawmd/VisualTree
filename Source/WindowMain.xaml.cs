@@ -2,19 +2,29 @@
 using System.Windows.Shapes;
 using System.Windows;
 
-namespace VisualTreeNET
+namespace VisualTree
 {
     public partial class WindowMain : Window
     {
         public WindowMain()
         {
             InitializeComponent();
+            controller = new Controller();
+            messages = new Message();
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void ActionTreeBST( object sender, RoutedEventArgs e )
+        private void ActionMenuTreeBST( object sender, RoutedEventArgs e )
+        {
+            
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void ActionMenuTreeAVL( object sender, RoutedEventArgs e )
         {
 
         }
@@ -22,7 +32,7 @@ namespace VisualTreeNET
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void ActionTreeAVL( object sender, RoutedEventArgs e )
+        private void ActionMenuTreeRB( object sender, RoutedEventArgs e )
         {
 
         }
@@ -30,7 +40,7 @@ namespace VisualTreeNET
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void ActionTreeRB( object sender, RoutedEventArgs e )
+        private void ActionMenuSettings( object sender, RoutedEventArgs e )
         {
 
         }
@@ -38,7 +48,7 @@ namespace VisualTreeNET
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void ActionSettings( object sender, RoutedEventArgs e )
+        private void ActionMenuAbout( object sender, RoutedEventArgs e )
         {
 
         }
@@ -46,25 +56,20 @@ namespace VisualTreeNET
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void ActionAbout( object sender, RoutedEventArgs e )
+        private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
+            code = Message.Code.OK;
+            controller.DrawTree( TextNode.Text, ref code );
 
+            if ( code != Message.Code.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( code ));
+            }
         }
 
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private void DrawTree( object sender, RoutedEventArgs e )
-        {
-            Line line = new Line();
-
-            line.Stroke = SystemColors.WindowFrameBrush;
-            line.X1 = 10.0;
-            line.Y1 = 10.0;
-            line.X2 = 20.0;
-            line.Y2 = 20.0;
-            CanvasTree.Children.Add( line );
-        }
+        private Message messages;
+        private Message.Code code;
+        private Controller controller;
     }
 }
 

@@ -78,6 +78,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controller.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="WindowMain.xaml.cs">
       <DependentUpon>WindowMain.xaml</DependentUpon>
       <SubType>Code</SubType>
