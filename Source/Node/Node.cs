@@ -5,14 +5,34 @@ namespace VisualTree
     {
         public Node( int key )
         {
-            this.Key = key;
+            Key = key;
+            left = null;
+            right = null;
+            parent = null;
         }
         
         public int Key { get; }
         
-        public Node Parent { get; set; }
-        public Node Left { get; set; }
-        public Node Right { get; set; }
+        private Node parent;
+        public Node Parent 
+        { 
+            get { return parent; }
+            set { parent = value; }
+        }
+        
+        private Node left;
+        public Node Left 
+        {  
+            get { return left; }
+            set { left = value; }
+        }
+        
+        private Node right;
+        public Node Right 
+        { 
+            get { return right; } 
+            set { right = value; } 
+        }
 
         public bool IsParent()
         {
@@ -21,12 +41,12 @@ namespace VisualTree
 
         public bool IsLeft()
         {
-            return Left != null;
+            return left is null ? false : true;
         }
 
         public bool IsRight()
         {
-            return Right != null;
+            return right is null ? false : true;
         }
 
         public int PosHor{ get; set; }

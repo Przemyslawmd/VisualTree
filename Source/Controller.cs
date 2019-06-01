@@ -13,6 +13,11 @@ namespace VisualTree
         {
             Parser parser = new Parser();
             List< int > nodes = parser.GetNodesValues( text, ref code );
+
+            Tree tree = new TreeBST();
+            tree.CreateNodes( nodes );
+            Model model = new Model();
+            model.ModelTree( tree.Root );
         }
     }
 }

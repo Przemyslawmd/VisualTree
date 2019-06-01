@@ -9,7 +9,7 @@ namespace Tests
     public class TestTreeGeneral
     {
         [TestMethod]
-        public void TestCreateCommonTree()
+        public void TestCreateBSTTree()
         {
             List< int > keys = new List< int > { 3, 2, 1, 6 };
             Tree tree = new TreeBST();
