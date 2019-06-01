@@ -80,7 +80,10 @@
     </Compile>
     <Compile Include="Controller.cs" />
     <Compile Include="Message.cs" />
+    <Compile Include="Node\Node.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="Tree\Tree.cs" />
+    <Compile Include="Tree\TreeBST.cs" />
     <Compile Include="WindowMain.xaml.cs">
       <DependentUpon>WindowMain.xaml</DependentUpon>
       <SubType>Code</SubType>
