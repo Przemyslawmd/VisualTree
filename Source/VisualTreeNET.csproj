@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Controller.cs" />
     <Compile Include="Drawing\Model.cs" />
+    <Compile Include="Drawing\Painter.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Node\Node.cs" />
     <Compile Include="Parser.cs" />

@@ -76,7 +76,7 @@
             </Border>
             
             <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 0">
-                <Canvas Name="CanvasTree" Background="White" />
+                <Canvas Name="CanvasTree" x:FieldModifier="public" Background="White" />
             </Border>
             
             <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1"  Background="Orange" Margin="20, 0, 10, 0" >

@@ -1,5 +1,4 @@
 ﻿
-using System.Windows.Shapes;
 using System.Windows;
 
 namespace VisualTree
@@ -26,7 +25,7 @@ namespace VisualTree
 
         private void ActionMenuTreeAVL( object sender, RoutedEventArgs e )
         {
-
+        
         }
 
         /*******************************************************************************************/
@@ -59,7 +58,7 @@ namespace VisualTree
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
             code = Message.Code.OK;
-            controller.DrawTree( TextNode.Text, ref code );
+            controller.DrawTree( TextNode.Text, CanvasTree, ref code );
 
             if ( code != Message.Code.OK )
             {
