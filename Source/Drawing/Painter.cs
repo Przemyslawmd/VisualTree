@@ -40,13 +40,13 @@ namespace VisualTree
 
             if ( node.IsLeft() )
             {
-                Line line = CreateLine( node.PosHor, node.PosVer, node.Left.PosHor, node.Left.PosVer, true );
+                Line line = CreateLine( node.PosHor, node.PosVer, node.Left.PosHor, node.Left.PosVer );
                 canvas.Children.Add( line );
             }
 
             if ( node.IsRight() )
             {
-                Line line  = CreateLine( node.PosHor, node.PosVer, node.Right.PosHor, node.Right.PosVer, false );
+                Line line  = CreateLine( node.PosHor, node.PosVer, node.Right.PosHor, node.Right.PosVer );
                 canvas.Children.Add( line );
             }
         }
@@ -54,11 +54,11 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private Line CreateLine( int x1, int y1, int x2, int y2, bool leftChild )
+        private Line CreateLine( int x1, int y1, int x2, int y2 )
         {
             Line line = new Line();
             line.Stroke = Brushes.Black;
-            int shiftDirection = leftChild ? -1 : 1;
+            int shiftDirection = x1 < x2 ? 1 : -1;
 
             line.X1 = x1 + shiftDirection * ( Radius * Math.Sin( Math.PI * ParentAngle / 180 ));
             line.Y1 = y1 + ( Radius * Math.Cos( Math.PI * ParentAngle / 180 ));
