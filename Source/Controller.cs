@@ -17,8 +17,19 @@ namespace VisualTree
             Model model = new Model();
             model.ModelTree( tree.Root );
 
+            PrepareCanvasSize( canvas, model );
             Painter painter = new Painter();
             painter.DrawTree( tree.Root, canvas );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        private void PrepareCanvasSize( Canvas canvas, Model model )
+        {
+            model.GetTreeCanvasSize( out int canvasTreeWidth, out int canvasTreeHeight );
+            canvas.Height = canvasTreeHeight;
+            canvas.Width = canvasTreeWidth;
         }
     }
 }

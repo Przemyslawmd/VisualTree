@@ -7,22 +7,23 @@ namespace VisualTree
     {
         public void ModelTree( Node node )
         {
-            nodesCountCol = 0;
-            nodesCountRow = 0;
-            firstHorPosition = 0;
+            matrixHeight = 0;
+            firstHorPosition = Padding;
+            lastHorPosition = 0;
             diameter = 30;
-            SetNodesPosition( node, 20, 20, 0 );
+            SetNodesPosition( node, Padding, Padding, 0 );
 
-            TraverseTree( node, new DelegateTraverseTree( CalculateNodesRows ));
+            TraverseTree( node, new DelegateTraverseTree( CalculateMatrixHeight ));
             PrepareNodesMatrixRow();
             TraverseTree( node, new DelegateTraverseTree( RegisterNode ));
             FixNodesPositions();
-            TraverseTree( node, new DelegateTraverseTree( CalculateFirstHorPosition ));
+            TraverseTree( node, new DelegateTraverseTree( CalculateTreeWidth ));
             
             if ( firstHorPosition < 0 )
             {
-                firstHorPosition *= -1;
-                firstHorPosition += 20;
+                int shift = -1 * firstHorPosition + Padding; 
+                firstHorPosition += shift;
+                lastHorPosition += shift;
                 TraverseTree( node, new DelegateTraverseTree( ShiftNodeHorPosition ));
             }
         }
@@ -68,33 +69,26 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CalculateNodesRows( Node node )
+        private void CalculateMatrixHeight( Node node )
         {
-            if ( node.MatrixRow > nodesCountRow )
+            if ( node.MatrixRow > matrixHeight )
             {
-                nodesCountRow = node.MatrixRow;
-            }
-        }
-            
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private void CalculateNodesCountInCol( Node node )
-        {
-            if ( node.MatrixCol > nodesCountCol )
-            {
-                nodesCountCol = node.MatrixCol;
+                matrixHeight = node.MatrixRow;
             }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CalculateFirstHorPosition( Node node )
+        private void CalculateTreeWidth( Node node )
         {
             if ( node.PosHor < firstHorPosition )
             {
                 firstHorPosition = node.PosHor;
+            }
+            else if ( node.PosHor > lastHorPosition )
+            {
+                lastHorPosition = node.PosHor;
             }
         }
         
@@ -111,11 +105,11 @@ namespace VisualTree
         
         private void PrepareNodesMatrixRow()
         {
-            nodesMatrix = new List< List< Node >>();
+            matrix = new List< List< Node >>();
             
-            for ( int i = 0; i <= nodesCountRow; i++ )
+            for ( int i = 0; i <= matrixHeight; i++ )
             {
-                nodesMatrix.Add( new List< Node >() );
+                matrix.Add( new List< Node >() );
             }
         }
 
@@ -124,9 +118,8 @@ namespace VisualTree
 
         private void RegisterNode( Node node )
         {	
-            List< Node > nodesRow = nodesMatrix[ node.MatrixRow ];
+            List< Node > nodesRow = matrix[ node.MatrixRow ];
             nodesRow.Add( node );
-            node.MatrixCol = nodesRow.Count - 1;
         }
 
         /*******************************************************************************************/
@@ -151,9 +144,9 @@ namespace VisualTree
             List< Node > nodesRow;
             int currNodesCol;
 
-            for ( int currNodesRow = nodesCountRow; currNodesRow >= 0; currNodesRow-- )
+            for ( int currNodesRow = matrixHeight; currNodesRow >= 0; currNodesRow-- )
             {
-                nodesRow = nodesMatrix[ currNodesRow ];
+                nodesRow = matrix[ currNodesRow ];
                 currNodesCol = 0;
 
                 for ( int i = 0; i < nodesRow.Count - 1; i++ )
@@ -173,14 +166,25 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
+        public void GetTreeCanvasSize( out int width, out int height )
+        {
+            height = ( matrixHeight + 1 ) * ( diameter + 10 ) + Padding;
+            width = lastHorPosition + Padding;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+            
         public delegate void DelegateTraverseTree( Node node );
             
         private int firstHorPosition;
+        private int lastHorPosition;
         private int diameter;
         
-        private int nodesCountCol;
-        private int nodesCountRow;
-        private List< List< Node >> nodesMatrix;
+        private int matrixHeight;
+        private List< List< Node >> matrix;
+
+        private readonly int Padding = 30;
     }
 }
 

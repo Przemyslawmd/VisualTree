@@ -74,11 +74,13 @@
             <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
                 <TextBox Name="TextNode" VerticalContentAlignment="Center" Padding="10, 5, 10, 5"  FontSize="15"/>
             </Border>
-            
+
             <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 0">
-                <Canvas Name="CanvasTree" x:FieldModifier="public" Background="White" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White">
+                    <Canvas Name="CanvasTree" x:FieldModifier="public" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </ScrollViewer>
             </Border>
-            
+
             <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1"  Background="Orange" Margin="20, 0, 10, 0" >
             </Border>
 
