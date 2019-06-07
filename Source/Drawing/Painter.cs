@@ -28,11 +28,13 @@ namespace VisualTree
 
         private void DrawNode( Node node, Canvas canvas )
         {
-            Ellipse ellipse = new Ellipse();
-            ellipse.Width = Radius * 2;
-            ellipse.Height = Radius * 2;
-            ellipse.StrokeThickness = 2;
-            ellipse.Stroke = Brushes.Black;
+            Ellipse ellipse = new Ellipse
+            {
+                Width = Radius * 2,
+                Height = Radius * 2,
+                StrokeThickness = 2,
+                Stroke = Brushes.Black
+            };
 
             Canvas.SetLeft( ellipse, node.PosHor - 15 );
             Canvas.SetTop( ellipse, node.PosVer - 15 );
@@ -56,8 +58,11 @@ namespace VisualTree
 
         private Line CreateLine( int x1, int y1, int x2, int y2 )
         {
-            Line line = new Line();
-            line.Stroke = Brushes.Black;
+            Line line = new Line
+            {
+                Stroke = Brushes.Black
+            };
+            
             int shiftDirection = x1 < x2 ? 1 : -1;
 
             line.X1 = x1 + shiftDirection * ( Radius * Math.Sin( Math.PI * ParentAngle / 180 ));

@@ -19,13 +19,20 @@ namespace VisualTree
             FixNodesPositions();
             TraverseTree( node, new DelegateTraverseTree( CalculateTreeWidth ));
             
-            if ( firstHorPosition < 0 )
+            if ( firstHorPosition < Padding )
             {
-                int shift = -1 * firstHorPosition + Padding; 
-                firstHorPosition += shift;
-                lastHorPosition += shift;
+                shiftPos = Padding - firstHorPosition; 
                 TraverseTree( node, new DelegateTraverseTree( ShiftNodeHorPosition ));
             }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        public void GetTreeCanvasSize( out int width, out int height )
+        {
+            height = ( matrixHeight + 1 ) * ( diameter + 10 ) + Padding;
+            width = lastHorPosition + Padding;
         }
 
         /*******************************************************************************************/
@@ -97,7 +104,7 @@ namespace VisualTree
         
         private void ShiftNodeHorPosition( Node node )
         {	
-            node.PosHor += firstHorPosition;
+            node.PosHor += shiftPos;
         }
 
         /*******************************************************************************************/
@@ -125,36 +132,77 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        void FixNodesPositions( )
+        private void FixNodesPositions( )
         {		
-            int nodesRowNum = 0;
-            int nodesColNum = 0;
+            int matrixRow = 0;
+            int matrixCol = 0;
 
-            while ( CheckNodesCollision( ref nodesRowNum, ref nodesColNum ))
+            while ( CheckNodesCollision( ref matrixRow, ref matrixCol ))
             {		
-                // TODO
+                Node currNode = matrix[matrixRow][matrixCol];
+                Node nextNode = matrix[matrixRow][matrixCol + 1];
+                
+                int currPos = currNode.PosHor;
+                int nextPos = nextNode.PosHor;
+
+                if ( currPos >= nextPos )
+                { 
+                    shiftPos = ( currPos - nextPos + diameter + 5 ) / 2;
+                }
+                else
+                {
+                    shiftPos = ( nextPos - currPos ) + 5 / 2;
+                }
+                
+                currNode.PosHor -= shiftPos; 
+                nextNode.PosHor += shiftPos;
+                
+                if ( currNode.IsLeft() )
+                {
+                    ShiftChildSubTree( currNode.Left, - shiftPos );
+                }
+                if ( currNode.IsRight() )
+                {
+                    ShiftChildSubTree( currNode.Right, - shiftPos );
+                }
+                if ( nextNode.IsLeft() )
+                {
+                    ShiftChildSubTree( nextNode.Left, shiftPos );
+                }
+                if ( nextNode.IsRight() )
+                {
+                    ShiftChildSubTree( nextNode.Right, shiftPos );
+                }
+                if ( currNode.Parent == nextNode.Parent )
+                {
+                    continue;
+                }
+
+                Node sharedParent = FindSharedParent( currNode, nextNode );
+                ShiftParentSubTree( sharedParent.Left, - shiftPos, currNode );
+                ShiftParentSubTree( sharedParent.Right, shiftPos, nextNode ); 
             }
         }       
             
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        bool CheckNodesCollision( ref int nodesRowNumber, ref int nodesColNumber )
+        bool CheckNodesCollision( ref int matrixRow, ref int matrixCol )
         {
             List< Node > nodesRow;
             int currNodesCol;
 
-            for ( int currNodesRow = matrixHeight; currNodesRow >= 0; currNodesRow-- )
+            for ( int currMatrixRow = matrix.Count - 1; currMatrixRow >= 0; currMatrixRow-- )
             {
-                nodesRow = matrix[ currNodesRow ];
+                nodesRow = matrix[ currMatrixRow ];
                 currNodesCol = 0;
 
-                for ( int i = 0; i < nodesRow.Count - 1; i++ )
+                for ( int i = 0; i < nodesRow.Count - 1; i++, currNodesCol++ )
                 {						
-                    if ( nodesRow[ i ].PosHor >= nodesRow[ i + 1 ].PosHor - 30 )
+                    if ( nodesRow[ i ].PosHor >= nodesRow[ i + 1 ].PosHor - Padding )
                     {
-                        nodesRowNumber = currNodesRow;
-                        nodesColNumber = currNodesCol;
+                        matrixRow = currMatrixRow;
+                        matrixCol = currNodesCol;
                         return true;
                     }
                 }
@@ -166,21 +214,63 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public void GetTreeCanvasSize( out int width, out int height )
+        private void ShiftChildSubTree( Node node, int shift )
         {
-            height = ( matrixHeight + 1 ) * ( diameter + 10 ) + Padding;
-            width = lastHorPosition + Padding;
-        }
+            if ( node.IsLeft() )
+            {
+                ShiftChildSubTree( node.Left, shift );
+            }
 
+            node.PosHor += shift;
+
+            if ( node.IsRight() )
+            {
+                ShiftChildSubTree( node.Right, shift );
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void ShiftParentSubTree( Node node, int shift, Node excluded )
+        {
+            if ( node.IsLeft() && node.Left != excluded )
+            {
+                ShiftParentSubTree( node.Left, shift, excluded );
+            }
+
+            node.PosHor += shift;
+
+            if ( node.IsRight() && node.Right != excluded )
+            {
+                ShiftParentSubTree( node.Right, shift, excluded );
+            }
+        }    
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private Node FindSharedParent( Node left, Node right )
+        {	
+            while( left.Parent != right.Parent )
+            {
+                left = left.Parent;
+                right = right.Parent;
+            }
+
+            return left.Parent;
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
             
-        public delegate void DelegateTraverseTree( Node node );
+        private delegate void DelegateTraverseTree( Node node );
             
         private int firstHorPosition;
         private int lastHorPosition;
         private int diameter;
-        
+        private int shiftPos;
+
         private int matrixHeight;
         private List< List< Node >> matrix;
 
