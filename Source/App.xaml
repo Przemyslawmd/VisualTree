@@ -106,10 +106,8 @@
 
             <DrawingBrush x:Key="Balance" Stretch="Fill">
                 <DrawingBrush.Drawing >
-                    <DrawingGroup>
-                        
-                        <DrawingGroup.Children>
-                            
+                    <DrawingGroup>                        
+                        <DrawingGroup.Children>                            
                             <GeometryDrawing   Brush="#000085" 
                                                Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
                                                          M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
@@ -119,6 +117,26 @@
                                                          M 217,219 L 303,287 L 307,283 L 221,215 Z
                                                          M 290,300 A 30,30, 0 0 0 350,300 M 290,300 A 30,30, 0 1 1 350,300 Z"/>
                             
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+            <DrawingBrush x:Key="Destroy" Stretch="Fill">
+                <DrawingBrush.Drawing >
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing   Brush="#000085" 
+                                               Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
+                                                         M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
+                                                         M 90,322 L 78,310 
+                                                         L 190,200 
+                                                         L 78,90 L 90,78 
+                                                         L 200,190 
+                                                         L 310,78 L 322,90 
+                                                         L 210,200 
+                                                         L 322,310 L 310,322 
+                                                         L 200,210 Z"/>
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
