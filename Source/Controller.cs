@@ -12,7 +12,7 @@ namespace VisualTree
             Parser parser = new Parser();
             List< int > nodes = parser.GetNodesValues( text, ref code );
 
-            Tree tree = new TreeBST();
+            tree = GetTree();
             tree.CreateNodes( nodes );
             Model model = new Model();
             model.ModelTree( tree.Root );
@@ -24,6 +24,30 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        public void DestroyTree( Canvas canvas )
+        {
+            if ( tree != null )
+            {
+                canvas.Children.Clear();
+                tree = null;;
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private Tree GetTree()
+        {
+            if ( tree is null )
+            {
+                tree = new TreeBST();
+            }
+            return tree;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
         
         private void PrepareCanvasSize( Canvas canvas, Model model )
         {
@@ -31,6 +55,11 @@ namespace VisualTree
             canvas.Height = canvasTreeHeight;
             canvas.Width = canvasTreeWidth;
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private Tree tree;
     }
 }
 

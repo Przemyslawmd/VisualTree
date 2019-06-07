@@ -69,7 +69,7 @@
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Balance }"/>
                 </Button>
 
-                <Button>
+                <Button Click="ActionDestroyTree">
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Destroy }"/>
                 </Button>
 
