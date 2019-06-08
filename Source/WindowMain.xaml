@@ -45,7 +45,7 @@
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
                 </Button>
                 
-                <Button>
+                <Button Click="ActionAddNodes">
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlus }"/>
                 </Button>
 

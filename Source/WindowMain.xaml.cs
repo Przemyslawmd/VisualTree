@@ -79,6 +79,20 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        private void ActionAddNodes( object sender, RoutedEventArgs e )
+        {
+            code = Message.Code.OK;
+            controller.AddNodes( TextNode.Text, CanvasTree, ref code );
+
+            if ( code !=  Message.Code.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( code ));
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void ActionCheckNode( object sender, MouseButtonEventArgs e )
         {
             Canvas canvas = sender as Canvas;
