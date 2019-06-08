@@ -5,6 +5,18 @@ namespace VisualTree
 {
     class Model
     {
+        public static Model GetInstance()
+        {
+            if ( model is null )
+            {
+                model = new Model();
+            }
+            return model;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
         public void ModelTree( Node node )
         {
             matrixHeight = 0;
@@ -38,6 +50,8 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
+        private Model() { }
+            
         private void SetNodesPosition( Node node, int posHor, int posVer, int matrixRow )
         {
             if ( node.IsLeft() )
@@ -264,17 +278,18 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
             
+        private static Model model;
+            
         private delegate void DelegateTraverseTree( Node node );
             
         private int firstHorPosition;
         private int lastHorPosition;
         private int diameter;
         private int shiftPos;
-
-        private int matrixHeight;
-        private List< List< Node >> matrix;
-
         private readonly int Padding = 30;
+        private int matrixHeight;
+        
+        public List< List< Node >> matrix { get; private set; }
     }
 }
 

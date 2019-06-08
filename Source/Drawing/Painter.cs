@@ -32,12 +32,12 @@ namespace VisualTree
             {
                 Width = Radius * 2,
                 Height = Radius * 2,
-                StrokeThickness = 2,
+                StrokeThickness = node.isSelected ? 3 : 1,
                 Stroke = Brushes.Black
             };
 
-            Canvas.SetLeft( ellipse, node.PosHor - 15 );
-            Canvas.SetTop( ellipse, node.PosVer - 15 );
+            Canvas.SetLeft( ellipse, node.PosHor - Radius );
+            Canvas.SetTop( ellipse, node.PosVer - Radius );
             canvas.Children.Add( ellipse );
 
             if ( node.IsLeft() )

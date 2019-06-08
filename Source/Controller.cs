@@ -14,12 +14,12 @@ namespace VisualTree
 
             tree = GetTree();
             tree.CreateNodes( nodes );
-            Model model = new Model();
+            
+            Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
 
             PrepareCanvasSize( canvas, model );
-            Painter painter = new Painter();
-            painter.DrawTree( tree.Root, canvas );
+            new Painter().DrawTree( tree.Root, canvas );
         }
 
         /*******************************************************************************************/
@@ -31,6 +31,20 @@ namespace VisualTree
             {
                 canvas.Children.Clear();
                 tree = null;;
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void SelectNode( Canvas canvas, int posX, int posY )
+        {
+            Selection selection = Selection.GetInstance();
+            
+            if ( selection.CheckCoordinates( posX, posY ))
+            {
+                canvas.Children.Clear();
+                new Painter().DrawTree( tree.Root, canvas );
             }
         }
         

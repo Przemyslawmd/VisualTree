@@ -84,6 +84,7 @@
     <Compile Include="Message.cs" />
     <Compile Include="Node\Node.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="Selection.cs" />
     <Compile Include="Tree\Tree.cs" />
     <Compile Include="Tree\TreeBST.cs" />
     <Compile Include="WindowMain.xaml.cs">

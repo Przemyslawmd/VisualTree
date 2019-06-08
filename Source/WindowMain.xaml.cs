@@ -1,5 +1,7 @@
 ﻿
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace VisualTree
 {
@@ -73,7 +75,17 @@ namespace VisualTree
         {
             controller.DestroyTree( CanvasTree );
         }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
+        private void ActionCheckNode( object sender, MouseButtonEventArgs e )
+        {
+            Canvas canvas = sender as Canvas;
+            Point point = e.GetPosition( canvas );
+            controller.SelectNode( canvas, (int) point.X, (int) point.Y );
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 

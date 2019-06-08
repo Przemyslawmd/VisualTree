@@ -15,13 +15,13 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model model = new Model();
+            Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
-            expectedPositions.Push( new NodePosition( 1, 20, 20 ));
-            expectedPositions.Push( new NodePosition( 2, 50, 60 ));
-            expectedPositions.Push( new NodePosition( 3, 80, 100 ));
+            expectedPositions.Push( new NodePosition( 1, 30, 30 ));
+            expectedPositions.Push( new NodePosition( 2, 60, 70 ));
+            expectedPositions.Push( new NodePosition( 3, 90, 110 ));
             
             CheckNode( tree.Root, expectedPositions );            
         }
@@ -34,14 +34,14 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model model = new Model();
+            Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
-            
+                        
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
-            expectedPositions.Push( new NodePosition( 4,   80, 20 ));
-            expectedPositions.Push( new NodePosition( 10, 110, 60 ));
-            expectedPositions.Push( new NodePosition( 3,   50, 60 ));
-            expectedPositions.Push( new NodePosition( 1,   20, 100 ));
+            expectedPositions.Push( new NodePosition( 4,   90, 30 ));
+            expectedPositions.Push( new NodePosition( 10, 120, 70 ));
+            expectedPositions.Push( new NodePosition( 3,   60, 70 ));
+            expectedPositions.Push( new NodePosition( 1,   30, 110 ));
             
             CheckNode( tree.Root, expectedPositions );            
         }

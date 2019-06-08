@@ -55,7 +55,7 @@ namespace VisualTree
         public int MatrixRow{ get; set; }
         public int MatrixCol{ get; set; }
 
-        bool isSelected;
+        public bool isSelected { get; set; }
     }    
 }
 
