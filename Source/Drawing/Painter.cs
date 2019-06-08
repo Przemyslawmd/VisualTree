@@ -40,6 +40,16 @@ namespace VisualTree
             Canvas.SetTop( ellipse, node.PosVer - Radius );
             canvas.Children.Add( ellipse );
 
+            TextBlock keyText = new TextBlock 
+            {
+                Text = node.Key.ToString(),
+                Foreground = new SolidColorBrush( Colors.Black )
+            };
+            
+            Canvas.SetLeft( keyText, node.PosHor - ( Radius / 2 ));
+            Canvas.SetTop( keyText, node.PosVer - ( Radius / 2 ));
+            canvas.Children.Add( keyText );
+
             if ( node.IsLeft() )
             {
                 Line line = CreateLine( node.PosHor, node.PosVer, node.Left.PosHor, node.Left.PosVer );
