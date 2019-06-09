@@ -6,48 +6,16 @@ namespace VisualTree
         public Node( int key )
         {
             Key = key;
-            left = null;
-            right = null;
-            parent = null;
+            Left = null;
+            Right = null;
+            Parent = null;
         }
         
         public int Key { get; }
         
-        private Node parent;
-        public Node Parent 
-        { 
-            get { return parent; }
-            set { parent = value; }
-        }
-        
-        private Node left;
-        public Node Left 
-        {  
-            get { return left; }
-            set { left = value; }
-        }
-        
-        private Node right;
-        public Node Right 
-        { 
-            get { return right; } 
-            set { right = value; } 
-        }
-
-        public bool IsParent()
-        {
-            return Parent != null;
-        }
-
-        public bool IsLeft()
-        {
-            return left is null ? false : true;
-        }
-
-        public bool IsRight()
-        {
-            return right is null ? false : true;
-        }
+        public Node Parent {  get; set; } 
+        public Node Left {  get; set; } 
+        public Node Right {  get; set; } 
 
         public int PosHor{ get; set; }
         public int PosVer{ get; set; }
@@ -55,7 +23,22 @@ namespace VisualTree
         public int MatrixRow{ get; set; }
         public int MatrixCol{ get; set; }
 
-        public bool isSelected { get; set; }
+        public bool IsSelected { get; set; }
+
+        public bool IsParent()
+        {
+            return Parent is null ? false : true;
+        }
+
+        public bool IsLeft()
+        {
+            return Left is null ? false : true;
+        }
+
+        public bool IsRight()
+        {
+            return Right is null ? false : true;
+        }
     }    
 }
 

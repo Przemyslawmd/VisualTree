@@ -32,7 +32,7 @@ namespace VisualTree
             {
                 Width = Radius * 2,
                 Height = Radius * 2,
-                StrokeThickness = node.isSelected ? 3 : 1,
+                StrokeThickness = node.IsSelected ? 3 : 1,
                 Stroke = Brushes.Black
             };
 

@@ -43,9 +43,9 @@ namespace VisualTree
             {
                 if (( node.PosHor + Radius ) >= posX && ( node.PosHor - Radius ) <= posX )
                 {
-                    node.isSelected = !node.isSelected;
+                    node.IsSelected = !node.IsSelected;
                     
-                    if ( node.isSelected is false )
+                    if ( node.IsSelected is false )
                     {
                         nodes.Remove( node );
                     }
