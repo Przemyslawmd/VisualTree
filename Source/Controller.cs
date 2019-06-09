@@ -9,10 +9,14 @@ namespace VisualTree
     {
         public void DrawTree( String text, Canvas canvas, ref Message.Code code )
         {
-            List< int > nodes = new Parser().GetNodesValues( text, ref code );
+            List< int > keys = new Parser().GetNodesValues( text, ref code );
+            if ( keys is null )
+            {
+                return;
+            }
 
             tree = GetTree();
-            tree.CreateNodes( nodes );
+            tree.CreateNodes( keys );
             
             Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
@@ -44,13 +48,19 @@ namespace VisualTree
                 return;
             }
 
-            List< int > nodes = new Parser().GetNodesValues( text, ref code );
-            if ( nodes is null )
+            List< int > keys = new Parser().GetNodesValues( text, ref code );
+            if ( keys is null )
             {
                 return;
             }
             
-            tree.CreateNodes( nodes );
+            if ( tree.AreKeysAllowedToAdd( keys ) is false )
+            {
+                code = Message.Code.DUPLICATED_SYMBOL;
+                return;
+            }
+
+            tree.CreateNodes( keys );
             
             Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
