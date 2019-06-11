@@ -156,6 +156,47 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
+            <DrawingBrush x:Key="StepForward" Stretch="Fill">
+                <DrawingBrush.Drawing >
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing   Brush="#000085" 
+                                               Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
+                                                         M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
+                                                         M 120,120 L 120,280 L 280,200 Z"/>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+            <DrawingBrush x:Key="StepBackward" Stretch="Fill">
+                <DrawingBrush.Drawing >
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing   Brush="#000085" 
+                                               Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
+                                                         M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
+                                                         M 280,280 L 280,120 L 120,200 Z"/>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+            <DrawingBrush x:Key="StepLeave" Stretch="Fill">
+                <DrawingBrush.Drawing >
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing   Brush="#000085" 
+                                               Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
+                                                         M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
+                                                         M 130,120 L 130,280 L 290,200 Z
+                                                         M 50,200 A 150,150 0 0 0 350,200 L 335,200 A 120,120 0 0 1 65,200 Z
+                                                         M 50,200 A 150,150 0 1 1 350,200 L 335,200 A 120,120 0 1 0 65,200 Z"/>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

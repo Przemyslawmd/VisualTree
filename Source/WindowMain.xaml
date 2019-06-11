@@ -77,6 +77,18 @@
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Rotation }"/>
                 </Button>
 
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepForward }"/>
+                </Button>
+
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepBackward }"/>
+                </Button>
+
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepLeave }"/>
+                </Button>
+
             </StackPanel>
 
             <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
