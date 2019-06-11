@@ -73,6 +73,10 @@
                     <Rectangle Width="50" Height="50" Fill="{ StaticResource Destroy }"/>
                 </Button>
 
+                <Button>
+                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Rotation }"/>
+                </Button>
+
             </StackPanel>
 
             <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
