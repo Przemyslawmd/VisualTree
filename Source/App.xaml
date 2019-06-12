@@ -15,8 +15,8 @@
                             <GeometryDrawing    Brush="#000085" 
                                                 Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
                                                           M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
-                                                          M 90,130 L 180,130 L 180,45 L 220,45 L 220,130 L 300,130 L 300,170
-                                                          L 220,170 L 220,255 L 180,255 L 180,170 L 90,170 Z"/>
+                                                          M 90,170 L 180,170 L 180,85 L 220,85 L 220,170 L 300,170 L 300,210
+                                                          L 220,210 L 220,295 L 180,295 L 180,210 L 90,210 Z"/>
 
                         </DrawingGroup.Children>
                     </DrawingGroup>
@@ -45,7 +45,7 @@
                             <GeometryDrawing   Brush="#000085" 
                                                Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
                                                          M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
-                                                         M 300,130 L 300,170 L 90,170 L 90,130 Z"/>
+                                                         M 300,170 L 300,210 L 90,210 L 90,170 Z"/>
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
@@ -65,7 +65,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="Tree" Stretch="Fill">
+            <DrawingBrush x:Key="PathTree" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>
@@ -104,25 +104,43 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="Balance" Stretch="Fill">
+            <DrawingBrush x:Key="PathBalanceTree" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>                        
                         <DrawingGroup.Children>                            
                             <GeometryDrawing   Brush="#000085" 
                                                Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
                                                          M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
-                                                         M 170,200 A 30,30, 0 0 0 230,200 M 170,200 A 30,30, 0 1 1 230,200 Z
-                                                         M 183,217 L 93, 283 L 97,287 L 187 221 Z
-                                                         M 50,300 A 30,30, 0 0 0 110,300 M 50,300 A 30,30, 0 1 1 110,300 Z
-                                                         M 217,219 L 303,287 L 307,283 L 221,215 Z
-                                                         M 290,300 A 30,30, 0 0 0 350,300 M 290,300 A 30,30, 0 1 1 350,300 Z"/>
+                                                         M 170,140 A 30,30, 0 0 0 230,140 M 170,140 A 30,30, 0 1 1 230,140 Z
+                                                         M 183,157 L 93,223 L 97,227 L 187,161 Z
+                                                         M 50,240 A 30,30, 0 0 0 110,240 M 50,240 A 30,30, 0 1 1 110,240 Z
+                                                         M 217,159 L 303,227 L 307,223 L 221,155 Z
+                                                         M 290,240 A 30,30, 0 0 0 350,240 M 290,240 A 30,30, 0 1 1 350,240 Z"/>
                             
                         </DrawingGroup.Children>
                     </DrawingGroup>
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="Destroy" Stretch="Fill">
+            <DrawingBrush x:Key="PathBalanceTreeInStep" Stretch="Fill">
+                <DrawingBrush.Drawing >
+                    <DrawingGroup>
+                        <DrawingGroup.Children>
+                            <GeometryDrawing   Brush="#000085" 
+                                               Geometry="M 0,0 L 400,0 L 400,10 L 0,10 Z M 390,10 400,10, 400,390, 390,390 Z
+                                                         M 0,400 L 400,400 L 400,390 L 0 390 Z M 10,390 L 0,390 L 0,10 L 10,10 Z
+                                                         M 170,140 A 30,30, 0 0 0 230,140 M 170,140 A 30,30, 0 1 1 230,140 Z
+                                                         M 183,157 L 93,223 L 97,227 L 187,161 Z
+                                                         M 50,240 A 30,30, 0 0 0 110,240 M 50,240 A 30,30, 0 1 1 110,240 Z
+                                                         M 217,159 L 303,227 L 307,223 L 221,155 Z
+                                                         M 290,240 A 30,30, 0 0 0 350,240 M 290,240 A 30,30, 0 1 1 350,240 Z
+                                                         M 180,270 L 180 350 L 230 310 Z"/>
+                        </DrawingGroup.Children>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+
+            <DrawingBrush x:Key="PathDestroyTree" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>
@@ -142,7 +160,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="Rotation" Stretch="Fill">
+            <DrawingBrush x:Key="PathRotation" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>
@@ -156,7 +174,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="StepForward" Stretch="Fill">
+            <DrawingBrush x:Key="PathStepForward" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>
@@ -169,7 +187,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="StepBackward" Stretch="Fill">
+            <DrawingBrush x:Key="PathStepBackward" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>
@@ -182,7 +200,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="StepLeave" Stretch="Fill">
+            <DrawingBrush x:Key="PathStepModeLeave" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>

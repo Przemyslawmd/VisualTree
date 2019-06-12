@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="" Height="600" Width="1000">
 
-      <Grid>
+    <Grid>
        
         <DockPanel>
             <Menu Name="MenuMain" DockPanel.Dock="Top" >
@@ -39,57 +39,8 @@
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Background="Yellow">
-
-                <Button Click="ActionDrawTree">
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Tree }"/>
-                </Button>
-                
-                <Button Click="ActionAddNodes">
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlus }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathPlusStep }"/>
-                </Button>
-                
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinus }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource PathMinusStep }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource TreeStep }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Balance }"/>
-                </Button>
-
-                <Button Click="ActionDestroyTree">
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Destroy }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource Rotation }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepForward }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepBackward }"/>
-                </Button>
-
-                <Button>
-                    <Rectangle Width="50" Height="50" Fill="{ StaticResource StepLeave }"/>
-                </Button>
-
-            </StackPanel>
+            <StackPanel Name="MenuPanel" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Orientation="Horizontal" 
+                        Background="Yellow" />
 
             <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
                 <TextBox Name="TextNode" VerticalContentAlignment="Center" Padding="10, 5, 10, 5"  FontSize="15"/>
