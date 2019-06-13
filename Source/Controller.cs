@@ -35,7 +35,9 @@ namespace VisualTree
             if ( tree != null )
             {
                 canvas.Children.Clear();
-                tree = null;;
+                tree = null;
+                Model.DestroyInstance();
+                Selection.DestroyInstance();
             }
         }
         
