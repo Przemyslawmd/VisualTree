@@ -75,6 +75,26 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /*******************************************************************************************/
+        
+        public Message.Code BalanceTree( Canvas canvas )
+        {
+            if ( tree is null )
+            {
+                return Message.Code.NO_TREE;
+            }
+
+            new DSW().BalanceTree( tree );
+            Model model = Model.GetInstance();
+            model.ModelTree( tree.Root );
+
+            PrepareCanvas( canvas, model );
+            new Painter().DrawTree( tree.Root, canvas );
+            return Message.Code.OK;
+
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         public Message.Code RotateNode( Canvas canvas )
         {
@@ -104,7 +124,7 @@ namespace VisualTree
             }
 
             tree.RotateNode( node );
-            tree.FixRoot();
+            tree.GetRoot();
             Model model = Model.GetInstance();
             model.ModelTree( tree.Root );
 

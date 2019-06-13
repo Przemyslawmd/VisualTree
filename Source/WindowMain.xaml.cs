@@ -116,7 +116,16 @@ namespace VisualTree
 
         private void ActionBalanceTree( object sender, RoutedEventArgs e )
         {
+            Message.Code code = controller.BalanceTree( CanvasTree );
+
+            if ( code !=  Message.Code.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( code ));
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private void ActionBalanceTreeInStep( object sender, RoutedEventArgs e )
         {

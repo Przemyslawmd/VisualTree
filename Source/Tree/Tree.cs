@@ -44,18 +44,19 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void FixRoot()
+        public Node GetRoot()
         {
             while ( Root.IsParent() )
             {
                 Root = Root.Parent;
             }
+            return Root;
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void RotateNode( Node node )
+        public Node RotateNode( Node node )
         {
             Node parent = node.Parent;
             node.Parent = parent.Parent;
@@ -65,20 +66,13 @@ namespace VisualTree
                 SetChildOfParentNode( parent, node );
             }
 
-            if ( parent.Key > node.Key ) 
-            { 
-                RotateRight( parent, node ); 
-            }
-            else 
-            { 
-                RotateLeft( parent, node );
-            }
+            return ( parent.Key > node.Key ) ? RotateRight( parent, node ) : RotateLeft( parent, node );
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void RotateLeft( Node parent, Node child )
+        private Node RotateLeft( Node parent, Node child )
         {
             parent.Parent = child;
             parent.Right = child.Left;
@@ -89,12 +83,13 @@ namespace VisualTree
             }
 
             child.Left = parent;
+            return child;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void RotateRight( Node parent, Node child )
+        private Node RotateRight( Node parent, Node child )
         {
             parent.Parent = child;
             parent.Left = child.Right;
@@ -105,6 +100,7 @@ namespace VisualTree
             }
 
             child.Right = parent;
+            return child;
         }
 
         /*******************************************************************************************/
