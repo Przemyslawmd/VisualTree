@@ -7,12 +7,13 @@ namespace VisualTree
 {
     class Controller
     {
-        public void DrawTree( String text, Canvas canvas, ref Message.Code code )
+        public Message.Code DrawTree( String text, Canvas canvas )
         {
+            Message.Code code = Message.Code.OK;
             List< int > keys = new Parser().GetNodesValues( text, ref code );
             if ( keys is null )
             {
-                return;
+                return code;
             }
 
             tree = GetTree();
@@ -23,6 +24,7 @@ namespace VisualTree
 
             PrepareCanvas( canvas, model );
             new Painter().DrawTree( tree.Root, canvas );
+            return code;
         }
 
         /*******************************************************************************************/
@@ -40,24 +42,23 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public void AddNodes( String text, Canvas canvas, ref Message.Code code )
+        public Message.Code AddNodes( String text, Canvas canvas )
         {
             if ( tree is null )
             {
-                code = Message.Code.NO_TREE;
-                return;
+                return Message.Code.NO_TREE;
             }
 
+            Message.Code code = Message.Code.OK;
             List< int > keys = new Parser().GetNodesValues( text, ref code );
             if ( keys is null )
             {
-                return;
+                return code;
             }
             
             if ( tree.AreKeysAllowedToAdd( keys ) is false )
             {
-                code = Message.Code.DUPLICATED_SYMBOL;
-                return;
+                return Message.Code.DUPLICATED_SYMBOL;
             }
 
             tree.CreateNodes( keys );
@@ -67,11 +68,52 @@ namespace VisualTree
 
             PrepareCanvas( canvas, model );
             new Painter().DrawTree( tree.Root, canvas );
+            return Message.Code.OK;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public Message.Code RotateNode( Canvas canvas )
+        {
+            if ( tree is null )
+            {
+                return Message.Code.NO_TREE;
+            }
+
+            Selection selection = Selection.GetInstance();
+            List< Node > selectedNodes = selection.nodes;
+
+            if ( selectedNodes.Count is 0 )
+            {
+                return Message.Code.NONE_NODE_SELECTED;
+            }
+
+            if ( selectedNodes.Count > 1 )
+            {
+                return Message.Code.ROTATION_MULTIPLE;
+            }
+
+            Node node = selectedNodes[ 0 ];
+
+            if ( node.Parent is null )
+            {
+                return Message.Code.ROTATION_ROOT;
+            }
+
+            tree.RotateNode( node );
+            tree.FixRoot();
+            Model model = Model.GetInstance();
+            model.ModelTree( tree.Root );
+
+            PrepareCanvas( canvas, model );
+            new Painter().DrawTree( tree.Root, canvas );
+            return Message.Code.OK;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+            
         public void SelectNode( Canvas canvas, int posX, int posY )
         {
             Selection selection = Selection.GetInstance();

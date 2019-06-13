@@ -62,8 +62,7 @@ namespace VisualTree
 
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
-            code = Message.Code.OK;
-            controller.DrawTree( TextNode.Text, CanvasTree, ref code );
+            Message.Code code = controller.DrawTree( TextNode.Text, CanvasTree );
 
             if ( code != Message.Code.OK )
             {
@@ -84,8 +83,7 @@ namespace VisualTree
 
         private void ActionAddNodes( object sender, RoutedEventArgs e )
         {
-            code = Message.Code.OK;
-            controller.AddNodes( TextNode.Text, CanvasTree, ref code );
+            Message.Code code = controller.AddNodes( TextNode.Text, CanvasTree );
 
             if ( code !=  Message.Code.OK )
             {
@@ -93,13 +91,28 @@ namespace VisualTree
             }
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
         private void ActionDeleteNodes( object sender, RoutedEventArgs e )
         {
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
         private void ActionRotationNode( object sender, RoutedEventArgs e )
         {
+            Message.Code code = controller.RotateNode( CanvasTree );
+
+            if ( code !=  Message.Code.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( code ));
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private void ActionBalanceTree( object sender, RoutedEventArgs e )
         {

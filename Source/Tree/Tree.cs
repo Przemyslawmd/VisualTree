@@ -44,6 +44,72 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public void FixRoot()
+        {
+            while ( Root.IsParent() )
+            {
+                Root = Root.Parent;
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void RotateNode( Node node )
+        {
+            Node parent = node.Parent;
+            node.Parent = parent.Parent;
+
+            if ( parent.IsParent() )
+            {
+                SetChildOfParentNode( parent, node );
+            }
+
+            if ( parent.Key > node.Key ) 
+            { 
+                RotateRight( parent, node ); 
+            }
+            else 
+            { 
+                RotateLeft( parent, node );
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void RotateLeft( Node parent, Node child )
+        {
+            parent.Parent = child;
+            parent.Right = child.Left;
+
+            if ( child.IsLeft() )
+            {
+                child.Left.Parent = parent;
+            }
+
+            child.Left = parent;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void RotateRight( Node parent, Node child )
+        {
+            parent.Parent = child;
+            parent.Left = child.Right;
+
+            if ( child.IsRight() )
+            {
+                child.Right.Parent = parent;
+            }
+
+            child.Right = parent;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         protected void InsertNode( Node node )
         {
             if ( Root == null )

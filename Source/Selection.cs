@@ -73,7 +73,8 @@ namespace VisualTree
 
         private static Selection selection;
         
-        private List< Node > nodes;
+        public List< Node > nodes { get; private set; }
+        
         private readonly int Radius = 15;
     }
 }

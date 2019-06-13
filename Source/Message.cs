@@ -15,6 +15,7 @@ namespace VisualTree
             DUPLICATED_SYMBOL,
             NO_TREE,
             NO_DATA_TO_CREATE_TREE,
+            NONE_NODE_SELECTED,
             ROTATION_MULTIPLE,
             ROTATION_ROOT,
             SYMBOL_LIMIT
@@ -28,7 +29,8 @@ namespace VisualTree
             messages.Add( Code.DUPLICATED_SYMBOL,               "Duplicated symbols are not allowed." );  
             messages.Add( Code.NO_TREE,                         "There is no tree." );
             messages.Add( Code.NO_DATA_TO_CREATE_TREE,          "There are no values to build a tree." );
-            messages.Add( Code.ROTATION_MULTIPLE,               "Select only one node to perform rotation.");
+            messages.Add( Code.NONE_NODE_SELECTED,              "None node is selected." );
+            messages.Add( Code.ROTATION_MULTIPLE,               "Select only one node to rotate.");
             messages.Add( Code.ROTATION_ROOT,                   "Root can not be rotated.");
             messages.Add( Code.SYMBOL_LIMIT,                    "To many symbols typed.");
         }              
