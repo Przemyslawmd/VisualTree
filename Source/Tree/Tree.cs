@@ -66,7 +66,7 @@ namespace VisualTree
                 SetChildOfParentNode( parent, node );
             }
 
-            return ( parent.Key > node.Key ) ? RotateRight( parent, node ) : RotateLeft( parent, node );
+            return ( parent > node ) ? RotateRight( parent, node ) : RotateLeft( parent, node );
         }
         
         /*******************************************************************************************/
@@ -159,7 +159,7 @@ namespace VisualTree
         {
             Node parent = node.Parent;
 
-            if ( parent.Key > node.Key )
+            if ( parent > node )
             {
                 parent.Left = child;
             }
