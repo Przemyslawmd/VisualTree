@@ -47,7 +47,7 @@ namespace VisualTree
 
         private void ActionMenuSettings( object sender, RoutedEventArgs e )
         {
-
+            ShowMinorWindow( new WindowSettings() );
         }
 
         /*******************************************************************************************/
@@ -192,6 +192,19 @@ namespace VisualTree
             MenuPanel.Children.Add( button );
         }
             
+        private void ShowMinorWindow( Window window )
+        {
+            Window settings = new WindowSettings();
+            MenuMain.IsEnabled = false;
+            window.Closed += MinorWindowClosed;
+            window.Show();
+        }
+
+        public void MinorWindowClosed( object sender, System.EventArgs e )
+        {
+            MenuMain.IsEnabled = true;
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
         
