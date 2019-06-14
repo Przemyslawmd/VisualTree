@@ -7,7 +7,7 @@ namespace VisualTree
 {
     class Controller
     {
-        public Message.Code DrawTree( String text, Canvas canvas )
+        public Message.Code DrawTree( String text )
         {
             Message.Code code = Message.Code.OK;
             List< int > keys = new Parser().GetNodesValues( text, ref code );
@@ -18,12 +18,7 @@ namespace VisualTree
 
             tree = GetTree();
             tree.CreateNodes( keys );
-            
-            Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
-
-            PrepareCanvas( canvas, model );
-            new Painter().DrawTree( tree.Root, canvas );
+            ShowTree();
             return code;
         }
 
@@ -35,16 +30,16 @@ namespace VisualTree
             if ( tree != null )
             {
                 canvas.Children.Clear();
-                tree = null;
                 Model.DestroyInstance();
                 Selection.DestroyInstance();
+                tree = null;
             }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public Message.Code AddNodes( String text, Canvas canvas )
+        public Message.Code AddNodes( String text )
         {
             if ( tree is null )
             {
@@ -64,19 +59,14 @@ namespace VisualTree
             }
 
             tree.CreateNodes( keys );
-            
-            Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
-
-            PrepareCanvas( canvas, model );
-            new Painter().DrawTree( tree.Root, canvas );
+            ShowTree();
             return Message.Code.OK;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public Message.Code BalanceTree( Canvas canvas )
+        public Message.Code BalanceTree()
         {
             if ( tree is null )
             {
@@ -84,19 +74,14 @@ namespace VisualTree
             }
 
             new DSW().BalanceTree( tree );
-            Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
-
-            PrepareCanvas( canvas, model );
-            new Painter().DrawTree( tree.Root, canvas );
+            ShowTree();
             return Message.Code.OK;
-
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public Message.Code RotateNode( Canvas canvas )
+        public Message.Code RotateNode()
         {
             if ( tree is null )
             {
@@ -125,11 +110,7 @@ namespace VisualTree
 
             tree.RotateNode( node );
             tree.GetRoot();
-            Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
-
-            PrepareCanvas( canvas, model );
-            new Painter().DrawTree( tree.Root, canvas );
+            ShowTree();
             return Message.Code.OK;
         }
         
@@ -159,6 +140,19 @@ namespace VisualTree
             return tree;
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        private void ShowTree()
+        {
+            Model model = Model.GetInstance();
+            model.ModelTree( tree.Root );
+
+            Canvas canvas = ServiceControls.GetInstance().Canvas;
+            PrepareCanvas( canvas, model );
+            new Painter().DrawTree( tree.Root, canvas );
+        }
+            
         /*******************************************************************************************/
         /*******************************************************************************************/
         

@@ -12,11 +12,12 @@ namespace VisualTree
         public WindowMain()
         {
             InitializeComponent();
+            ServiceControls.CreateServiceControls( CanvasTree );
             PrepareMenuIcons();
             controller = new Controller();
             messages = new Message();
         }
-               
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -62,7 +63,7 @@ namespace VisualTree
 
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.DrawTree( TextNode.Text, CanvasTree );
+            Message.Code code = controller.DrawTree( TextNode.Text );
 
             if ( code != Message.Code.OK )
             {
@@ -83,7 +84,7 @@ namespace VisualTree
 
         private void ActionAddNodes( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.AddNodes( TextNode.Text, CanvasTree );
+            Message.Code code = controller.AddNodes( TextNode.Text );
 
             if ( code !=  Message.Code.OK )
             {
@@ -103,7 +104,7 @@ namespace VisualTree
         
         private void ActionRotationNode( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.RotateNode( CanvasTree );
+            Message.Code code = controller.RotateNode();
 
             if ( code !=  Message.Code.OK )
             {
@@ -116,7 +117,7 @@ namespace VisualTree
 
         private void ActionBalanceTree( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.BalanceTree( CanvasTree );
+            Message.Code code = controller.BalanceTree();
 
             if ( code !=  Message.Code.OK )
             {
