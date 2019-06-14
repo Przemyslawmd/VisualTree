@@ -1,8 +1,8 @@
 ﻿
+using static System.Math;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System;
 
 namespace VisualTree
 {
@@ -75,10 +75,10 @@ namespace VisualTree
             
             int shiftDirection = x1 < x2 ? 1 : -1;
 
-            line.X1 = x1 + shiftDirection * ( Radius * Math.Sin( Math.PI * ParentAngle / 180 ));
-            line.Y1 = y1 + ( Radius * Math.Cos( Math.PI * ParentAngle / 180 ));
-            line.X2 = x2 - shiftDirection * ( Radius * Math.Sin( Math.PI * ChildAngle / 180 ));
-            line.Y2 = y2 - ( Radius * Math.Cos( Math.PI * ChildAngle / 180 ));
+            line.X1 = x1 + shiftDirection * ( Radius * Sin( PI * ParentAngle / 180 ));
+            line.Y1 = y1 + ( Radius * Cos( PI * ParentAngle / 180 ));
+            line.X2 = x2 - shiftDirection * ( Radius * Sin( PI * ChildAngle / 180 ));
+            line.Y2 = y2 - ( Radius * Cos( PI * ChildAngle / 180 ));
             return line;
         }
 
