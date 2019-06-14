@@ -1,5 +1,5 @@
 ﻿
-using System;
+using static System.Math;
 
 namespace VisualTree
 {
@@ -7,14 +7,13 @@ namespace VisualTree
     {
         public Node BalanceTree( Tree tree )
         {	
-            Node node = tree.Root;	
-            int nodesCount = MakeSpin( tree, node );	
+            int nodesCount = MakeSpin( tree );	
     
-            double log = Math.Log( nodesCount + 1 ) / Math.Log( 2 );
-            int number =  (int) Math.Pow( 2, Math.Floor( log )) - 1;		
+            double log = Log( nodesCount + 1 ) / Log( 2 );
+            int number =  (int) Pow( 2, Floor( log )) - 1;		
             int rotationCount = nodesCount - number; 
     
-            node = tree.GetRoot();
+            Node node = tree.GetRoot();
             for ( int i = 0; i < rotationCount - 1; i++ )
             {			
                 node = tree.RotateNode( node.Right );
@@ -50,9 +49,10 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private int MakeSpin( Tree tree, Node node )
+        private int MakeSpin( Tree tree )
         {	
             int nodesCount = 1;
+            Node node = tree.GetRoot();
 
             while ( true )
             {
