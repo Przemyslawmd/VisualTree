@@ -39,7 +39,33 @@ namespace Tests
             };
             CreateAndCheckTree( keysToBuild, keysToCheck );
         }
+
         
+        [TestMethod]
+        public void TestBalanceTree_1()
+        {
+            List< int > keysToBuild = new List< int > { 20, 15, 30, 25, 40, 23, 28 };
+            List< int > keysToCheck = new List< int > { 25, 30, 40, 28, 20, 23, 15 };
+            CreateBalanceAndCheckTree( keysToBuild, keysToCheck );
+        }
+        
+
+        [TestMethod]
+        public void TestBalanceTree_2()
+        {
+            List< int > keysToBuild = new List< int > 
+            { 
+                28, 20, 45, 12, 23, 17, 34, 65, 56, 2, 3, 15, 22, 30, 25, 40, 31, 43, 24, 76, 29, 1, 
+                100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110
+            };
+            List< int > keysToCheck = new List< int > 
+            { 
+                43, 103, 107, 109, 110, 108, 105, 106, 104, 76, 101, 102, 100, 56, 65, 45, 24, 30, 34, 
+                40, 31, 28, 29, 25, 17, 22, 23, 20, 12, 15, 2, 3, 1
+            };
+            CreateBalanceAndCheckTree( keysToBuild, keysToCheck );
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -51,6 +77,18 @@ namespace Tests
             CheckNode( tree.Root, expected );
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void CreateBalanceAndCheckTree( List< int > keysToBuild, List< int > keysToCheck )
+        {
+            Tree tree = new TreeBST();
+            tree.CreateNodes( keysToBuild );
+            new DSW().BalanceTree( tree );
+            Stack< int > expected = new Stack< int >( keysToCheck ); 
+            CheckNode( tree.Root, expected );
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
