@@ -93,7 +93,7 @@ namespace VisualTree
 
             if ( selectedNodes.Count is 0 )
             {
-                return Message.Code.NONE_NODE_SELECTED;
+                return Message.Code.NO_NODE_SELECTED;
             }
 
             if ( selectedNodes.Count > 1 )

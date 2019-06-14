@@ -15,7 +15,7 @@ namespace VisualTree
             DUPLICATED_SYMBOL,
             NO_TREE,
             NO_DATA_TO_CREATE_TREE,
-            NONE_NODE_SELECTED,
+            NO_NODE_SELECTED,
             ROTATION_MULTIPLE,
             ROTATION_ROOT,
             SYMBOL_LIMIT
@@ -23,16 +23,17 @@ namespace VisualTree
         
         public Message()
         {
-            messages = new Dictionary< Code, String >();
-
-            messages.Add( Code.IMPROPER_DATA,                   "Improper symbol found to build a tree." );
-            messages.Add( Code.DUPLICATED_SYMBOL,               "Duplicated symbols are not allowed." );  
-            messages.Add( Code.NO_TREE,                         "There is no tree." );
-            messages.Add( Code.NO_DATA_TO_CREATE_TREE,          "There are no values to build a tree." );
-            messages.Add( Code.NONE_NODE_SELECTED,              "None node is selected." );
-            messages.Add( Code.ROTATION_MULTIPLE,               "Select only one node to rotate.");
-            messages.Add( Code.ROTATION_ROOT,                   "Root can not be rotated.");
-            messages.Add( Code.SYMBOL_LIMIT,                    "To many symbols typed.");
+            messages = new Dictionary< Code, String >()
+            {
+                [Code.IMPROPER_DATA]          = "Improper symbol found to build a tree.",
+                [Code.DUPLICATED_SYMBOL]      = "Duplicated symbols are not allowed.",
+                [Code.NO_TREE]                = "There is no tree.",
+                [Code.NO_DATA_TO_CREATE_TREE] = "There are no values to build a tree.",
+                [Code.NO_NODE_SELECTED]       = "None node is selected.",
+                [Code.ROTATION_MULTIPLE]      = "Select only one node to make rotation.",
+                [Code.ROTATION_ROOT]          = "Root can not be rotated.",
+                [Code.SYMBOL_LIMIT]           = "To many symbols typed."
+            };
         }              
         
         public String GetMessageText( Code code )
