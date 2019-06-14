@@ -5,14 +5,6 @@ namespace VisualTree
 {
     abstract class Tree
     {
-        public Tree()
-        {
-            Root = null;
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        
         public void CreateNodes( List< int > keys )
         {
             foreach( int key in keys ) 
