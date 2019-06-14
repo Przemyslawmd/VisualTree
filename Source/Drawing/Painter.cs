@@ -85,7 +85,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private readonly int Radius = 15;
+        private readonly int Radius = Settings.Diameter / 2;
         private readonly int ParentAngle = 40;
         private readonly int ChildAngle = 30;
     }

@@ -27,12 +27,9 @@ namespace VisualTree
             
         public void ModelTree( Node node )
         {
-            matrixHeight = 0;
-            beginPosHor = Padding;
-            endPosHor = 0;
-            diameter = 30;
-            SetNodesPosition( node, Padding, Padding, 0 );
+            InitializeStartingValues();
 
+            SetNodesPosition( node, Padding, Padding, 0 );
             TraverseTree( node, new DelegateTraverseTree( CalculateMatrixHeight ));
             PrepareNodesMatrixRow();
             TraverseTree( node, new DelegateTraverseTree( RegisterNode ));
@@ -62,6 +59,17 @@ namespace VisualTree
         
         private Model() { }
             
+        private void InitializeStartingValues()
+        {
+            matrixHeight = 0;
+            beginPosHor = Padding;
+            endPosHor = 0;
+            diameter = Settings.Diameter;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void SetNodesPosition( Node node, int posHor, int posVer, int matrixRow )
         {
             if ( node.IsLeft() )
