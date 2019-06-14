@@ -28,8 +28,8 @@ namespace VisualTree
         public void ModelTree( Node node )
         {
             matrixHeight = 0;
-            firstHorPosition = Padding;
-            lastHorPosition = 0;
+            beginPosHor = Padding;
+            endPosHor = 0;
             diameter = 30;
             SetNodesPosition( node, Padding, Padding, 0 );
 
@@ -39,10 +39,12 @@ namespace VisualTree
             FixNodesPositions();
             TraverseTree( node, new DelegateTraverseTree( CalculateTreeWidth ));
             
-            if ( firstHorPosition < Padding )
+            if ( beginPosHor < Padding )
             {
-                shiftPos = Padding - firstHorPosition; 
+                shiftPos = Padding - beginPosHor; 
                 TraverseTree( node, new DelegateTraverseTree( ShiftNodeHorPosition ));
+                beginPosHor += shiftPos;
+                endPosHor += shiftPos;
             }
         }
 
@@ -52,7 +54,7 @@ namespace VisualTree
         public void GetTreeCanvasSize( out int width, out int height )
         {
             height = ( matrixHeight + 1 ) * ( diameter + 10 ) + Padding;
-            width = lastHorPosition + Padding;
+            width = endPosHor + Padding;
         }
 
         /*******************************************************************************************/
@@ -111,13 +113,13 @@ namespace VisualTree
         
         private void CalculateTreeWidth( Node node )
         {
-            if ( node.PosHor < firstHorPosition )
+            if ( node.PosHor < beginPosHor )
             {
-                firstHorPosition = node.PosHor;
+                beginPosHor = node.PosHor;
             }
-            else if ( node.PosHor > lastHorPosition )
+            else if ( node.PosHor > endPosHor )
             {
-                lastHorPosition = node.PosHor;
+                endPosHor = node.PosHor;
             }
         }
         
@@ -290,8 +292,8 @@ namespace VisualTree
             
         private delegate void DelegateTraverseTree( Node node );
             
-        private int firstHorPosition;
-        private int lastHorPosition;
+        private int beginPosHor;
+        private int endPosHor;
         private int diameter;
         private int shiftPos;
         private readonly int Padding = 30;
