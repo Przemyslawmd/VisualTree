@@ -13,7 +13,7 @@ namespace VisualTree
         {
             InitializeComponent();
             ServiceControls.CreateServiceControls( CanvasTree );
-            PrepareMenuIcons();
+            PrepareMenuIcons( TreeType.CommonBST );
             controller = new Controller();
             messages = new Message();
         }
@@ -23,7 +23,7 @@ namespace VisualTree
 
         private void ActionMenuTreeBST( object sender, RoutedEventArgs e )
         {
-            
+            ChangeTreeType( TreeType.CommonBST );
         }
 
         /*******************************************************************************************/
@@ -31,9 +31,25 @@ namespace VisualTree
 
         private void ActionMenuTreeAVL( object sender, RoutedEventArgs e )
         {
-        
+           ChangeTreeType( TreeType.AVL );
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void ChangeTreeType( TreeType newTreeType )
+        {
+            if ( Settings.treeType == newTreeType )
+            { 
+                return;
+            }
+
+            MenuPanel.Children.Clear();
+            PrepareMenuIcons( newTreeType );
+            controller.DestroyTree( CanvasTree );
+            Settings.SetTreeType( newTreeType );
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -157,24 +173,27 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void PrepareMenuIcons()
+        private void PrepareMenuIcons( TreeType treeType )
         {
-            AddIconForMenu( new DelegateRoutedEvent( ActionDrawTree ), "PathTree" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionAddNodes ), "PathPlus" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionDeleteNodes ), "PathMinus" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionRotationNode ), "PathRotation" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionBalanceTree ), "PathBalanceTree" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionBalanceTreeInStep ), "PathBalanceTreeInStep" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionStepForward ), "PathStepForward" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionStepBackward ), "PathStepBackward" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionStepModeLeave ), "PathStepModeLeave" );
-            AddIconForMenu( new DelegateRoutedEvent( ActionDestroyTree ), "PathDestroyTree" );
+            if ( treeType is TreeType.CommonBST )
+            { 
+                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), true );
+                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), true );
+                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), true );
+                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), true );
+                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), true );
+                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), true );
+                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), false );
+                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), false );
+                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), false );
+                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), true );
+            }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddIconForMenu( DelegateRoutedEvent delegateAction, string resource )
+        private void AddIconForMenu( string resource, DelegateRoutedEvent delegateAction, bool isEnabled )
         {
             Rectangle rec = new Rectangle 
             {
@@ -186,12 +205,16 @@ namespace VisualTree
             Button button = new Button
             {
                 Content = rec,
+                IsEnabled = isEnabled
             };
             button.Click += new RoutedEventHandler( delegateAction );
             
             MenuPanel.Children.Add( button );
         }
-            
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void ShowMinorWindow( Window window )
         {
             Window settings = new WindowSettings();
