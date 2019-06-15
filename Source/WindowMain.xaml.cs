@@ -87,6 +87,10 @@ namespace VisualTree
             }
         }
 
+        private void ActionDrawTreeInStep( object sender, RoutedEventArgs e )
+        {
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
         
@@ -108,10 +112,18 @@ namespace VisualTree
             }
         }
         
+        private void ActionAddNodesInStep( object sender, RoutedEventArgs e )
+        {
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
         
         private void ActionDeleteNodes( object sender, RoutedEventArgs e )
+        {
+        }
+
+        private void ActionDeleteNodesInStep( object sender, RoutedEventArgs e )
         {
         }
 
@@ -183,6 +195,19 @@ namespace VisualTree
                 AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), true );
                 AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), true );
                 AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), true );
+                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), false );
+                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), false );
+                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), false );
+                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), true );
+            }
+            else if ( treeType is TreeType.AVL )
+            { 
+                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), true );
+                AddIconForMenu( "PathTreeStep", new DelegateRoutedEvent( ActionDrawTreeInStep ), true );
+                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), true );
+                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes), true );
+                AddIconForMenu( "PathPlusStep", new DelegateRoutedEvent( ActionAddNodesInStep ), true );
+                AddIconForMenu( "PathMinusStep", new DelegateRoutedEvent( ActionDeleteNodesInStep ), true );
                 AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), false );
                 AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), false );
                 AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), false );

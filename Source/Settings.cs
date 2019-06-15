@@ -11,7 +11,7 @@ namespace VisualTree
             {
                 return false;
             }
-            
+             
             Diameter = diameter;
             return true;
         }
