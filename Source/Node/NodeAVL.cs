@@ -10,47 +10,24 @@ namespace VisualTree
 
         public bool VerifyAVL()
         {
-               
-            int leftLevel = Left is null ? 0 : (( NodeAVL ) Left ).Level;
-            int rightLevel = Right is null ? 0 : (( NodeAVL ) Right ).Level;
+            int leftChildLevel = Left ?. Level ?? 0;
+            int rightChildLevel = Right ?. Level ?? 0;
 
-
-            if ( Left is null )
-            {
-                leftLevel = 0;
-            }
-            else
-            {
-                leftLevel = ((NodeAVL)Left).Level;
-            }
-
-            return System.Math.Abs( leftLevel - rightLevel ) <= 1;
-        }
-
-        public void SetLevelAVL()
-        {
-            if ( Right is null && Left is null )
-            {
-                Level = 1;
-                return;
-            }
-
-             int leftLevel = Left is null ? 0 : (( NodeAVL ) Left ).Level;
-            int rightLevel = Right is null ? 0 : (( NodeAVL ) Right ).Level;
-
-            Level = ( leftLevel > rightLevel ) ? leftLevel + 1 : rightLevel + 1;
+            return System.Math.Abs( leftChildLevel - rightChildLevel ) <= 1;
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         public void IncLevelAVL( NodeAVL child )
         {
-            if ( child is null)
+            if ( child is null )
             {
                 Level = 1;
                 return;
             }
 
-            if ( (child.Level + 1) > Level )
+            if (( child.Level + 1 ) > Level )
             {
                 Level = child.Level + 1;
             }
@@ -61,25 +38,11 @@ namespace VisualTree
         
         public void UpdateLevel()
         {
-            int leftLevel = LeftAVL ?. Level ?? 0;
-            
-            int rightLevel = Right is null ? 0 : RightAVL.Level;
+            int leftChildLevel = Left ?. Level ?? 0;
+            int rightChildLevel = Right ?. Level ?? 0;
 
-            if ( leftLevel is 0 && rightLevel is 0 )
-            {
-                Level = 1;
-            }
-            else
-            {
-                Level = ( leftLevel > rightLevel ) ? leftLevel + 1 : rightLevel + 1;
-            }
+            Level = ( leftChildLevel > rightChildLevel ) ? leftChildLevel + 1 : rightChildLevel + 1;
         }
-            
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        
-        public NodeAVL LeftAVL {  get {  return ( NodeAVL ) Left; } set { Left = value; } }
-        public NodeAVL RightAVL {  get {  return ( NodeAVL ) Right; } }
     }
 }
 

@@ -121,7 +121,7 @@ namespace VisualTree
 
         private void UpdateLevelToRoot( Node node )
         {
-            ((NodeAVL) node).SetLevelAVL();
+            ((NodeAVL) node).UpdateLevel();
 
             while ( node.IsParent() )
             {
