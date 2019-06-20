@@ -135,7 +135,15 @@ namespace VisualTree
         {
             if ( tree is null )
             {
-                tree = new TreeBST();
+                switch ( Settings.treeType )
+                { 
+                    case TreeType.CommonBST:
+                        tree = new TreeBST();
+                        return tree;
+                    case TreeType.AVL:
+                        tree = new TreeAVL();
+                        return tree;
+                }
             }
             return tree;
         }

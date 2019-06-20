@@ -10,8 +10,10 @@ namespace VisualTree
         
         public int Key { get; }
         
+        public int Level {  get; set; } = 1;
+
         public Node Parent { get; set; } 
-        public Node Left   { get; set; } 
+        public Node Left { get; set; } 
         public Node Right  { get; set; } 
 
         public int PosHor { get; set; }
