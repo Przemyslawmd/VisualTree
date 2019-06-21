@@ -73,8 +73,32 @@ namespace VisualTree
 
         public void DetachNodeOneChild( Node node )
         {
+            Node child = node.IsLeft() ? node.Left : node.Right;
+            Node parent = node.Parent;
 
+            if ( parent is null )
+            {
+                Root = child;
+            }
+            else if ( parent > child )
+            {
+                parent.Left = child;
+            }
+            else
+            {
+                parent.Right = child;
+            }
+    
+            child.Parent = parent;	
+            
+            if ( node == Root )
+            {
+                Root = child;
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         public void DetachNodeTwoChildren( Node node )
         {
@@ -199,7 +223,7 @@ namespace VisualTree
         {
             Node parent = node.Parent;
 
-             if ( parent > node )
+            if ( parent > node )
             {
                 parent.Left = child;
             }
