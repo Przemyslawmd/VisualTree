@@ -90,7 +90,7 @@ namespace VisualTree
             }
             else
             { 
-                tree.GetRoot();
+                tree.RestoreRoot();
                 ShowTree();
             }
             return Message.Code.OK;
@@ -139,7 +139,7 @@ namespace VisualTree
             }
 
             tree.RotateNode( selectedNodes[0] );
-            tree.GetRoot();
+            tree.RestoreRoot();
             ShowTree();
             return Message.Code.OK;
         }

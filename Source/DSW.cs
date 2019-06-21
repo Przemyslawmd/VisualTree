@@ -13,7 +13,7 @@ namespace VisualTree
             int number =  (int) Pow( 2, Floor( log )) - 1;		
             int rotationCount = nodesCount - number; 
     
-            Node node = tree.GetRoot();
+            Node node = tree.RestoreRoot();
             for ( int i = 0; i < rotationCount - 1; i++ )
             {			
                 node = tree.RotateNode( node.Right );
@@ -26,7 +26,7 @@ namespace VisualTree
             }
     
             rotationCount = number / 2;	
-            node = tree.GetRoot();
+            node = tree.RestoreRoot();
 
             while ( rotationCount >= 1 )
             {		
@@ -39,7 +39,7 @@ namespace VisualTree
                     }
                 }
         
-                node = tree.GetRoot();
+                node = tree.RestoreRoot();
                 rotationCount /= 2;		
             }
     
@@ -52,7 +52,7 @@ namespace VisualTree
         private int MakeSpin( Tree tree )
         {	
             int nodesCount = 1;
-            Node node = tree.GetRoot();
+            Node node = tree.RestoreRoot();
 
             while ( true )
             {

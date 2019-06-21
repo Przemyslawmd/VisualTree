@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace VisualTree
@@ -53,6 +54,8 @@ namespace VisualTree
         
         private void FixAVLTree( Node node )
         {
+            void action(Node a, Node b) { this.RotateNode(a); this.UpdateLevelToRoot(b); }
+
             if ( node.Left is null )
             {
                 Node child = node.Right;
@@ -63,7 +66,7 @@ namespace VisualTree
                 }
                 else
                 {
-                    RotateNodeAndUpdateLevel( node, child );
+                    action( child, node );
                 }
             }
             else if ( node.Right is null )
@@ -76,7 +79,7 @@ namespace VisualTree
                 }
                 else
                 {
-                    RotateNodeAndUpdateLevel( node, child );
+                    action( child, node );
                 }
             }
             else if ( node.Left.Level > node.Right.Level )
@@ -89,7 +92,7 @@ namespace VisualTree
                 }
                 else
                 {
-                    RotateNodeAndUpdateLevel( node, child );
+                    action( child, node );
                 }
             }
             else if ( node.Left.Level < node.Right.Level )
@@ -102,22 +105,13 @@ namespace VisualTree
                 }
                 else
                 {
-                    RotateNodeAndUpdateLevel( node, child );
+                    action( child, node );
                 }
             }
 
-            GetRoot();
+            RestoreRoot();
         }
 
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private void RotateNodeAndUpdateLevel( Node parent, Node child )
-        {
-            RotateNode( child );
-            UpdateLevelToRoot( parent );
-        }
-        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
