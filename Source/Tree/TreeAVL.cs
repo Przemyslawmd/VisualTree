@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace VisualTree
 {
     class TreeAVL : Tree
@@ -9,7 +11,15 @@ namespace VisualTree
             InsertNode( node );
             CheckAVLPropertyAfterInsertNode( node );
         }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
+        override public void DelSelectedNodes( List< Node > nodes )
+        {
+
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -73,11 +83,7 @@ namespace VisualTree
             {
                 Node child = node.Left;
 
-                if ( child.Right is null || ( child.IsLeft() && child.Left.Level > child.Right.Level ))
-                {
-                    RotateNodeAndUpdateLevel( node, child );
-                }
-                else if ( child.Left is null || ( child.IsRight() && child.Left.Level < child.Right.Level ))
+                if ( child.Left is null || ( child.IsRight() && child.Left.Level < child.Right.Level ))
                 {
                     RotateTwice( node, child, TwiceRotation.LEFT_RIGHT );
                 }
@@ -90,11 +96,7 @@ namespace VisualTree
             {
                 Node child = node.Right;
 
-                if ( child.Left is null || ( child.IsRight() && child.Left.Level < child.Right.Level ))
-                {
-                    RotateNodeAndUpdateLevel( node, child );
-                }
-                else if ( child.Right is null || ( child.IsLeft() && child.Left.Level > child.Right.Level ))
+                if ( child.Right is null || ( child.IsLeft() && child.Left.Level > child.Right.Level ))
                 {
                     RotateTwice( node, child, TwiceRotation.RIGHT_LEFT );
                 }
