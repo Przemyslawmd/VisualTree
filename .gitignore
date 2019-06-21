@@ -3,3 +3,4 @@ Source/bin/*
 .vs/*
 Tests/bin/*
 Tests/obj/*
+packages/*
