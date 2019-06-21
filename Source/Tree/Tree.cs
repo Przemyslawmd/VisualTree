@@ -33,6 +33,54 @@ namespace VisualTree
         
         public abstract void AddNode( int key );
         
+        public abstract void DelSelectedNodes( List< Node > nodes );
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void DetachNode( Node node )
+        {
+            if ( node.Right is null && node.Left is null )
+            {
+                DetachNodeNoChildren( node );
+            }
+            else if ( node.IsRight() && node.IsLeft() )
+            {
+                DetachNodeTwoChildren( node );
+            }
+            else
+            {
+                DetachNodeOneChild( node );
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void DetachNodeNoChildren( Node node )
+        {
+            if ( node == Root )
+            {
+                Root = null;
+                return;
+            }
+
+            SetChildOfParentNode( node, null );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void DetachNodeOneChild( Node node )
+        {
+
+        }
+
+        public void DetachNodeTwoChildren( Node node )
+        {
+
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -151,7 +199,7 @@ namespace VisualTree
         {
             Node parent = node.Parent;
 
-            if ( parent > node )
+             if ( parent > node )
             {
                 parent.Left = child;
             }

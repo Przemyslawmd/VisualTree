@@ -65,6 +65,38 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        public Message.Code DeleteNodes()
+        {
+            if ( tree is null )
+            {
+                return Message.Code.NO_TREE;
+            }
+
+            List< Node > selectedNodes = Selection.GetInstance().nodes;
+
+            if ( selectedNodes.Count is 0 )
+            {
+                return Message.Code.NO_NODE_SELECTED;
+            }
+
+            tree.DelSelectedNodes( selectedNodes );
+            
+            if ( tree.Root is null )
+            {
+                Canvas canvas = ServiceControls.GetInstance().Canvas;
+                DestroyTree( canvas );
+            }
+            else
+            { 
+                tree.GetRoot();
+                ShowTree();
+            }
+            return Message.Code.OK;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
         
         public Message.Code BalanceTree()
         {
@@ -88,8 +120,7 @@ namespace VisualTree
                 return Message.Code.NO_TREE;
             }
 
-            Selection selection = Selection.GetInstance();
-            List< Node > selectedNodes = selection.nodes;
+            List< Node > selectedNodes = Selection.GetInstance().nodes;
 
             if ( selectedNodes.Count is 0 )
             {
@@ -101,14 +132,12 @@ namespace VisualTree
                 return Message.Code.ROTATION_MULTIPLE;
             }
 
-            Node node = selectedNodes[ 0 ];
-
-            if ( node.Parent is null )
+            if ( selectedNodes[0].Parent is null )
             {
                 return Message.Code.ROTATION_ROOT;
             }
 
-            tree.RotateNode( node );
+            tree.RotateNode( selectedNodes[0] );
             tree.GetRoot();
             ShowTree();
             return Message.Code.OK;
@@ -135,14 +164,13 @@ namespace VisualTree
         {
             if ( tree is null )
             {
-                switch ( Settings.treeType )
+                if ( Settings.treeType is TreeType.CommonBST )
                 { 
-                    case TreeType.CommonBST:
-                        tree = new TreeBST();
-                        return tree;
-                    case TreeType.AVL:
-                        tree = new TreeAVL();
-                        return tree;
+                    tree = new TreeBST();
+                }
+                else 
+                {
+                    tree = new TreeAVL();
                 }
             }
             return tree;

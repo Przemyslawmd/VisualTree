@@ -24,10 +24,8 @@ namespace VisualTree
             if ( child is null )
             {
                 Level = 1;
-                return;
             }
-
-            if (( child.Level + 1 ) > Level )
+            else if (( child.Level + 1 ) > Level )
             {
                 Level = child.Level + 1;
             }

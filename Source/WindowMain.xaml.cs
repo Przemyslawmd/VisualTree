@@ -121,7 +121,16 @@ namespace VisualTree
         
         private void ActionDeleteNodes( object sender, RoutedEventArgs e )
         {
+            Message.Code code = controller.DeleteNodes();
+
+            if ( code !=  Message.Code.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( code ));
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private void ActionDeleteNodesInStep( object sender, RoutedEventArgs e )
         {
