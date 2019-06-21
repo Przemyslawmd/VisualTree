@@ -102,7 +102,51 @@ namespace VisualTree
 
         public void DetachNodeTwoChildren( Node node )
         {
+            Node minNode = FindMinInSubTree( node.Right );
+            
+            if ( minNode == node.Right )
+            {
+                minNode.Parent = node.Parent;
+            
+                if ( node.Parent is null )
+                {
+                    Root = minNode;
+                }
+                else
+                {
+                    SetChildOfParentNode( node, minNode );
+                }
+                
+                minNode.Left = node.Left;
+                node.Left.Parent = minNode;	
+                return;
+            }	
+    
+            if ( minNode.Right is null )
+            {
+                minNode.Parent.Left = null;
+                minNode.Parent = node.Parent;
+            }
+            else
+            {
+                minNode.Parent.Left = minNode.Right;
+                minNode.Right.Parent = minNode.Parent;
+                minNode.Parent = node.Parent;
+            }
 
+            if ( node.Parent is null )
+            {
+                Root = minNode;
+            }
+            else
+            {
+                SetChildOfParentNode( node, minNode );
+            }
+
+            minNode.Right = node.Right;
+            node.Right.Parent = minNode;
+            minNode.Left = node.Left;
+            node.Left.Parent = minNode;
         }
 
         /*******************************************************************************************/
@@ -205,6 +249,18 @@ namespace VisualTree
                     return node;
                 }
             }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        private Node FindMinInSubTree( Node node )
+        {
+            while ( node.IsLeft() )
+            {
+                node = node.Left;
+            }
+            return node;
         }
         
         /*******************************************************************************************/

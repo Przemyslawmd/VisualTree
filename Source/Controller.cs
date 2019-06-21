@@ -81,7 +81,8 @@ namespace VisualTree
             }
 
             tree.DelSelectedNodes( selectedNodes );
-            
+            selectedNodes.Clear();            
+
             if ( tree.Root is null )
             {
                 Canvas canvas = ServiceControls.GetInstance().Canvas;
