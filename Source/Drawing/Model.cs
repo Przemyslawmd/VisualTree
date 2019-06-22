@@ -31,16 +31,16 @@ namespace VisualTree
 
             Node root = tree.Root;
             SetNodesPosition( root, Padding, Padding, 0 );
-            TraverseTree( root, new DelegateTraverseTree( CalculateMatrixHeight ));
+            tree.Traverse( root, new Tree.DelegateTraverse( CalculateMatrixHeight ));
             PrepareNodesMatrixRow();
-            TraverseTree( root, new DelegateTraverseTree( RegisterNode ));
+            tree.Traverse( root, new Tree.DelegateTraverse( RegisterNode ));
             FixNodesPositions();
-            TraverseTree( root, new DelegateTraverseTree( CalculateTreeWidth ));
+            tree.Traverse( root, new Tree.DelegateTraverse( CalculateTreeWidth ));
             
             if ( beginPosHor < Padding )
             {
                 shiftPos = Padding - beginPosHor; 
-                TraverseTree( root, new DelegateTraverseTree( ShiftNodeHorPosition ));
+                tree.Traverse( root, new Tree.DelegateTraverse( ShiftNodeHorPosition ));
                 beginPosHor += shiftPos;
                 endPosHor += shiftPos;
             }
@@ -87,25 +87,7 @@ namespace VisualTree
                 SetNodesPosition( node.Right, posHor + diameter, posVer + diameter + 10, matrixRow + 1 );
             }
         }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
         
-        private void TraverseTree( Node node, DelegateTraverseTree callback )
-        {
-            if ( node.IsLeft() )
-            {
-                TraverseTree( node.Left, callback );
-            }
-
-            callback.Invoke( node );
-    
-            if ( node.IsRight() )
-            {
-                TraverseTree( node.Right, callback );
-            }
-        }
-            
         /*******************************************************************************************/
         /*******************************************************************************************/
         
@@ -145,11 +127,11 @@ namespace VisualTree
         
         private void PrepareNodesMatrixRow()
         {
-            matrix = new List< List< Node >>();
+            Matrix = new List< List< Node >>();
             
             for ( int i = 0; i <= matrixHeight; i++ )
             {
-                matrix.Add( new List< Node >() );
+                Matrix.Add( new List< Node >() );
             }
         }
 
@@ -158,7 +140,7 @@ namespace VisualTree
 
         private void RegisterNode( Node node )
         {	
-            List< Node > nodesRow = matrix[ node.MatrixRow ];
+            List< Node > nodesRow = Matrix[ node.MatrixRow ];
             nodesRow.Add( node );
         }
 
@@ -172,8 +154,8 @@ namespace VisualTree
 
             while ( CheckNodesCollision( ref matrixRow, ref matrixCol ))
             {		
-                Node currNode = matrix[matrixRow][matrixCol];
-                Node nextNode = matrix[matrixRow][matrixCol + 1];
+                Node currNode = Matrix[matrixRow][matrixCol];
+                Node nextNode = Matrix[matrixRow][matrixCol + 1];
                 
                 int currPos = currNode.PosHor;
                 int nextPos = nextNode.PosHor;
@@ -225,9 +207,9 @@ namespace VisualTree
             List< Node > nodesRow;
             int currNodesCol;
 
-            for ( int currMatrixRow = matrix.Count - 1; currMatrixRow >= 0; currMatrixRow-- )
+            for ( int currMatrixRow = Matrix.Count - 1; currMatrixRow >= 0; currMatrixRow-- )
             {
-                nodesRow = matrix[ currMatrixRow ];
+                nodesRow = Matrix[ currMatrixRow ];
                 currNodesCol = 0;
 
                 for ( int i = 0; i < nodesRow.Count - 1; i++, currNodesCol++ )
@@ -299,8 +281,6 @@ namespace VisualTree
             
         private static Model model;
             
-        private delegate void DelegateTraverseTree( Node node );
-            
         private int beginPosHor;
         private int endPosHor;
         private int diameter;
@@ -308,7 +288,7 @@ namespace VisualTree
         private readonly int Padding = 30;
         private int matrixHeight;
         
-        public List< List< Node >> matrix { get; private set; }
+        public List< List< Node >> Matrix { get; private set; }
     }
 }
 

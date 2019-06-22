@@ -27,7 +27,25 @@ namespace VisualTree
             }
             return true;
         }
-                        
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void Traverse( Node node, DelegateTraverse callback )
+        {
+            if ( node.IsLeft() )
+            {
+                Traverse( node.Left, callback );
+            }
+
+            callback.Invoke( node );
+    
+            if ( node.IsRight() )
+            {
+                Traverse( node.Right, callback );
+            }
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
         
@@ -313,6 +331,8 @@ namespace VisualTree
         /*******************************************************************************************/
 
         public Node Root { get; private set; }
+
+        public delegate void DelegateTraverse( Node node );
     }
 }
 
