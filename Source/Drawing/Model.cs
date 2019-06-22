@@ -25,21 +25,22 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
             
-        public void ModelTree( Node node )
+        public void ModelTree( Tree tree )
         {
             InitializeStartingValues();
 
-            SetNodesPosition( node, Padding, Padding, 0 );
-            TraverseTree( node, new DelegateTraverseTree( CalculateMatrixHeight ));
+            Node root = tree.Root;
+            SetNodesPosition( root, Padding, Padding, 0 );
+            TraverseTree( root, new DelegateTraverseTree( CalculateMatrixHeight ));
             PrepareNodesMatrixRow();
-            TraverseTree( node, new DelegateTraverseTree( RegisterNode ));
+            TraverseTree( root, new DelegateTraverseTree( RegisterNode ));
             FixNodesPositions();
-            TraverseTree( node, new DelegateTraverseTree( CalculateTreeWidth ));
+            TraverseTree( root, new DelegateTraverseTree( CalculateTreeWidth ));
             
             if ( beginPosHor < Padding )
             {
                 shiftPos = Padding - beginPosHor; 
-                TraverseTree( node, new DelegateTraverseTree( ShiftNodeHorPosition ));
+                TraverseTree( root, new DelegateTraverseTree( ShiftNodeHorPosition ));
                 beginPosHor += shiftPos;
                 endPosHor += shiftPos;
             }

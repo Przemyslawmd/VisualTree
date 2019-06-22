@@ -184,7 +184,7 @@ namespace VisualTree
         private void ShowTree()
         {
             Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
+            model.ModelTree( tree );
 
             Canvas canvas = ServiceControls.GetInstance().Canvas;
             PrepareCanvas( canvas, model );

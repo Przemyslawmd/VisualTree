@@ -16,7 +16,7 @@ namespace Tests
             tree.CreateNodes( keys );   
             
             Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
+            model.ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
@@ -35,7 +35,7 @@ namespace Tests
             tree.CreateNodes( keys );   
             
             Model model = Model.GetInstance();
-            model.ModelTree( tree.Root );
+            model.ModelTree( tree );
                         
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 4,   90, 30 ));
