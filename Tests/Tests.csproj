@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SuiteAddNodes.cs" />
     <Compile Include="SuiteBalanceTree.cs" />
     <Compile Include="SuiteDeleteNodes.cs" />
     <Compile Include="Test.cs" />

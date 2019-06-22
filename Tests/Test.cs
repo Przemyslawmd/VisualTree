@@ -16,6 +16,17 @@ namespace Tests
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+        
+        public void AddNodes( List< int > keysToBuild, List< int > keysToAdd, List< int > keysToCheck, TreeType treeType )
+        {
+            Tree tree = GetTree( treeType );
+            tree.CreateNodes( keysToBuild );
+            tree.CreateNodes( keysToAdd );
+            CheckNode( tree.Root, keysToCheck );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         public void DeleteNodes( List< int > keysToBuild, List< int > keysToCheck, List< int > nodesToDelete, 
                                  TreeType treeType )
