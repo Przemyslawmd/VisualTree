@@ -54,7 +54,7 @@ namespace VisualTree
         
         private void FixAVLTree( Node node )
         {
-            void action(Node a, Node b) { this.RotateNode(a); this.UpdateLevelToRoot(b); }
+            void action( Node a, Node b ) { RotateNode( a ); UpdateLevelToRoot( b ); }
 
             if ( node.Left is null )
             {

@@ -10,7 +10,7 @@ namespace Tests
     {
         // Nodes to be deleted have no children
         [TestMethod]
-        public void TestDeleteNodes_1()
+        public void TestDeleteNodesBST_1()
         {
             List< int > keysToBuild = new List< int > { 6, 2, 5, 10, 1, 13, 4, 9 };
             List< int > keysToCheck = new List< int > { 1, 5, 2, 13, 10, 6 };
@@ -23,7 +23,7 @@ namespace Tests
 
         // Node to be deleted has one child
         [TestMethod]
-        public void TestDeleteNodes_2()
+        public void TestDeleteNodesBST_2()
         {
             List< int > keysToBuild = new List< int > { 10, 5, 15, 3, 12, 1, 16, 2, 11 };
             List< int > keysToCheck = new List< int > { 2, 1, 3, 5, 11, 16, 15, 10 };
@@ -36,7 +36,7 @@ namespace Tests
         
         // Nodes to be deleted have both children
         [TestMethod]
-        public void TestDeleteNodes_3()
+        public void TestDeleteNodesBST_3()
         {
             List< int > keysToBuild = new List< int > { 10, 5, 6, 12, 11, 8, 2, 13, 9, 7 };
             List< int > keysToCheck = new List< int > { 2, 7, 9, 6, 5, 11, 13, 10 };
