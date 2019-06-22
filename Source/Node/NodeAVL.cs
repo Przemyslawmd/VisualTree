@@ -8,7 +8,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public bool VerifyAVL()
+        public bool CheckAVLProperty()
         {
             int leftChildLevel = Left ?. Level ?? 0;
             int rightChildLevel = Right ?. Level ?? 0;

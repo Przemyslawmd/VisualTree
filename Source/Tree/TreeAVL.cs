@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections.Generic;
 
 namespace VisualTree
@@ -18,7 +17,16 @@ namespace VisualTree
 
         override public void DelSelectedNodes( List< Node > nodes )
         {
+            foreach( Node node in nodes )
+            {
+                DetachNode( node );
 
+                if ( Root != null )
+                {
+                    Traverse( Root, ( Node n ) => ( n as NodeAVL ).UpdateLevel() );
+                    Traverse( Root, new DelegateTraverse( RestoreAVLProperty ));
+                }
+            }
         }
         
         /*******************************************************************************************/
@@ -31,21 +39,15 @@ namespace VisualTree
                 return;
             }
 
-            NodeAVL child = (NodeAVL) node;
-            node = (NodeAVL) node.Parent;
+            NodeAVL child = node;
+            node = ( NodeAVL ) node.Parent;
 
             while ( node != null )
             {
                 node.IncLevelAVL( child );
-
-                if ( node.VerifyAVL() is false )
-                {
-                    FixAVLTree( node );
-                    return;
-                }
-
+                RestoreAVLProperty( node );
                 child = node;
-                node = (NodeAVL) node.Parent; 
+                node = ( NodeAVL ) node.Parent; 
             }
         }            
         
@@ -114,14 +116,25 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+        
+        private void RestoreAVLProperty( Node node )
+        {
+            if (( node as NodeAVL ).CheckAVLProperty() is false )
+            {
+                FixAVLTree( node );
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private void UpdateLevelToRoot( Node node )
         {
-            ((NodeAVL) node).UpdateLevel();
+            ( node as NodeAVL ).UpdateLevel();
 
             while ( node.IsParent() )
             {
-                ((NodeAVL) node.Parent).IncLevelAVL( (NodeAVL) node );
+                (( NodeAVL ) node.Parent).IncLevelAVL(( NodeAVL ) node );
                 node = node.Parent;
             }
         }
