@@ -46,7 +46,7 @@ namespace VisualTree
 
             MenuPanel.Children.Clear();
             PrepareMenuIcons( newTreeType );
-            controller.DestroyTree( CanvasTree );
+            controller.DestroyTree();
             Settings.SetTreeType( newTreeType );
         }
         
@@ -96,7 +96,7 @@ namespace VisualTree
         
         private void ActionDestroyTree( object sender, RoutedEventArgs e )
         {
-            controller.DestroyTree( CanvasTree );
+            controller.DestroyTree();
         }
         
         /*******************************************************************************************/

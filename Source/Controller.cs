@@ -15,7 +15,8 @@ namespace VisualTree
             {
                 return code;
             }
-
+                        
+            DestroyTree();
             tree = GetTree();
             tree.CreateNodes( keys );
             ShowTree();
@@ -25,10 +26,11 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void DestroyTree( Canvas canvas )
+        public void DestroyTree()
         {
             if ( tree != null )
             {
+                Canvas canvas = ServiceControls.GetInstance().Canvas;
                 canvas.Children.Clear();
                 Model.DestroyInstance();
                 Selection.DestroyInstance();
@@ -85,8 +87,7 @@ namespace VisualTree
 
             if ( tree.Root is null )
             {
-                Canvas canvas = ServiceControls.GetInstance().Canvas;
-                DestroyTree( canvas );
+                DestroyTree();
             }
             else
             { 
