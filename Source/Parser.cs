@@ -6,7 +6,7 @@ namespace VisualTree
 {
     class Parser
     {
-        public List< int > GetNodesValues( String text, ref Result result )
+        public List< int > GetNodesValues( String text, out Result result )
         {
             if ( text.Length == 0 )
             {
@@ -14,13 +14,13 @@ namespace VisualTree
                 return null;
             }
             
-            return ParseText( text, ref result );
+            return ParseText( text, out result );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private List< int > ParseText( String text, ref Result result )
+        private List< int > ParseText( String text, out Result result )
         {
             foreach( var token in text )
             {
@@ -77,6 +77,7 @@ namespace VisualTree
                 return null;
             }
 
+            result = Result.OK;
             return nodesValues;
         }
     }

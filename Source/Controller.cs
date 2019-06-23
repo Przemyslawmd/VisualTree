@@ -9,8 +9,7 @@ namespace VisualTree
     {
         public Result DrawTree( String text )
         {
-            Result result = Result.OK;
-            List< int > keys = new Parser().GetNodesValues( text, ref result );
+            List< int > keys = new Parser().GetNodesValues( text, out Result result );
             if ( keys is null )
             {
                 return result;
@@ -48,8 +47,7 @@ namespace VisualTree
                 return Result.NO_TREE;
             }
 
-            Result result = Result.OK;
-            List< int > keys = new Parser().GetNodesValues( text, ref result );
+            List< int > keys = new Parser().GetNodesValues( text, out Result result );
             if ( keys is null )
             {
                 return result;
