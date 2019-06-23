@@ -70,8 +70,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Action.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="Message\Result.cs" />
     <Compile Include="Node\NodeAVL.cs" />
+    <Compile Include="ServiceListener.cs" />
+    <Compile Include="SharedTypes.cs" />
+    <Compile Include="StepMode.cs" />
     <Compile Include="Tree\TreeAVL.cs" />
     <Compile Include="WindowSettings.xaml.cs">
       <DependentUpon>WindowSettings.xaml</DependentUpon>
