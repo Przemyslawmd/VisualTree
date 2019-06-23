@@ -1,8 +1,6 @@
 ﻿
 namespace VisualTree
 {
-    enum TreeType { CommonBST, AVL };
-        
     class Settings
     {
         public static bool SetDiameter( int diameter )
@@ -25,7 +23,7 @@ namespace VisualTree
 
         public static void SetTreeType( TreeType type )
         {
-            treeType = type;
+            TreeType = type;
         }
 
 
@@ -33,7 +31,7 @@ namespace VisualTree
 
         public static bool RemoveDuplicatedNodes {  get; private set; } = true;
 
-        public static TreeType treeType {  get; private set; } = TreeType.CommonBST; 
+        public static TreeType TreeType {  get; private set; } = TreeType.CommonBST; 
         
         private static readonly int MaxDiameter = 100;
         private static readonly int MinDiameter = 5;
