@@ -7,20 +7,20 @@ namespace VisualTree
 {
     class Controller
     {
-        public Message.Code DrawTree( String text )
+        public Result DrawTree( String text )
         {
-            Message.Code code = Message.Code.OK;
-            List< int > keys = new Parser().GetNodesValues( text, ref code );
+            Result result = Result.OK;
+            List< int > keys = new Parser().GetNodesValues( text, ref result );
             if ( keys is null )
             {
-                return code;
+                return result;
             }
                         
             DestroyTree();
             tree = GetTree();
             tree.CreateNodes( keys );
             ShowTree();
-            return code;
+            return result;
         }
 
         /*******************************************************************************************/
@@ -41,45 +41,45 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public Message.Code AddNodes( String text )
+        public Result AddNodes( String text )
         {
             if ( tree is null )
             {
-                return Message.Code.NO_TREE;
+                return Result.NO_TREE;
             }
 
-            Message.Code code = Message.Code.OK;
-            List< int > keys = new Parser().GetNodesValues( text, ref code );
+            Result result = Result.OK;
+            List< int > keys = new Parser().GetNodesValues( text, ref result );
             if ( keys is null )
             {
-                return code;
+                return result;
             }
             
             if ( tree.AreKeysAllowedToAdd( keys ) is false )
             {
-                return Message.Code.DUPLICATED_SYMBOL;
+                return Result.DUPLICATED_SYMBOL;
             }
 
             tree.CreateNodes( keys );
             ShowTree();
-            return Message.Code.OK;
+            return Result.OK;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public Message.Code DeleteNodes()
+        public Result DeleteNodes()
         {
             if ( tree is null )
             {
-                return Message.Code.NO_TREE;
+                return Result.NO_TREE;
             }
 
             List< Node > selectedNodes = Selection.GetInstance().nodes;
 
             if ( selectedNodes.Count is 0 )
             {
-                return Message.Code.NO_NODE_SELECTED;
+                return Result.NO_NODE_SELECTED;
             }
 
             tree.DelSelectedNodes( selectedNodes );
@@ -94,55 +94,55 @@ namespace VisualTree
                 tree.RestoreRoot();
                 ShowTree();
             }
-            return Message.Code.OK;
+            return Result.OK;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public Message.Code BalanceTree()
+        public Result BalanceTree()
         {
             if ( tree is null )
             {
-                return Message.Code.NO_TREE;
+                return Result.NO_TREE;
             }
 
             new DSW().BalanceTree( tree );
             ShowTree();
-            return Message.Code.OK;
+            return Result.OK;
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public Message.Code RotateNode()
+        public Result RotateNode()
         {
             if ( tree is null )
             {
-                return Message.Code.NO_TREE;
+                return Result.NO_TREE;
             }
 
             List< Node > selectedNodes = Selection.GetInstance().nodes;
 
             if ( selectedNodes.Count is 0 )
             {
-                return Message.Code.NO_NODE_SELECTED;
+                return Result.NO_NODE_SELECTED;
             }
 
             if ( selectedNodes.Count > 1 )
             {
-                return Message.Code.ROTATION_MULTIPLE;
+                return Result.ROTATION_MULTIPLE;
             }
 
             if ( selectedNodes[0].Parent is null )
             {
-                return Message.Code.ROTATION_ROOT;
+                return Result.ROTATION_ROOT;
             }
 
             tree.RotateNode( selectedNodes[0] );
             tree.RestoreRoot();
             ShowTree();
-            return Message.Code.OK;
+            return Result.OK;
         }
         
         /*******************************************************************************************/

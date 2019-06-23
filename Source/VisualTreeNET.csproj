@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Message\Result.cs" />
     <Compile Include="Node\NodeAVL.cs" />
     <Compile Include="Tree\TreeAVL.cs" />
     <Compile Include="WindowSettings.xaml.cs">
@@ -87,7 +88,7 @@
     <Compile Include="Drawing\Model.cs" />
     <Compile Include="Drawing\Painter.cs" />
     <Compile Include="DSW.cs" />
-    <Compile Include="Message.cs" />
+    <Compile Include="Message\Message.cs" />
     <Compile Include="Node\Node.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Selection.cs" />

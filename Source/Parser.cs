@@ -6,27 +6,27 @@ namespace VisualTree
 {
     class Parser
     {
-        public List< int > GetNodesValues( String text, ref Message.Code code )
+        public List< int > GetNodesValues( String text, ref Result result )
         {
             if ( text.Length == 0 )
             {
-                code = Message.Code.NO_DATA_TO_CREATE_TREE;
+                result = Result.NO_DATA_TO_CREATE_TREE;
                 return null;
             }
             
-            return ParseText( text, ref code );
+            return ParseText( text, ref result );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private List< int > ParseText( String text, ref Message.Code code )
+        private List< int > ParseText( String text, ref Result result )
         {
             foreach( var token in text )
             {
                 if ( Char.IsDigit( token ) == false && token.Equals( ' ' ) == false && token.Equals( ',' ) == false )
                 {
-                    code = Message.Code.IMPROPER_DATA;
+                    result = Result.IMPROPER_DATA;
                     return null;
                 }
             }
@@ -49,7 +49,7 @@ namespace VisualTree
                 {
                     if ( nodesValues.Contains( number ))
                     {
-                        code = Message.Code.DUPLICATED_SYMBOL;
+                        result = Result.DUPLICATED_SYMBOL;
                         return null;
                     }
                     
@@ -64,7 +64,7 @@ namespace VisualTree
             {
                 if ( nodesValues.Contains( number ))
                 {
-                    code = Message.Code.DUPLICATED_SYMBOL;
+                    result = Result.DUPLICATED_SYMBOL;
                     return null;
                 }
                 
@@ -73,7 +73,7 @@ namespace VisualTree
             
             if ( nodesValues.Count == 0 )
             {
-                code = Message.Code.IMPROPER_DATA;
+                result = Result.IMPROPER_DATA;
                 return null;
             }
 

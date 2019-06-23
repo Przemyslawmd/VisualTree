@@ -11,7 +11,7 @@ namespace Tests
         [TestInitialize]  
         public void TestInit()  
         {  
-            messageCode = Message.Code.OK;  
+            result = Result.OK;  
         }   
         
         /*******************************************************************************************/
@@ -22,11 +22,11 @@ namespace Tests
         {
             string data = "2,4,56,33,12,3,44,39, 31, 556,424";
             
-            List< int > nodes = new Parser().GetNodesValues( data, ref messageCode );
+            List< int > nodes = new Parser().GetNodesValues( data, ref result );
             List< int > expectedNodes = new List< int >() {  2, 4, 56, 33, 12, 3, 44, 39, 31, 556, 424 };
             
             CollectionAssert.AreEqual( nodes, expectedNodes );
-            Assert.AreEqual( messageCode, Message.Code.OK );
+            Assert.AreEqual( result, Result.OK );
         }
 
         /*******************************************************************************************/
@@ -37,10 +37,10 @@ namespace Tests
         {
             string data = "2,4,56,33,12,3,44,3,3.556,44";
             
-            List< int > nodes = new Parser().GetNodesValues( data, ref messageCode );
+            List< int > nodes = new Parser().GetNodesValues( data, ref result );
 
             Assert.IsNull( nodes );
-            Assert.AreEqual( messageCode, Message.Code.IMPROPER_DATA );
+            Assert.AreEqual( result, Result.IMPROPER_DATA );
         }
 
         /*******************************************************************************************/
@@ -51,16 +51,16 @@ namespace Tests
         {
             string data = "2,4,56,33,12,3,44,3,3,556,44";
             
-            List< int > nodes = new Parser().GetNodesValues( data, ref messageCode );
+            List< int > nodes = new Parser().GetNodesValues( data, ref result );
 
             Assert.IsNull( nodes );
-            Assert.AreEqual( messageCode, Message.Code.DUPLICATED_SYMBOL );
+            Assert.AreEqual( result, Result.DUPLICATED_SYMBOL );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private Message.Code messageCode;
+        private Result result;
     }
 }
 

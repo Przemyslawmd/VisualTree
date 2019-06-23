@@ -79,11 +79,11 @@ namespace VisualTree
 
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.DrawTree( TextNode.Text );
+            Result result = controller.DrawTree( TextNode.Text );
 
-            if ( code != Message.Code.OK )
+            if ( result != Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( code ));
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
 
@@ -104,11 +104,11 @@ namespace VisualTree
 
         private void ActionAddNodes( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.AddNodes( TextNode.Text );
+            Result result = controller.AddNodes( TextNode.Text );
 
-            if ( code !=  Message.Code.OK )
+            if ( result !=  Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( code ));
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
         
@@ -121,11 +121,11 @@ namespace VisualTree
         
         private void ActionDeleteNodes( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.DeleteNodes();
+            Result result = controller.DeleteNodes();
 
-            if ( code !=  Message.Code.OK )
+            if ( result !=  Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( code ));
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
 
@@ -141,11 +141,11 @@ namespace VisualTree
         
         private void ActionRotationNode( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.RotateNode();
+            Result result = controller.RotateNode();
 
-            if ( code !=  Message.Code.OK )
+            if ( result !=  Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( code ));
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
 
@@ -154,11 +154,11 @@ namespace VisualTree
 
         private void ActionBalanceTree( object sender, RoutedEventArgs e )
         {
-            Message.Code code = controller.BalanceTree();
+            Result result = controller.BalanceTree();
 
-            if ( code !=  Message.Code.OK )
+            if ( result !=  Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( code ));
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
 
@@ -267,7 +267,7 @@ namespace VisualTree
         
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
         private Message messages;
-        private Message.Code code;
+        private Result result;
         private Controller controller;
     }
 }
