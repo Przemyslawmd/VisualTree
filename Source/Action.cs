@@ -10,7 +10,7 @@ namespace VisualTree
         }
 
         public ActionType ActionType { get; }
-        public Node Node {  get; }
+        public Node Node {  get; set; }
     }
 }
 

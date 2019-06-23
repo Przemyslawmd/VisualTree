@@ -110,6 +110,20 @@ namespace VisualTree
             return Result.OK;
         }
         
+        
+        public Result BalanceTreePrepareSteps()
+        {
+            if ( tree is null )
+            {
+                return Result.NO_TREE;
+            }
+
+            StepMode stepMode = StepMode.GetInstance();
+            stepMode.PrepareStepsForTreeBalancing( tree );
+            
+            return Result.OK;
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -164,7 +178,7 @@ namespace VisualTree
         {
             if ( tree is null )
             {
-                if ( Settings.treeType is TreeType.CommonBST )
+                if ( Settings.TreeType is TreeType.CommonBST )
                 { 
                     tree = new TreeBST();
                 }

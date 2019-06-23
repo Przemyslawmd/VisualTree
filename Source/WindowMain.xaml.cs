@@ -39,7 +39,7 @@ namespace VisualTree
 
         private void ChangeTreeType( TreeType newTreeType )
         {
-            if ( Settings.treeType == newTreeType )
+            if ( Settings.TreeType == newTreeType )
             { 
                 return;
             }
@@ -80,11 +80,7 @@ namespace VisualTree
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
             Result result = controller.DrawTree( TextNode.Text );
-
-            if ( result != Result.OK )
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            CheckResult( result );
         }
 
         private void ActionDrawTreeInStep( object sender, RoutedEventArgs e )
@@ -105,11 +101,7 @@ namespace VisualTree
         private void ActionAddNodes( object sender, RoutedEventArgs e )
         {
             Result result = controller.AddNodes( TextNode.Text );
-
-            if ( result !=  Result.OK )
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            CheckResult( result );
         }
         
         private void ActionAddNodesInStep( object sender, RoutedEventArgs e )
@@ -122,11 +114,7 @@ namespace VisualTree
         private void ActionDeleteNodes( object sender, RoutedEventArgs e )
         {
             Result result = controller.DeleteNodes();
-
-            if ( result !=  Result.OK )
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            CheckResult( result );
         }
 
         /*******************************************************************************************/
@@ -142,11 +130,7 @@ namespace VisualTree
         private void ActionRotationNode( object sender, RoutedEventArgs e )
         {
             Result result = controller.RotateNode();
-
-            if ( result !=  Result.OK )
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            CheckResult( result );
         }
 
         /*******************************************************************************************/
@@ -155,11 +139,7 @@ namespace VisualTree
         private void ActionBalanceTree( object sender, RoutedEventArgs e )
         {
             Result result = controller.BalanceTree();
-
-            if ( result !=  Result.OK )
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            CheckResult( result );
         }
 
         /*******************************************************************************************/
@@ -167,7 +147,12 @@ namespace VisualTree
 
         private void ActionBalanceTreeInStep( object sender, RoutedEventArgs e )
         {
+            Result result = controller.BalanceTreePrepareSteps();
+            CheckResult( result );
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private void ActionStepForward( object sender, RoutedEventArgs e )
         {
@@ -257,6 +242,9 @@ namespace VisualTree
             window.Show();
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void MinorWindowClosed( object sender, System.EventArgs e )
         {
             MenuMain.IsEnabled = true;
@@ -264,11 +252,21 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        private void CheckResult( Result result )
+        {
+            if ( result != Result.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( result ));
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
         
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
-        private Message messages;
-        private Result result;
-        private Controller controller;
+        private readonly Message messages;
+        private readonly Controller controller;
     }
 }
 

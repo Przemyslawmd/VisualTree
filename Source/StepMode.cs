@@ -19,7 +19,17 @@ namespace VisualTree
 
         public void PrepareStepsForTreeBalancing( Tree tree )
         {
+            ServiceListener.AddListener( this );
+            new DSW().BalanceTree( tree );
+            ServiceListener.RemoveListener( this );
 
+            for ( int i = Steps.Count - 1; i >= 0; i-- )
+            {
+                Node node = Steps[i].Node.Parent;
+                tree.RotateNode( Steps[i].Node );
+                Steps[i].Node = node;
+                tree.RestoreRoot();
+            }
         }
         
         /*******************************************************************************************/

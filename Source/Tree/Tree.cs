@@ -184,6 +184,7 @@ namespace VisualTree
 
         public Node RotateNode( Node node )
         {
+            ServiceListener.Notify( ActionType.ROTATION, node );
             Node parent = node.Parent;
             node.Parent = parent.Parent;
 
