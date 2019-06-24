@@ -45,7 +45,6 @@ namespace VisualTree
                 return;
             }
 
-            MenuPanel.Children.Clear();
             PrepareMenuIcons( newTreeType, false );
             controller.DestroyTree();
             Settings.SetTreeType( newTreeType );
@@ -150,14 +149,13 @@ namespace VisualTree
         {
             Result result = controller.BalanceTreePrepareSteps();
             
-            if ( result != Result.OK )
+            if ( result == Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( result ));
+                PrepareMenuIcons( TreeType.CommonBST, true );
             }
             else
             {
-                MenuPanel.Children.Clear();
-                PrepareMenuIcons( TreeType.CommonBST, true );
+                MessageBox.Show( messages.GetMessageText( result ));
             }
         }
 
@@ -182,6 +180,8 @@ namespace VisualTree
 
         private void ActionStepModeLeave( object sender, RoutedEventArgs e )
         {
+            StepMode.Destroy();
+            PrepareMenuIcons( Settings.TreeType, false );
         }
 
         /*******************************************************************************************/
@@ -199,8 +199,9 @@ namespace VisualTree
 
         private void PrepareMenuIcons( TreeType treeType, bool isStepMode )
         {
-            List< bool > state = isStepMode ? iconStateStepMode : iconStateNormal;
+            MenuPanel.Children.Clear();
             int index = 0;
+            List< bool > state = isStepMode ? iconStateStepMode : iconStateNormal;
             
             if ( treeType is TreeType.CommonBST )
             { 
