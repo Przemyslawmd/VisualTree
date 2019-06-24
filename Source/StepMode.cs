@@ -63,11 +63,31 @@ namespace VisualTree
                 case ActionType.REMOVE:
                     return;
                 case ActionType.ROTATION:
-                    Node parent = Steps[stepNumber].Node.Parent;
-                    tree.RotateNode( Steps[stepNumber].Node );
-                    tree.RestoreRoot();
-                    Steps[stepNumber].Node  = parent;
+                    StepRotation();
                     stepNumber++;
+                    return;
+            }	
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void StepBackward()
+        { 
+            if ( stepNumber == 0 )
+            {
+                return;
+            }
+    
+            stepNumber--;
+            switch ( Steps[stepNumber].ActionType )
+            {
+                case ActionType.ADD:
+                    return;
+                case ActionType.REMOVE:
+                    return;
+                case ActionType.ROTATION:
+                    StepRotation();
                     return;
             }	
         }
@@ -80,6 +100,17 @@ namespace VisualTree
             Steps = new List< Action >();
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void StepRotation()
+        {
+            Node parent = Steps[stepNumber].Node.Parent;
+            tree.RotateNode( Steps[stepNumber].Node );
+            tree.RestoreRoot();
+            Steps[stepNumber].Node = parent;
+        }
+            
         /*******************************************************************************************/
         /*******************************************************************************************/
 
