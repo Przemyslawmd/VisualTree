@@ -200,42 +200,48 @@ namespace VisualTree
         private void PrepareMenuIcons( TreeType treeType, bool isStepMode )
         {
             MenuPanel.Children.Clear();
-            int index = 0;
-            List< bool > state = isStepMode ? iconStateStepMode : iconStateNormal;
             
+            var state = isStepMode ? 
+                new List< bool >() { false, false, false, false, false, false, true,  true,  true,  false } :
+                new List< bool >() { true,  true,  true,  true,  true,  true,  false, false, false, true  } ; 
+               
+            var enumerator = state.GetEnumerator();
+
             if ( treeType is TreeType.CommonBST )
             { 
-                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), state[index++] );
-                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), state[index++] );
-                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), state[index++] );
-                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), state[index++] );
-                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), state[index++] );
-                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), state[index++] );
-                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), state[index++] );
-                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), state[index++] );
-                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), state[index++] );
-                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), state[index++] );
+                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), ref enumerator );
+                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), ref enumerator );
+                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), ref enumerator );
+                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), ref enumerator );
+                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), ref enumerator );
+                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), ref enumerator );
+                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), ref enumerator );
+                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), ref enumerator );
+                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), ref enumerator );
+                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), ref enumerator );
             }
             else if ( treeType is TreeType.AVL )
             { 
-                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), true );
-                AddIconForMenu( "PathTreeStep", new DelegateRoutedEvent( ActionDrawTreeInStep ), true );
-                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), true );
-                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes), true );
-                AddIconForMenu( "PathPlusStep", new DelegateRoutedEvent( ActionAddNodesInStep ), true );
-                AddIconForMenu( "PathMinusStep", new DelegateRoutedEvent( ActionDeleteNodesInStep ), true );
-                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), false );
-                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), false );
-                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), false );
-                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), true );
+                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), ref enumerator );
+                AddIconForMenu( "PathTreeStep", new DelegateRoutedEvent( ActionDrawTreeInStep ), ref enumerator );
+                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), ref enumerator );
+                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes), ref enumerator );
+                AddIconForMenu( "PathPlusStep", new DelegateRoutedEvent( ActionAddNodesInStep ), ref enumerator );
+                AddIconForMenu( "PathMinusStep", new DelegateRoutedEvent( ActionDeleteNodesInStep ), ref enumerator );
+                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), ref enumerator );
+                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), ref enumerator );
+                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), ref enumerator );
+                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), ref enumerator );
             }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddIconForMenu( string resource, DelegateRoutedEvent delegateAction, bool isEnabled )
+        private void AddIconForMenu( string resource, DelegateRoutedEvent action, ref List< bool >.Enumerator enumerator )
         {
+            enumerator.MoveNext();
+            
             Rectangle rec = new Rectangle 
             {
                 Height = 50,
@@ -246,9 +252,9 @@ namespace VisualTree
             Button button = new Button
             {
                 Content = rec,
-                IsEnabled = isEnabled
+                IsEnabled = enumerator.Current
             };
-            button.Click += new RoutedEventHandler( delegateAction );
+            button.Click += new RoutedEventHandler( action );
             
             MenuPanel.Children.Add( button );
         }
@@ -289,16 +295,6 @@ namespace VisualTree
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
         private readonly Message messages;
         private readonly Controller controller;
-        
-        private readonly List< bool > iconStateNormal = new List< bool > 
-        { 
-            true, true, true, true, true, true, false, false, false, true 
-        };
-
-        private readonly List< bool > iconStateStepMode = new List< bool > 
-        { 
-            false, false, false, false, false, false, true, true, true, false 
-        };
     }
 }
 
