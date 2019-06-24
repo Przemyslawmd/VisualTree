@@ -110,7 +110,9 @@ namespace VisualTree
             return Result.OK;
         }
         
-        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public Result BalanceTreePrepareSteps()
         {
             if ( tree is null )
@@ -118,9 +120,7 @@ namespace VisualTree
                 return Result.NO_TREE;
             }
 
-            StepMode stepMode = StepMode.GetInstance();
-            stepMode.PrepareStepsForTreeBalancing( tree );
-            
+            StepMode.GetInstance().PrepareStepsForTreeBalancing( tree );
             return Result.OK;
         }
         
@@ -160,6 +160,15 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
             
+        public void StepForward()
+        {
+            StepMode.GetInstance().StepForward();
+            ShowTree();
+        }
+            
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void SelectNode( Canvas canvas, int posX, int posY )
         {
             Selection selection = Selection.GetInstance();

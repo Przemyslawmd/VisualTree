@@ -30,6 +30,8 @@ namespace VisualTree
                 Steps[i].Node = node;
                 tree.RestoreRoot();
             }
+
+            this.tree = tree;
         }
         
         /*******************************************************************************************/
@@ -47,6 +49,32 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public void StepForward()
+        {	
+            if ( stepNumber == Steps.Count )
+            {
+                return;
+            }
+
+            switch ( Steps[stepNumber].ActionType )
+            {
+                case ActionType.ADD:
+                    return;
+                case ActionType.REMOVE:
+                    return;
+                case ActionType.ROTATION:
+                    Node parent = Steps[stepNumber].Node.Parent;
+                    tree.RotateNode( Steps[stepNumber].Node );
+                    tree.RestoreRoot();
+                    Steps[stepNumber].Node  = parent;
+                    stepNumber++;
+                    return;
+            }	
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private StepMode()
         {
             Steps = new List< Action >();
@@ -58,6 +86,8 @@ namespace VisualTree
         private static StepMode stepMode; 
         
         public List< Action > Steps {  get; }
+        private int stepNumber;
+        private Tree tree;
     }
 }
 

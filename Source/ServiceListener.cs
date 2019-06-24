@@ -23,7 +23,7 @@ namespace VisualTree
 
         public static bool RemoveListener( IListener listener )
         {
-            return true;
+            return listeners.Remove( listener );
         }
 
         /*******************************************************************************************/

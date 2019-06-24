@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace VisualTree
         {
             InitializeComponent();
             ServiceControls.CreateServiceControls( CanvasTree );
-            PrepareMenuIcons( TreeType.CommonBST );
+            PrepareMenuIcons( TreeType.CommonBST, false );
             controller = new Controller();
             messages = new Message();
         }
@@ -45,7 +46,7 @@ namespace VisualTree
             }
 
             MenuPanel.Children.Clear();
-            PrepareMenuIcons( newTreeType );
+            PrepareMenuIcons( newTreeType, false );
             controller.DestroyTree();
             Settings.SetTreeType( newTreeType );
         }
@@ -148,7 +149,16 @@ namespace VisualTree
         private void ActionBalanceTreeInStep( object sender, RoutedEventArgs e )
         {
             Result result = controller.BalanceTreePrepareSteps();
-            CheckResult( result );
+            
+            if ( result != Result.OK )
+            {
+                MessageBox.Show( messages.GetMessageText( result ));
+            }
+            else
+            {
+                MenuPanel.Children.Clear();
+                PrepareMenuIcons( TreeType.CommonBST, true );
+            }
         }
 
         /*******************************************************************************************/
@@ -156,6 +166,7 @@ namespace VisualTree
 
         private void ActionStepForward( object sender, RoutedEventArgs e )
         {
+            controller.StepForward();
         }
 
         private void ActionStepBackward( object sender, RoutedEventArgs e )
@@ -179,20 +190,23 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void PrepareMenuIcons( TreeType treeType )
+        private void PrepareMenuIcons( TreeType treeType, bool isStepMode )
         {
+            List< bool > state = isStepMode ? iconStateStepMode : iconStateNormal;
+            int index = 0;
+            
             if ( treeType is TreeType.CommonBST )
             { 
-                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), true );
-                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), true );
-                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), true );
-                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), true );
-                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), true );
-                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), true );
-                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), false );
-                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), false );
-                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), false );
-                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), true );
+                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), state[index++] );
+                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), state[index++] );
+                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), state[index++] );
+                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), state[index++] );
+                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), state[index++] );
+                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), state[index++] );
+                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), state[index++] );
+                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), state[index++] );
+                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), state[index++] );
+                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), state[index++] );
             }
             else if ( treeType is TreeType.AVL )
             { 
@@ -267,6 +281,16 @@ namespace VisualTree
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
         private readonly Message messages;
         private readonly Controller controller;
+        
+        private readonly List< bool > iconStateNormal = new List< bool > 
+        { 
+            true, true, true, true, true, true, false, false, false, true 
+        };
+
+        private readonly List< bool > iconStateStepMode = new List< bool > 
+        { 
+            false, false, false, false, false, false, true, true, true, false 
+        };
     }
 }
 
