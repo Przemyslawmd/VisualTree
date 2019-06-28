@@ -85,6 +85,16 @@ namespace VisualTree
 
         private void ActionDrawTreeInStep( object sender, RoutedEventArgs e )
         {
+            Result result = controller.DrawTreePrepareSteps( TextNode.Text );
+            
+            if ( result == Result.OK )
+            {
+                PrepareMenuIcons( TreeType.AVL, true );
+            }
+            else
+            {
+                MessageBox.Show( messages.GetMessageText( result ));
+            }
         }
 
         /*******************************************************************************************/

@@ -25,6 +25,24 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public Result DrawTreePrepareSteps( String text )
+        {
+            List< int > keys = new Parser().GetNodesValues( text, out Result result );
+            if ( keys is null )
+            {
+                return result;
+            }
+
+            DestroyTree();
+            tree = GetTree();
+            StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
+            return Result.OK;
+        }
+
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void DestroyTree()
         {
             if ( tree != null )

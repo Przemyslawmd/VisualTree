@@ -16,6 +16,51 @@ namespace Tests
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        public void CreateTreeInStepMode( List< int > keysToBuld, List< int > keysToCheck, TreeType treeType )
+        {
+            Tree tree = GetTree( treeType );
+	        StepMode stepMode = StepMode.GetInstance();
+	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
+
+            for ( int i = 0; i < stepMode.Steps.Count + 10; i++ )
+            {
+                stepMode.StepForward( tree );
+            }
+
+	        CheckNode( tree.Root, keysToCheck );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void CreateTreeInStepModeBackAndPartial( List< int > keysToBuld, List< int > keysToCheck, int finalStep, 
+                                                        TreeType treeType )
+        {
+            Tree tree = GetTree( treeType );
+	        StepMode stepMode = StepMode.GetInstance();
+	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
+
+            for ( int i = 0; i < stepMode.Steps.Count + 10; i++ )
+            {
+                stepMode.StepForward( tree );
+            }
+
+            for ( int i = 0; i < stepMode.Steps.Count + 20; i++ )
+            {
+                stepMode.StepBackward( tree );
+            }
+
+            for ( int i = 0; i < finalStep; i++ )
+            {
+                stepMode.StepForward( tree );
+            }
+
+	        CheckNode( tree.Root, keysToCheck );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
         
         public void AddNodes( List< int > keysToBuild, List< int > keysToAdd, List< int > keysToCheck, TreeType treeType )
         {

@@ -57,7 +57,7 @@ namespace VisualTree
                 {
                    BackRotationAfterPrepareSteps( tree, i );
                 }
-                tree.RestoreRoot();
+                tree.RestoreIfRootExists();
             }	
         }
 
