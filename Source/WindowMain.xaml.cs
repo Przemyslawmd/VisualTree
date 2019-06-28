@@ -106,6 +106,16 @@ namespace VisualTree
         
         private void ActionAddNodesInStep( object sender, RoutedEventArgs e )
         {
+            Result result = controller.AddNodesPrepareSteps( TextNode.Text );
+            
+            if ( result == Result.OK )
+            {
+                PrepareMenuIcons( TreeType.AVL, true );
+            }
+            else
+            {
+                MessageBox.Show( messages.GetMessageText( result ));
+            }
         }
 
         /*******************************************************************************************/

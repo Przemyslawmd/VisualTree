@@ -41,7 +41,35 @@ namespace VisualTree
 
             this.tree = tree;
         }
-        
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void PrepareStepsForAddNodes( Tree tree, List< int > keys ) 
+        {	
+            ServiceListener.AddListener( this );
+            tree.CreateNodes( keys );
+            ServiceListener.RemoveListener( this );
+
+            for ( int i = Steps.Count - 1; i >= 0; i-- )
+            {
+                if ( Steps[i].ActionType == ActionType.ADD )
+                {
+                    tree.DetachNode( Steps[i].Node );
+                    tree.RestoreRoot();
+                }
+                else if ( Steps[i].ActionType == ActionType.ROTATION )
+                {
+                    Node node = Steps[i].Node.Parent;
+                    tree.RotateNode( Steps[i].Node );
+                    Steps[i].Node = node;
+                    tree.RestoreRoot();
+                }
+            }	
+
+            this.tree = tree;
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -67,11 +95,13 @@ namespace VisualTree
             switch ( Steps[stepNumber].ActionType )
             {
                 case ActionType.ADD:
+                    tree.AttachNode( Steps[ stepNumber ].Node );
+                    stepNumber++;
                     return;
                 case ActionType.REMOVE:
                     return;
                 case ActionType.ROTATION:
-                    StepRotation();
+                    TriggerStepRotation();
                     stepNumber++;
                     return;
             }	
@@ -91,11 +121,12 @@ namespace VisualTree
             switch ( Steps[stepNumber].ActionType )
             {
                 case ActionType.ADD:
+                    tree.DetachNode( Steps[ stepNumber].Node );
                     return;
                 case ActionType.REMOVE:
                     return;
                 case ActionType.ROTATION:
-                    StepRotation();
+                    TriggerStepRotation();
                     return;
             }	
         }
@@ -111,7 +142,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void StepRotation()
+        private void TriggerStepRotation()
         {
             Node parent = Steps[stepNumber].Node.Parent;
             tree.RotateNode( Steps[stepNumber].Node );

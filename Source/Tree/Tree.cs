@@ -56,6 +56,117 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public void AttachNode( Node node )
+        {
+            if ( Root is null )
+            {
+                Root = node;
+            }
+            else if ( node.Left is null && node.Right is null )
+            {
+                AttachNodeNoChildren( node );
+            }
+            else if ( node.Left is null || node.Right is null )
+            {
+                AttachNodeOneChild( node );
+            }
+            else
+            {
+                AttachNodeTwoChildren( node );
+            }
+
+            ServiceListener.Notify( ActionType.ADD, node );
+        }
+            
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void AttachNodeNoChildren( Node node )
+        {
+            SetChildOfParentNode( node, node );
+        }
+
+        public void AttachNodeOneChild( Node node )
+        {
+            Node parent = node.Parent;
+
+            if ( node > parent )
+            {
+                parent.Right.Parent = node;
+                parent.Right = node;
+            }
+            else
+            {
+                parent.Left.Parent = node;
+                parent.Left = node;
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        void AttachNodeTwoChildren( Node node )
+        {
+            Node right = node.Right;
+            Node parent = node.Parent;
+
+            if ( right.Left == node.Left )
+            {
+                right.Parent = node;
+
+                if ( parent is null )
+                {
+                    Root = node;
+                }
+                else
+                {
+                    SetChildOfParentNode( node, node );
+                }
+
+                right.Left = null;
+                node.Left.Parent = node;
+                return;
+            }
+
+            // A node that has been inserted into place of removed node
+            Node nodeInserted = node.Right.Parent;
+    
+            Node lastLeft = FindMinInSubTree( right );
+
+            // A right child of a removed node has a left child, but the last left child has no a right child
+            if ( nodeInserted.Right != null && nodeInserted.Right.Left is null )
+            {
+                lastLeft.Left = nodeInserted;
+                nodeInserted.Parent = lastLeft;
+                nodeInserted.Left = null;
+                nodeInserted.Right = null;
+            }
+            // A right child of a removed node has a left child, and lth last left child has a right child
+            else
+            {
+                lastLeft.Parent.Left = nodeInserted;
+                nodeInserted.Parent = lastLeft.Parent;
+                nodeInserted.Right = lastLeft;
+                nodeInserted.Left = null;
+                lastLeft.Parent = nodeInserted;
+            }
+
+            if ( node.Parent is null )
+            {
+                Root = node;
+            }
+            else
+            {
+                SetChildOfParentNode( node, node );
+            }
+
+            right.Parent = node;
+            node.Left.Parent = node;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void DetachNode( Node node )
         {
             if ( node.Right is null && node.Left is null )
@@ -235,6 +346,8 @@ namespace VisualTree
 
         protected void InsertNode( Node node )
         {
+            ServiceListener.Notify( ActionType.ADD, node );
+
             if ( Root == null )
             {
                 Root = node;

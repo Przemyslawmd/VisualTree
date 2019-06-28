@@ -63,6 +63,28 @@ namespace VisualTree
             return Result.OK;
         }
         
+        public Result AddNodesPrepareSteps( String text )
+        {
+            if ( tree is null )
+            {
+                return Result.NO_TREE;
+            }
+
+            List< int > keys = new Parser().GetNodesValues( text, out Result result );
+            if ( keys is null )
+            {
+                return result;
+            }
+            
+            if ( tree.AreKeysAllowedToAdd( keys ) is false )
+            {
+                return Result.DUPLICATED_SYMBOL;
+            }
+
+            StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
+            return Result.OK;
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
