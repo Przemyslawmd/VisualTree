@@ -11,11 +11,15 @@ namespace VisualTree
             InsertNode( node );
         } 
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         override public void DelSelectedNodes( List< Node > nodes )
         {
             foreach( Node node in nodes )
             {
                 DetachNode( node );
+                ServiceListener.Notify( ActionType.REMOVE, node );
             }
         }
     }

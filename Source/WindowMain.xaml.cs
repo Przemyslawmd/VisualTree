@@ -132,6 +132,16 @@ namespace VisualTree
 
         private void ActionDeleteNodesInStep( object sender, RoutedEventArgs e )
         {
+            Result result = controller.DeleteNodesPrepareSteps();
+            
+            if ( result == Result.OK )
+            {
+                PrepareMenuIcons( TreeType.AVL, true );
+            }
+            else
+            {
+                MessageBox.Show( messages.GetMessageText( result ));
+            }
         }
 
         /*******************************************************************************************/

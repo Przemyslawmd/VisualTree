@@ -63,6 +63,9 @@ namespace VisualTree
             return Result.OK;
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public Result AddNodesPrepareSteps( String text )
         {
             if ( tree is null )
@@ -117,6 +120,27 @@ namespace VisualTree
             return Result.OK;
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public Result DeleteNodesPrepareSteps()
+        {
+            if ( tree is null )
+            {
+                return Result.NO_TREE;
+            }
+
+            List< Node > selectedNodes = Selection.GetInstance().nodes;
+
+            if ( selectedNodes.Count is 0 )
+            {
+                return Result.NO_NODE_SELECTED;
+            }
+
+            StepMode.GetInstance().PrepareStepsForDeleteNodes( tree, selectedNodes );
+            return Result.OK;
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
         
@@ -184,7 +208,7 @@ namespace VisualTree
             
         public void StepForward()
         {
-            StepMode.GetInstance().StepForward();
+            StepMode.GetInstance().StepForward( tree );
             ShowTree();
         }
         
@@ -193,7 +217,7 @@ namespace VisualTree
 
         public void StepBackward()
         {
-            StepMode.GetInstance().StepBackward();
+            StepMode.GetInstance().StepBackward( tree );
             ShowTree();
         }
 
