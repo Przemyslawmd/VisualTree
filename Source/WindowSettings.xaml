@@ -20,15 +20,15 @@
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="Diameter" VerticalAlignment="Center"/>
+        <Label Grid.Column="0" Grid.Row="0" Content="Node Diameter" VerticalAlignment="Center"/>
         <TextBox Name="TextDiameter" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center" 
                  Width="30" Height="20" MaxLength="3"/>
 
-        <Label Grid.Column="0" Grid.Row="1" Content="Remove Duplicated Nodes" VerticalAlignment="Center"/>
+        <Label Grid.Column="0" Grid.Row="1" Content="Remove Duplicated Keys" VerticalAlignment="Center"/>
         <CheckBox Name="CheckRemoveDuplicated" Grid.Column="1" Grid.Row="1" 
                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
-        <Label Grid.Column="0" Grid.Row="2" Content="Tooltips on Menu" VerticalAlignment="Center"/>
+        <Label Grid.Column="0" Grid.Row="2" Content="ToolTips on Menu" VerticalAlignment="Center"/>
         <CheckBox Name="CheckToolTips" Grid.Column="1" Grid.Row="2" 
                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
 

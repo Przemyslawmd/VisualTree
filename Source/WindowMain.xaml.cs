@@ -293,7 +293,7 @@ namespace VisualTree
         private void ShowMinorWindow( Window window )
         {
             Window settings = new WindowSettings();
-            MenuMain.IsEnabled = false;
+            IsEnabled = false;
             window.Closed += MinorWindowClosed;
             window.Show();
         }
@@ -303,7 +303,7 @@ namespace VisualTree
 
         public void MinorWindowClosed( object sender, System.EventArgs e )
         {
-            MenuMain.IsEnabled = true;
+            IsEnabled = true;
             SetMenuPanelToolTips( Settings.MenuPanelToolTips );
         }
         
