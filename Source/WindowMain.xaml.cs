@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using System.Windows.Media;
+using System;
 
 namespace VisualTree
 {
@@ -83,18 +84,13 @@ namespace VisualTree
             CheckResult( result );
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void ActionDrawTreeInStep( object sender, RoutedEventArgs e )
         {
             Result result = controller.DrawTreePrepareSteps( TextNode.Text );
-            
-            if ( result == Result.OK )
-            {
-                PrepareMenuIcons( TreeType.AVL, true );
-            }
-            else
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
 
         /*******************************************************************************************/
@@ -114,18 +110,13 @@ namespace VisualTree
             CheckResult( result );
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void ActionAddNodesInStep( object sender, RoutedEventArgs e )
         {
             Result result = controller.AddNodesPrepareSteps( TextNode.Text );
-            
-            if ( result == Result.OK )
-            {
-                PrepareMenuIcons( TreeType.AVL, true );
-            }
-            else
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
 
         /*******************************************************************************************/
@@ -143,15 +134,7 @@ namespace VisualTree
         private void ActionDeleteNodesInStep( object sender, RoutedEventArgs e )
         {
             Result result = controller.DeleteNodesPrepareSteps();
-            
-            if ( result == Result.OK )
-            {
-                PrepareMenuIcons( TreeType.AVL, true );
-            }
-            else
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
 
         /*******************************************************************************************/
@@ -178,15 +161,7 @@ namespace VisualTree
         private void ActionBalanceTreeInStep( object sender, RoutedEventArgs e )
         {
             Result result = controller.BalanceTreePrepareSteps();
-            
-            if ( result == Result.OK )
-            {
-                PrepareMenuIcons( TreeType.CommonBST, true );
-            }
-            else
-            {
-                MessageBox.Show( messages.GetMessageText( result ));
-            }
+            TryPrepareMenuIconsForStepMode( result, TreeType.CommonBST );
         }
 
         /*******************************************************************************************/
@@ -315,7 +290,22 @@ namespace VisualTree
         {
             if ( result != Result.OK )
             {
-                MessageBox.Show( messages.GetMessageText( result ));
+                TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
+            }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void TryPrepareMenuIconsForStepMode( Result result, TreeType treeType )
+        {
+            if ( result == Result.OK )
+            {
+                PrepareMenuIcons( treeType, true );
+            }
+            else
+            {
+                TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
             }
         }
 
