@@ -285,7 +285,7 @@ namespace VisualTree
         private int endPosHor;
         private int diameter;
         private int shiftPos;
-        private readonly int Padding = 30;
+        private readonly int Padding = Settings.Diameter;
         private int matrixHeight;
         
         public List< List< Node >> Matrix { get; private set; }

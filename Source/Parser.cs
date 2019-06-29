@@ -47,30 +47,23 @@ namespace VisualTree
                         
                 if ( lastTokenIsDigit )
                 {
-                    if ( nodesValues.Contains( number ))
+                    if ( CheckLastNumber() is false )
                     {
                         result = Result.DUPLICATED_SYMBOL;
                         return null;
                     }
-                    
-                    nodesValues.Add( number );
                 }
 
                 number = 0;
                 lastTokenIsDigit = false;		
             }
             
-            if ( lastTokenIsDigit )
+            if ( CheckLastNumber() is false )
             {
-                if ( nodesValues.Contains( number ))
-                {
-                    result = Result.DUPLICATED_SYMBOL;
-                    return null;
-                }
-                
-                nodesValues.Add( number );
+                result = Result.DUPLICATED_SYMBOL;
+                return null;
             }
-            
+
             if ( nodesValues.Count == 0 )
             {
                 result = Result.IMPROPER_DATA;
@@ -79,6 +72,20 @@ namespace VisualTree
 
             result = Result.OK;
             return nodesValues;
+
+
+            bool CheckLastNumber()
+            {
+                if ( nodesValues.Contains( number ) is false )
+                {
+                    nodesValues.Add( number );
+                }
+                else if ( Settings.RemoveDuplicatedNodes is false )
+                {
+                    return false;
+                }
+                return true;
+            }
         }
     }
 }
