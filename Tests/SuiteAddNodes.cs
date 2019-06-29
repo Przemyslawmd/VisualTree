@@ -52,6 +52,27 @@ namespace Tests
             List< int > keysToCheck = new List< int > { 2, 5, 12, 11, 4, 22, 29, 30, 28, 14 };
             new Test().AddNodes( keysToBuild, keysToAdd, keysToCheck, TreeType.AVL ); 
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestAddNodesAVLInStepMode()
+        {
+            List< int > keysToBuild = new List< int > { 7, 12, 8, 3, 1, 20, 30, 27 };
+            List< int > keysToAdd = new List< int > { 2, 11, 10 };
+            List< int > keysToCheck = new List< int > { 2, 1, 7, 3, 10, 12, 11, 27, 30, 20, 8 };
+            new Test().AddNodesInStepModeAndBack( keysToBuild, keysToAdd, keysToCheck, 4, TreeType.AVL );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            StepMode.Destroy();
+        }
     }
 }
 

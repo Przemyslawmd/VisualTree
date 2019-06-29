@@ -112,10 +112,24 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        [TestMethod]
+        public void TestDeleteNodesAVLInStepMode()
+        {
+            List< int > keysToBuild = new List< int > { 1, 5, 10, 13, 17, 20, 34, 56, 78, 98, 100, 9, 79 };
+            List< int > keysToCheck1 = new List< int > { 1, 9, 10, 5, 17, 34, 20, 79, 100, 98, 78, 13 };
+            List< int > keysToCheck2 = new List< int > { 1, 9, 10, 5, 17, 34, 20, 79, 78, 100, 98, 56, 13 };
+            List< int > keysToDelete = new List< int > { 56 };
+            new Test().DeleteNodesInStepMode( keysToBuild, keysToDelete, keysToCheck1, keysToCheck2, TreeType.AVL );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestCleanup]
         public void CleanUp()
         {
             Selection.DestroyInstance();
+            StepMode.Destroy();
         }
     }
 }

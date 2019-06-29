@@ -92,7 +92,6 @@ namespace Tests
             List< int > keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
             List< int > keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
             new Test().CreateTreeInStepMode( keysToBuild, keysToCheck, TreeType.AVL );
-            StepMode.Destroy();
         }
 
         /*******************************************************************************************/
@@ -104,6 +103,14 @@ namespace Tests
             List< int > keysToBuild = new List< int > { 10, 12, 16, 10, 8, 3, 1, 2 };
             List< int > keysToCheck = new List< int > { 10, 16, 12 };
             new Test().CreateTreeInStepModeBackAndPartial( keysToBuild, keysToCheck, 4, TreeType.AVL );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestCleanup]
+        public void CleanUp()
+        {
             StepMode.Destroy();
         }
     }
