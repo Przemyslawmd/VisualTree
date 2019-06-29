@@ -11,6 +11,7 @@ namespace VisualTree
             InitializeComponent();
             TextDiameter.Text = Settings.Diameter.ToString();
             CheckRemoveDuplicated.IsChecked = Settings.RemoveDuplicatedNodes;
+            CheckToolTips.IsChecked = Settings.MenuPanelToolTips;
         }
 
         /*******************************************************************************************/
@@ -26,7 +27,7 @@ namespace VisualTree
             }
             catch( FormatException )
             {
-                MessageBox.Show( "Improper data for diameter" );
+                MessageBox.Show( "Improper data for a diameter" );
                 return;
             }
             
@@ -36,7 +37,8 @@ namespace VisualTree
                 return;
             }
 
-            Settings.SetRemoveDuplicatedNodes( (bool) CheckRemoveDuplicated.IsChecked );
+            Settings.MenuPanelToolTips = CheckToolTips.IsChecked == true;
+            Settings.RemoveDuplicatedNodes = CheckRemoveDuplicated.IsChecked == true;
             Close();
         }
     }

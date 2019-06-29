@@ -9,7 +9,7 @@
         Title="" Height="600" Width="1000">
 
     <Grid>
-       
+
         <DockPanel>
             <Menu Name="MenuMain" DockPanel.Dock="Top">
                 <MenuItem Header="Tree" Margin="20, 2, 0, 0">
@@ -58,9 +58,8 @@
 
             <Border Name="BorderNotifyAction" Grid.Row="2" Grid.Column="2"  Margin="20, 0, 0, 0" >
                 <StackPanel>
-                    <Button Content="Disable" Height="35" />
-                    <Button Content="Insert Line" Height="35" Margin="0, 10, 0, 0" />
-                    <Button Content="Clear Area" Height="35" Margin="0, 10, 0, 0" />
+                    <Button Name="ButtonStateNotifications" Click="EnableDisableNotifications" Content="Disable" Height="35" />
+                    <Button Content="Clear Area" Click="ActionClearNotificationsArea" Height="35" Margin="0, 10, 0, 0" />
                 </StackPanel>
             </Border>
 

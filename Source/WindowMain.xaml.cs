@@ -202,6 +202,23 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        private void EnableDisableNotifications( object sender, RoutedEventArgs e )
+        {
+            Settings.Notifications = !Settings.Notifications;
+            ButtonStateNotifications.Content = Settings.Notifications ? "Disable" : "Enable";
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void ActionClearNotificationsArea( object sender, RoutedEventArgs e )
+        {
+            TextNotifications.Text = null;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void PrepareMenuIcons( TreeType treeType, bool isStepMode )
         {
             MenuPanel.Children.Clear();
@@ -214,36 +231,36 @@ namespace VisualTree
 
             if ( treeType is TreeType.CommonBST )
             { 
-                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), ref enumerator );
-                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), ref enumerator );
-                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes ), ref enumerator );
-                AddIconForMenu( "PathRotation", new DelegateRoutedEvent( ActionRotationNode ), ref enumerator );
-                AddIconForMenu( "PathBalanceTree", new DelegateRoutedEvent( ActionBalanceTree ), ref enumerator );
-                AddIconForMenu( "PathBalanceTreeInStep", new DelegateRoutedEvent( ActionBalanceTreeInStep ), ref enumerator );
-                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), ref enumerator );
-                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), ref enumerator );
-                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), ref enumerator );
-                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), ref enumerator );
+                AddIconForMenu( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
+                AddIconForMenu( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
+                AddIconForMenu( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
+                AddIconForMenu( "PathRotation", "Rotate Node", ActionRotationNode, ref enumerator );
+                AddIconForMenu( "PathBalanceTree", "Balance Tree", ActionBalanceTree, ref enumerator );
+                AddIconForMenu( "PathBalanceTreeInStep", "Balance Tree in Step Mode", ActionBalanceTreeInStep, ref enumerator );
+                AddIconForMenu( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
+                AddIconForMenu( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
+                AddIconForMenu( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
+                AddIconForMenu( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
             }
             else if ( treeType is TreeType.AVL )
             { 
-                AddIconForMenu( "PathTree", new DelegateRoutedEvent( ActionDrawTree ), ref enumerator );
-                AddIconForMenu( "PathTreeStep", new DelegateRoutedEvent( ActionDrawTreeInStep ), ref enumerator );
-                AddIconForMenu( "PathPlus", new DelegateRoutedEvent( ActionAddNodes ), ref enumerator );
-                AddIconForMenu( "PathMinus", new DelegateRoutedEvent( ActionDeleteNodes), ref enumerator );
-                AddIconForMenu( "PathPlusStep", new DelegateRoutedEvent( ActionAddNodesInStep ), ref enumerator );
-                AddIconForMenu( "PathMinusStep", new DelegateRoutedEvent( ActionDeleteNodesInStep ), ref enumerator );
-                AddIconForMenu( "PathStepForward", new DelegateRoutedEvent( ActionStepForward ), ref enumerator );
-                AddIconForMenu( "PathStepBackward", new DelegateRoutedEvent( ActionStepBackward ), ref enumerator );
-                AddIconForMenu( "PathStepModeLeave", new DelegateRoutedEvent( ActionStepModeLeave ), ref enumerator );
-                AddIconForMenu( "PathDestroyTree", new DelegateRoutedEvent( ActionDestroyTree ), ref enumerator );
+                AddIconForMenu( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
+                AddIconForMenu( "PathTreeStep", "Create Tree in Step Mode", ActionDrawTreeInStep, ref enumerator );
+                AddIconForMenu( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
+                AddIconForMenu( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
+                AddIconForMenu( "PathPlusStep", "Add Nodes in Step Mode", ActionAddNodesInStep, ref enumerator );
+                AddIconForMenu( "PathMinusStep", "Delete Nodes in Step Mode", ActionDeleteNodesInStep, ref enumerator );
+                AddIconForMenu( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
+                AddIconForMenu( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
+                AddIconForMenu( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
+                AddIconForMenu( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
             }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddIconForMenu( string resource, DelegateRoutedEvent action, ref List< bool >.Enumerator enumerator )
+        private void AddIconForMenu( string resource, string toolTipText, DelegateRoutedEvent action, ref List< bool >.Enumerator enumerator )
         {
             enumerator.MoveNext();
             
@@ -257,9 +274,15 @@ namespace VisualTree
             Button button = new Button
             {
                 Content = rec,
-                IsEnabled = enumerator.Current
+                IsEnabled = enumerator.Current,
             };
             button.Click += new RoutedEventHandler( action );
+            
+            ToolTip toolTip = new ToolTip
+            {
+                Content = toolTipText
+            };
+            ToolTipService.SetToolTip( button, toolTip );
             
             MenuPanel.Children.Add( button );
         }
@@ -281,6 +304,7 @@ namespace VisualTree
         public void MinorWindowClosed( object sender, System.EventArgs e )
         {
             MenuMain.IsEnabled = true;
+            SetMenuPanelToolTips( Settings.MenuPanelToolTips );
         }
         
         /*******************************************************************************************/
@@ -288,7 +312,7 @@ namespace VisualTree
 
         private void CheckResult( Result result )
         {
-            if ( result != Result.OK )
+            if ( result != Result.OK && Settings.Notifications )
             {
                 TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
             }
@@ -303,7 +327,7 @@ namespace VisualTree
             {
                 PrepareMenuIcons( treeType, true );
             }
-            else
+            else if ( Settings.Notifications )
             {
                 TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
             }
@@ -311,7 +335,18 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        public void SetMenuPanelToolTips( bool state )
+        {
+            foreach ( var item in  MenuPanel.Children )
+            {
+                ToolTipService.SetIsEnabled(( DependencyObject ) item, state );
+            }
+        }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
         private readonly Message messages;
         private readonly Controller controller;
