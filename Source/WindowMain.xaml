@@ -11,8 +11,8 @@
     <Grid>
        
         <DockPanel>
-            <Menu Name="MenuMain" DockPanel.Dock="Top" >
-                <MenuItem Header="Tree">
+            <Menu Name="MenuMain" DockPanel.Dock="Top">
+                <MenuItem Header="Tree" Margin="20, 2, 0, 0">
                     <MenuItem  Name="MenuTreeBST"  Click="ActionMenuTreeBST" Header="Classic BST Tree" />
                     <Separator />
                     <MenuItem Name="MenuTreeAVL" Click="ActionMenuTreeAVL" Header="AVL Tree" />
@@ -20,16 +20,14 @@
                     <MenuItem Name="MenuTreeRB" Click="ActionMenuTreeRB" Header="Red Black Tree"/>
                     <Separator />
                 </MenuItem>
-                <MenuItem Name="MenuSettings" Click="ActionMenuSettings" Header="Settings">
-                </MenuItem>
-                <MenuItem Name="MenuAbout" Click="ActionMenuAbout" Header="About">
-                </MenuItem>
+                <MenuItem Name="MenuSettings" Click="ActionMenuSettings" Header="Settings" Margin="0, 2, 0, 0" />
+                <MenuItem Name="MenuAbout" Click="ActionMenuAbout" Header="About" Margin="0, 2, 0, 0" />
             </Menu>
         </DockPanel>
 
         <Grid Margin="0, 20, 30, 40">
             <Grid.RowDefinitions>
-                <RowDefinition Height="55" />
+                <RowDefinition Height="60" />
                 <RowDefinition Height="50" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
@@ -40,13 +38,13 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Name="MenuPanel" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Orientation="Horizontal" 
-                        Background="Yellow" />
+                        Margin="20, 5, 0, 0" />
 
-            <Border Grid.Row="1" Grid.ColumnSpan="2"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 0, 5" >
+            <Border Grid.Row="1" Grid.Column="0"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 10, 5">
                 <TextBox Name="TextNode" VerticalContentAlignment="Center" Padding="10, 5, 10, 5"  FontSize="15"/>
             </Border>
 
-            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 0">
+            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 5">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White">
                     <Canvas Name="CanvasTree" x:FieldModifier="public" HorizontalAlignment="Left" VerticalAlignment="Top"
                             MouseLeftButtonDown="ActionCheckNode" Background="White"/>
