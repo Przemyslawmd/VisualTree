@@ -204,13 +204,10 @@ namespace VisualTree
         
         bool CheckNodesCollision( ref int matrixRow, ref int matrixCol )
         {
-            List< Node > nodesRow;
-            int currNodesCol;
-
             for ( int currMatrixRow = Matrix.Count - 1; currMatrixRow >= 0; currMatrixRow-- )
             {
-                nodesRow = Matrix[ currMatrixRow ];
-                currNodesCol = 0;
+                List< Node > nodesRow = Matrix[ currMatrixRow ];
+                int currNodesCol = 0;
 
                 for ( int i = 0; i < nodesRow.Count - 1; i++, currNodesCol++ )
                 {						
@@ -222,7 +219,6 @@ namespace VisualTree
                     }
                 }
             }
-
             return false;
         }
             
