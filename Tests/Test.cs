@@ -20,11 +20,11 @@ namespace Tests
         public void CreateTreeInStepMode( List< int > keysToBuld, List< int > keysToCheck, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-	        StepMode stepMode = StepMode.GetInstance();
-	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
+            StepMode stepMode = StepMode.GetInstance();
+            stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
-	        CheckNode( tree.Root, keysToCheck );
+            CheckNode( tree.Root, keysToCheck );
         }
 
         /*******************************************************************************************/
@@ -34,13 +34,13 @@ namespace Tests
                                                         TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-	        StepMode stepMode = StepMode.GetInstance();
-	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
+            StepMode stepMode = StepMode.GetInstance();
+            stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
             TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 20 );
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
-	        CheckNode( tree.Root, keysToCheck );
+            CheckNode( tree.Root, keysToCheck );
         }
         
         /*******************************************************************************************/
@@ -61,14 +61,14 @@ namespace Tests
                                             int finalStep, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-	        tree.CreateNodes( keysToBuld );
+            tree.CreateNodes( keysToBuld );
             StepMode stepMode = StepMode.GetInstance();
-	        stepMode.PrepareStepsForAddNodes( tree, keysToAdd );
+            stepMode.PrepareStepsForAddNodes( tree, keysToAdd );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 100 );
             TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 200 );
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
-	        CheckNode( tree.Root, keysToCheck );
+            CheckNode( tree.Root, keysToCheck );
         }
 
         /*******************************************************************************************/
@@ -94,19 +94,19 @@ namespace Tests
                                            List< int > keysToCheck_1, List< int > keysToCheck_2, TreeType treeType )
         { 
             Tree tree = GetTree( treeType );
-	        tree.CreateNodes( keysToBuild );
-	        
+            tree.CreateNodes( keysToBuild );
+            
             Selection selection = Selection.GetInstance();
             AddNodesToSelection( tree.Root, selection.nodes, keysToDelete );
 
-	        StepMode stepMode = StepMode.GetInstance();
-	        stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
+            StepMode stepMode = StepMode.GetInstance();
+            stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
 
             TriggerStepModeActions( stepMode.StepForward, tree, 3 );
-	        CheckNode( tree.Root, keysToCheck_1);
+            CheckNode( tree.Root, keysToCheck_1);
 
             TriggerStepModeActions( stepMode.StepBackward, tree, 3 );
-	        CheckNode( tree.Root, keysToCheck_2 );
+            CheckNode( tree.Root, keysToCheck_2 );
         }
         
         /*******************************************************************************************/
