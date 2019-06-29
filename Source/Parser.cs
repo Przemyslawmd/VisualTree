@@ -39,39 +39,35 @@ namespace VisualTree
             {
                 if ( Char.IsDigit( token ))
                 {
-                    number *= 10;
-                    number += ( int ) Char.GetNumericValue( token );
+                    number = number * 10 + ( int ) Char.GetNumericValue( token );
                     lastTokenIsDigit = true;
                     continue;
                 }
                         
-                if ( lastTokenIsDigit )
+                if ( lastTokenIsDigit && CheckLastNumber() is false )
                 {
-                    if ( CheckLastNumber() is false )
-                    {
-                        result = Result.DUPLICATED_SYMBOL;
-                        return null;
-                    }
+                    result = Result.DUPLICATED_SYMBOL;
+                    return null;
                 }
 
                 number = 0;
                 lastTokenIsDigit = false;		
             }
             
-            if ( CheckLastNumber() is false )
+            if ( lastTokenIsDigit && CheckLastNumber() is false )
             {
                 result = Result.DUPLICATED_SYMBOL;
-                return null;
             }
-
-            if ( nodesValues.Count == 0 )
+            else if ( nodesValues.Count == 0 )
             {
                 result = Result.IMPROPER_DATA;
-                return null;
             }
-
-            result = Result.OK;
-            return nodesValues;
+            else
+            { 
+                result = Result.OK;
+            }
+            
+            return result == Result.OK ? nodesValues : null;
 
 
             bool CheckLastNumber()
