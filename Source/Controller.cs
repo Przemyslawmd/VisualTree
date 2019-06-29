@@ -16,8 +16,7 @@ namespace VisualTree
             }
                         
             DestroyTree();
-            tree = GetTree();
-            tree.CreateNodes( keys );
+            GetTree().CreateNodes( keys );
             ShowTree();
             return result;
         }
@@ -60,20 +59,10 @@ namespace VisualTree
         
         public Result AddNodes( String text )
         {
-            if ( tree is null )
-            {
-                return Result.NO_TREE;
-            }
-
-            List< int > keys = new Parser().GetNodesValues( text, out Result result );
+            var keys = CheckRequirementsToCreateTree( text, out Result result );
             if ( keys is null )
             {
                 return result;
-            }
-            
-            if ( tree.AreKeysAllowedToAdd( keys ) is false )
-            {
-                return Result.DUPLICATED_SYMBOL;
             }
 
             tree.CreateNodes( keys );
@@ -86,20 +75,10 @@ namespace VisualTree
 
         public Result AddNodesPrepareSteps( String text )
         {
-            if ( tree is null )
-            {
-                return Result.NO_TREE;
-            }
-
-            List< int > keys = new Parser().GetNodesValues( text, out Result result );
+            var keys = CheckRequirementsToCreateTree( text, out Result result );
             if ( keys is null )
             {
                 return result;
-            }
-            
-            if ( tree.AreKeysAllowedToAdd( keys ) is false )
-            {
-                return Result.DUPLICATED_SYMBOL;
             }
 
             StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
@@ -111,16 +90,11 @@ namespace VisualTree
 
         public Result DeleteNodes()
         {
-            if ( tree is null )
-            {
-                return Result.NO_TREE;
-            }
+            var selectedNodes = CheckRequirementsToDeleteNodes( out Result result );
 
-            List< Node > selectedNodes = Selection.GetInstance().nodes;
-
-            if ( selectedNodes.Count is 0 )
+            if ( selectedNodes is null )
             {
-                return Result.NO_NODE_SELECTED;
+                return result;
             }
 
             tree.DelSelectedNodes( selectedNodes );
@@ -143,16 +117,11 @@ namespace VisualTree
 
         public Result DeleteNodesPrepareSteps()
         {
-            if ( tree is null )
-            {
-                return Result.NO_TREE;
-            }
+            var selectedNodes = CheckRequirementsToDeleteNodes( out Result result );
 
-            List< Node > selectedNodes = Selection.GetInstance().nodes;
-
-            if ( selectedNodes.Count is 0 )
+            if ( selectedNodes is null )
             {
-                return Result.NO_NODE_SELECTED;
+                return result;
             }
 
             StepMode.GetInstance().PrepareStepsForDeleteNodes( tree, selectedNodes );
@@ -244,9 +213,7 @@ namespace VisualTree
 
         public void SelectNode( Canvas canvas, int posX, int posY )
         {
-            Selection selection = Selection.GetInstance();
-            
-            if ( selection.CheckCoordinates( posX, posY ))
+            if ( Selection.GetInstance().CheckCoordinates( posX, posY ))
             {
                 canvas.Children.Clear();
                 new Painter().DrawTree( tree.Root, canvas );
@@ -294,6 +261,54 @@ namespace VisualTree
             model.GetTreeCanvasSize( out int canvasTreeWidth, out int canvasTreeHeight );
             canvas.Height = canvasTreeHeight;
             canvas.Width = canvasTreeWidth;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private List< int > CheckRequirementsToCreateTree( String text, out Result result )
+        {
+            if ( tree is null )
+            {
+                result = Result.NO_TREE;
+                return null;
+            }
+
+            var keys = new Parser().GetNodesValues( text, out result );
+            if ( keys is null )
+            {
+                return null;
+            }
+            
+            if ( tree.AreKeysAllowedToAdd( keys ) is false )
+            {
+                result = Result.DUPLICATED_SYMBOL;
+                return null;
+            }
+            return keys;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private List< Node > CheckRequirementsToDeleteNodes( out Result result )
+        {
+            if ( tree is null )
+            {
+                result = Result.NO_TREE;
+                return null;
+            }
+
+            var selectedNodes = Selection.GetInstance().nodes;
+
+            if ( selectedNodes.Count is 0 )
+            {
+                result = Result.NO_NODE_SELECTED;
+                return null;
+            }
+
+            result = Result.OK;
+            return selectedNodes;
         }
 
         /*******************************************************************************************/
