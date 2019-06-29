@@ -23,11 +23,7 @@ namespace Tests
 	        StepMode stepMode = StepMode.GetInstance();
 	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
-            for ( int i = 0; i < stepMode.Steps.Count + 10; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
+            TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
 	        CheckNode( tree.Root, keysToCheck );
         }
 
@@ -41,21 +37,9 @@ namespace Tests
 	        StepMode stepMode = StepMode.GetInstance();
 	        stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
-            for ( int i = 0; i < stepMode.Steps.Count + 10; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
-            for ( int i = 0; i < stepMode.Steps.Count + 20; i++ )
-            {
-                stepMode.StepBackward( tree );
-            }
-
-            for ( int i = 0; i < finalStep; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
+            TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
+            TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 20 );
+            TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
 	        CheckNode( tree.Root, keysToCheck );
         }
         
@@ -81,21 +65,9 @@ namespace Tests
             StepMode stepMode = StepMode.GetInstance();
 	        stepMode.PrepareStepsForAddNodes( tree, keysToAdd );
 
-            for ( int i = 0; i < stepMode.Steps.Count + 100; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
-            for ( int i = 0; i < stepMode.Steps.Count + 200; i++ )
-            {
-                stepMode.StepBackward( tree );
-            }
-
-            for ( int i = 0; i < finalStep; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
+            TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 100 );
+            TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 200 );
+            TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
 	        CheckNode( tree.Root, keysToCheck );
         }
 
@@ -130,18 +102,10 @@ namespace Tests
 	        StepMode stepMode = StepMode.GetInstance();
 	        stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
 
-            for ( int i = 0; i < 3; i++ )
-            {
-                stepMode.StepForward( tree );
-            }
-
+            TriggerStepModeActions( stepMode.StepForward, tree, 3 );
 	        CheckNode( tree.Root, keysToCheck_1);
 
-            for ( int i = 0; i < 3; i++ )
-            {
-                stepMode.StepBackward( tree );
-            }
-
+            TriggerStepModeActions( stepMode.StepBackward, tree, 3 );
 	        CheckNode( tree.Root, keysToCheck_2 );
         }
         
@@ -206,6 +170,22 @@ namespace Tests
             }
             return new TreeAVL();
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void TriggerStepModeActions( DelegateStepModeAction action, Tree tree, int count )
+        {
+            for ( int i = 0; i < count; i++ )
+            {
+                action( tree );
+            }
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private delegate void DelegateStepModeAction( Tree tree );
     }
 }
 
