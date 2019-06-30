@@ -5,7 +5,7 @@ namespace VisualTree
 {
     class Model
     {
-        public static Model GetInstance()
+        public static Model Get()
         {
             if ( model is null )
             {
@@ -17,7 +17,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        public static void DestroyInstance()
+        public static void Destroy()
         {
             model = null;
         }

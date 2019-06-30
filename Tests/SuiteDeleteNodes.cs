@@ -128,7 +128,7 @@ namespace Tests
         [TestCleanup]
         public void CleanUp()
         {
-            Selection.DestroyInstance();
+            Selection.Destroy();
             StepMode.Destroy();
         }
     }

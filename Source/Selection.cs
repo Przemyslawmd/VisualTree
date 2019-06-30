@@ -5,7 +5,7 @@ namespace VisualTree
 {
     class Selection
     {
-        public static Selection GetInstance()
+        public static Selection Get()
         {
             if ( selection is null )
             {
@@ -17,7 +17,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public static void DestroyInstance()
+        public static void Destroy()
         {
             selection = null;
         }
@@ -28,7 +28,7 @@ namespace VisualTree
         public bool CheckCoordinates( int posX, int posY)
         {
             bool isFound = false;
-            List< List< Node >> matrix = Model.GetInstance().Matrix;
+            List< List< Node >> matrix = Model.Get().Matrix;
 
             var matrixRow = matrix[ 0 ];
             foreach ( List< Node > nodesRow in matrix )

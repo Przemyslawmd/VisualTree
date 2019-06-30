@@ -15,8 +15,7 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model model = Model.GetInstance();
-            model.ModelTree( tree );
+            Model.Get().ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
@@ -26,6 +25,8 @@ namespace Tests
             CheckNode( tree.Root, expectedPositions );            
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
         
         [TestMethod]
         public void TestModelBSTTree_2()
@@ -34,9 +35,8 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model model = Model.GetInstance();
-            model.ModelTree( tree );
-                        
+            Model.Get().ModelTree( tree );
+            
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 4,   90, 30 ));
             expectedPositions.Push( new NodePosition( 10, 120, 70 ));
