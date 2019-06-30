@@ -149,10 +149,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private StepMode()
-        {
-            Steps = new List< Action >();
-        }
+        private StepMode() {}
 
         /*******************************************************************************************/
         /*******************************************************************************************/
@@ -180,7 +177,7 @@ namespace VisualTree
 
         private static StepMode stepMode; 
         
-        public List< Action > Steps {  get; }
+        public List< Action > Steps { get; } = new List< Action >();
         private int stepNumber;
     }
 }

@@ -72,6 +72,7 @@
     </ApplicationDefinition>
     <Compile Include="Action.cs" />
     <Compile Include="Listener.cs" />
+    <Compile Include="Message\Note.cs" />
     <Compile Include="Message\Result.cs" />
     <Compile Include="Node\NodeAVL.cs" />
     <Compile Include="ServiceListener.cs" />

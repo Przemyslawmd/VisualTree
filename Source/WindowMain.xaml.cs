@@ -15,9 +15,8 @@ namespace VisualTree
         {
             InitializeComponent();
             ServiceControls.CreateServiceControls( CanvasTree );
+            ServiceListener.AddListener( Note.Get() );
             PrepareMenuIcons( TreeType.CommonBST, false );
-            controller = new Controller();
-            messages = new Message();
         }
 
         /*******************************************************************************************/
@@ -206,6 +205,11 @@ namespace VisualTree
         {
             Settings.Notifications = !Settings.Notifications;
             ButtonStateNotifications.Content = Settings.Notifications ? "Disable" : "Enable";
+
+            if ( Settings.Notifications is false )
+            {
+                Note.Destroy();
+            }
         }
 
         /*******************************************************************************************/
@@ -312,9 +316,35 @@ namespace VisualTree
 
         private void CheckResult( Result result )
         {
-            if ( result != Result.OK && Settings.Notifications )
+            if ( Settings.Notifications is false )
+            {
+                return;
+            }
+            
+            if ( result != Result.OK )
             {
                 TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
+            }
+            else
+            {
+                foreach ( Action action in Note.Get().Actions )
+                {
+                    TextNotifications.Text += "Node : " + action.Node.Key + getActionString( action ) + Environment.NewLine;
+                }
+                Note.Get().ClearActions();
+            }
+
+            string getActionString( Action action )
+            {
+                if ( action.ActionType == ActionType.ADD )
+                {
+                    return "  added";
+                }
+                else if ( action.ActionType == ActionType.REMOVE )
+                {
+                    return "  deleted";
+                }
+                return "  rotated";
             }
         }
 
@@ -348,8 +378,8 @@ namespace VisualTree
         /*******************************************************************************************/
 
         private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
-        private readonly Message messages;
-        private readonly Controller controller;
+        private readonly Message messages = new Message();
+        private readonly Controller controller = new Controller();
     }
 }
 
