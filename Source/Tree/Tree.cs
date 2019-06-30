@@ -75,6 +75,7 @@ namespace VisualTree
                 AttachNodeTwoChildren( node );
             }
 
+            RestoreRoot();
             ServiceListener.Notify( ActionType.ADD, node );
         }
             
@@ -86,19 +87,28 @@ namespace VisualTree
             SetChildOfParentNode( node, node );
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void AttachNodeOneChild( Node node )
         {
-            Node parent = node.Parent;
+            if ( node.IsLeft() )
+            {
+                node.Left.Parent = node;
 
-            if ( node > parent )
-            {
-                parent.Right.Parent = node;
-                parent.Right = node;
+                if ( node.IsParent() )
+                {
+                    node.Parent.Left = node;
+                }
             }
-            else
+            else 
             {
-                parent.Left.Parent = node;
-                parent.Left = node;
+                node.Right.Parent = node;
+
+                if ( node.IsParent() )
+                {
+                    node.Parent.Right = node;
+                }
             }
         }
 
@@ -181,6 +191,8 @@ namespace VisualTree
             {
                 DetachNodeOneChild( node );
             }
+            
+            RestoreIfRootExists();
         }
 
         /*******************************************************************************************/

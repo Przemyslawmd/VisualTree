@@ -34,7 +34,6 @@ namespace VisualTree
             for ( int i = Steps.Count - 1; i >= 0; i-- )
             {
                 BackRotationAfterPrepareSteps( tree, i );
-                tree.RestoreRoot();
             }
         }
 
@@ -57,7 +56,6 @@ namespace VisualTree
                 {
                    BackRotationAfterPrepareSteps( tree, i );
                 }
-                tree.RestoreIfRootExists();
             }	
         }
 
@@ -80,7 +78,6 @@ namespace VisualTree
                 {			
                     BackRotationAfterPrepareSteps( tree, i );
                 }
-                tree.RestoreRoot();
             }
         }
         
@@ -169,6 +166,7 @@ namespace VisualTree
         {
             Node node = Steps[stepNumber].Node.Parent;
             tree.RotateNode( Steps[stepNumber].Node );
+            tree.RestoreRoot();
             Steps[stepNumber].Node = node;
         }
 
