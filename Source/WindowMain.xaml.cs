@@ -264,7 +264,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddIconForMenu( string resource, string toolTipText, DelegateRoutedEvent action, ref List< bool >.Enumerator enumerator )
+        private void AddIconForMenu( string resource, string toolTipText, DelegateEvent action, ref List< bool >.Enumerator enumerator )
         {
             enumerator.MoveNext();
             
@@ -324,15 +324,15 @@ namespace VisualTree
             if ( result != Result.OK )
             {
                 TextNotifications.Text += messages.GetMessageText( result ) + Environment.NewLine;
+                return;
             }
-            else
+
+            foreach ( Action action in Note.Get().Actions )
             {
-                foreach ( Action action in Note.Get().Actions )
-                {
-                    TextNotifications.Text += "Node : " + action.Node.Key + getActionString( action ) + Environment.NewLine;
-                }
-                Note.Get().ClearActions();
+                TextNotifications.Text += "Node : " + action.Node.Key + getActionString( action ) + Environment.NewLine;
             }
+            Note.Get().ClearActions();
+
 
             string getActionString( Action action )
             {
@@ -377,7 +377,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private delegate void DelegateRoutedEvent( object sender , RoutedEventArgs e );
+        private delegate void DelegateEvent( object sender, RoutedEventArgs e );
         private readonly Message messages = new Message();
         private readonly Controller controller = new Controller();
     }

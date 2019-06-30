@@ -195,16 +195,26 @@ namespace VisualTree
             
         public void StepForward()
         {
-            StepMode.GetInstance().StepForward( tree );
-            ShowTree();
+            Step( StepMode.GetInstance().StepForward );
         }
         
-        /*******************************************************************************************/
-        /*******************************************************************************************/
 
         public void StepBackward()
         {
-            StepMode.GetInstance().StepBackward( tree );
+            Step( StepMode.GetInstance().StepBackward );
+        }
+
+
+        private void Step( DelegateStep action )
+        {
+            action( tree );
+
+            if ( tree.Root is null )
+            { 
+                Canvas canvas = ServiceControls.GetInstance().Canvas;
+                canvas.Children.Clear();
+                return;
+            }
             ShowTree();
         }
 
@@ -314,6 +324,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        private delegate void DelegateStep( Tree tree ); 
         private Tree tree;
     }
 }
