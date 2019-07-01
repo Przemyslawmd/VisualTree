@@ -123,16 +123,7 @@ namespace VisualTree
             if ( right.Left == node.Left )
             {
                 right.Parent = node;
-
-                if ( parent is null )
-                {
-                    Root = node;
-                }
-                else
-                {
-                    SetChildOfParentNode( node, node );
-                }
-
+                SetChildOfParentNode( node, node );
                 right.Left = null;
                 node.Left.Parent = node;
                 return;
@@ -161,15 +152,7 @@ namespace VisualTree
                 lastLeft.Parent = nodeInserted;
             }
 
-            if ( node.Parent is null )
-            {
-                Root = node;
-            }
-            else
-            {
-                SetChildOfParentNode( node, node );
-            }
-
+            SetChildOfParentNode( node, node );
             right.Parent = node;
             node.Left.Parent = node;
         }
@@ -215,22 +198,8 @@ namespace VisualTree
         public void DetachNodeOneChild( Node node )
         {
             Node child = node.IsLeft() ? node.Left : node.Right;
-            Node parent = node.Parent;
-
-            if ( parent is null )
-            {
-                Root = child;
-            }
-            else if ( parent > child )
-            {
-                parent.Left = child;
-            }
-            else
-            {
-                parent.Right = child;
-            }
-    
-            child.Parent = parent;	
+            SetChildOfParentNode( node, child );
+            child.Parent = node.Parent;	
             
             if ( node == Root )
             {
@@ -248,16 +217,7 @@ namespace VisualTree
             if ( minNode == node.Right )
             {
                 minNode.Parent = node.Parent;
-            
-                if ( node.Parent is null )
-                {
-                    Root = minNode;
-                }
-                else
-                {
-                    SetChildOfParentNode( node, minNode );
-                }
-                
+                SetChildOfParentNode( node, minNode );
                 minNode.Left = node.Left;
                 node.Left.Parent = minNode;	
                 return;
@@ -275,14 +235,7 @@ namespace VisualTree
                 minNode.Parent = node.Parent;
             }
 
-            if ( node.Parent is null )
-            {
-                Root = minNode;
-            }
-            else
-            {
-                SetChildOfParentNode( node, minNode );
-            }
+            SetChildOfParentNode( node, minNode );
 
             minNode.Right = node.Right;
             node.Right.Parent = minNode;
@@ -433,6 +386,12 @@ namespace VisualTree
         private void SetChildOfParentNode( Node node, Node child )
         {
             Node parent = node.Parent;
+
+            if ( parent is null )
+            {
+                Root = child;
+                return;
+            }
 
             if ( parent > node )
             {
