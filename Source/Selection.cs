@@ -83,7 +83,7 @@ namespace VisualTree
         
         public List< Node > nodes { get; private set; }
         
-        private readonly int Radius = 15;
+        private readonly int Radius = Settings.Diameter / 2;
     }
 }
 
