@@ -31,14 +31,14 @@ namespace Tests
         /*******************************************************************************************/
 
         public void CreateTreeInStepModeBackAndPartial( List< int > keysToBuld, List< int > keysToCheck, int finalStep, 
-                                                        TreeType treeType )
+                                                        TreeType treeType, int firstIter = 10, int secondIter = 20 )
         {
             Tree tree = GetTree( treeType );
             StepMode stepMode = StepMode.GetInstance();
             stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
-            TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
-            TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 20 );
+            TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + firstIter );
+            TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + secondIter );
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
             CheckNode( tree.Root, keysToCheck );
         }
@@ -91,7 +91,8 @@ namespace Tests
         /*******************************************************************************************/
 
         public void DeleteNodesInStepMode( List< int > keysToBuild, List< int > keysToDelete, 
-                                           List< int > keysToCheck_1, List< int > keysToCheck_2, TreeType treeType )
+                                           List< int > keysToCheck_1, List< int > keysToCheck_2, TreeType treeType,
+                                           int firstIter = 3, int secondIter = 3 )
         { 
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuild );
@@ -102,10 +103,10 @@ namespace Tests
             StepMode stepMode = StepMode.GetInstance();
             stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
 
-            TriggerStepModeActions( stepMode.StepForward, tree, 3 );
+            TriggerStepModeActions( stepMode.StepForward, tree, firstIter );
             CheckNode( tree.Root, keysToCheck_1);
 
-            TriggerStepModeActions( stepMode.StepBackward, tree, 3 );
+            TriggerStepModeActions( stepMode.StepBackward, tree, secondIter );
             CheckNode( tree.Root, keysToCheck_2 );
         }
         

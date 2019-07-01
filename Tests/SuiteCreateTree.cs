@@ -108,6 +108,20 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        //  Create AVL in step mode, next undo all actions till all nodes are deleted, 
+        //  next make restore few actions.
+
+        [TestMethod]
+        public void TestCreateAVLTreeInStepMode_3()
+        {
+            List< int > keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7 };
+            List< int > keysToCheck = new List< int > { 1, 4, 3, 2 };
+            new Test().CreateTreeInStepModeBackAndPartial( keysToBuild, keysToCheck, 5, TreeType.AVL, 0, 20 );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestCleanup]
         public void CleanUp()
         {

@@ -9,6 +9,7 @@ namespace Tests
     public class SuiteDeleteNodes
     {
         // Nodes to be deleted have no children
+        
         [TestMethod]
         public void TestDeleteNodesBST_1()
         {
@@ -22,6 +23,7 @@ namespace Tests
         /*******************************************************************************************/
                 
         // Node to be deleted has one child
+        
         [TestMethod]
         public void TestDeleteNodesBST_2()
         {
@@ -35,6 +37,7 @@ namespace Tests
         /*******************************************************************************************/
         
         // Nodes to be deleted have both children
+        
         [TestMethod]
         public void TestDeleteNodesBST_3()
         {
@@ -48,6 +51,7 @@ namespace Tests
         /*******************************************************************************************/
         
         // Nodes to be deleted have both children and one node is root
+        
         [TestMethod]
         public void TestDeleteNodesBST_4()
         {
@@ -61,6 +65,7 @@ namespace Tests
         /*******************************************************************************************/
 
         // Nodes to be deleted have no children
+        
         [TestMethod]
         public void TestDeleteNodesAVL_1()
         {
@@ -74,6 +79,7 @@ namespace Tests
         /*******************************************************************************************/
 
         // Node to be deleted has one child
+        
         [TestMethod]
         public void TestDeleteNodesAVL_2()
         {
@@ -87,6 +93,7 @@ namespace Tests
         /*******************************************************************************************/
 
         // Nodes to be deleted have two children
+        
         [TestMethod]
         public void TestDeleteNodesAVL_3()
         {
@@ -100,6 +107,7 @@ namespace Tests
         /*******************************************************************************************/
 
         // Nodes to be deleted have both children and one node is root
+        
         [TestMethod]
         public void TestDeleteNodesAVL_4()
         {
@@ -113,13 +121,28 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestDeleteNodesAVLInStepMode()
+        public void TestDeleteNodesAVLInStepMode_1()
         {
             List< int > keysToBuild = new List< int > { 1, 5, 10, 13, 17, 20, 34, 56, 78, 98, 100, 9, 79 };
             List< int > keysToCheck1 = new List< int > { 1, 9, 10, 5, 17, 34, 20, 79, 100, 98, 78, 13 };
             List< int > keysToCheck2 = new List< int > { 1, 9, 10, 5, 17, 34, 20, 79, 78, 100, 98, 56, 13 };
             List< int > keysToDelete = new List< int > { 56 };
             new Test().DeleteNodesInStepMode( keysToBuild, keysToDelete, keysToCheck1, keysToCheck2, TreeType.AVL );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        // Create AVL, next delete root, undone action and change tree
+        
+        [TestMethod]
+        public void TestDeleteNodesAVLInStepMode_2()
+        {
+            List< int > keysToBuild = new List< int > { 1, 2, 3, 4 };
+            List< int > keysToCheck1 = new List< int > { 1, 4, 3 };
+            List< int > keysToCheck2 = new List< int > { 1, 4, 3, 2 };
+            List< int > keysToDelete = new List< int > { 2 };
+            new Test().DeleteNodesInStepMode( keysToBuild, keysToDelete, keysToCheck1, keysToCheck2, TreeType.AVL, 2, 2 );
         }
         
         /*******************************************************************************************/
