@@ -104,7 +104,7 @@ namespace Tests
             stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
 
             TriggerStepModeActions( stepMode.StepForward, tree, firstIter );
-            CheckNode( tree.Root, keysToCheck_1);
+            CheckNode( tree.Root, keysToCheck_1 );
 
             TriggerStepModeActions( stepMode.StepBackward, tree, secondIter );
             CheckNode( tree.Root, keysToCheck_2 );
@@ -126,6 +126,12 @@ namespace Tests
         
         private void CheckNode( Node node, List< int > expectedKeys )
         {
+            if ( expectedKeys is null )
+            {
+                Assert.IsNull( node );
+                return;
+            }
+            
             if ( node.IsLeft() )
             {
                 CheckNode( node.Left, expectedKeys );

@@ -133,7 +133,7 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        // Create AVL, next delete root, undone action and change tree
+        // Create AVL, next delete root, undone action and check tree
         
         [TestMethod]
         public void TestDeleteNodesAVLInStepMode_2()
@@ -143,6 +143,21 @@ namespace Tests
             List< int > keysToCheck2 = new List< int > { 1, 4, 3, 2 };
             List< int > keysToDelete = new List< int > { 2 };
             new Test().DeleteNodesInStepMode( keysToBuild, keysToDelete, keysToCheck1, keysToCheck2, TreeType.AVL, 2, 2 );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        // Create AVL, delete all nodes, undone few actions and check tree
+        
+        [TestMethod]
+        public void TestDeleteNodesAVLInStepMode_3()
+        {
+            List< int > keysToBuild = new List< int > { 1, 2, 3, 4, 5 };
+            List< int > keysToCheck1 = null;
+            List< int > keysToCheck2 = new List< int > { 1, 3, 5, 4, 2 };
+            List< int > keysToDelete = new List< int > { 3, 4, 5, 2, 1 };
+            new Test().DeleteNodesInStepMode( keysToBuild, keysToDelete, keysToCheck1, keysToCheck2, TreeType.AVL, 10, 10 );
         }
         
         /*******************************************************************************************/
