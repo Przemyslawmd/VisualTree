@@ -169,6 +169,7 @@ namespace VisualTree
         private void ActionStepForward( object sender, RoutedEventArgs e )
         {
             controller.StepForward();
+            CheckResult();
         }
 
         /*******************************************************************************************/
@@ -177,6 +178,7 @@ namespace VisualTree
         private void ActionStepBackward( object sender, RoutedEventArgs e )
         {
             controller.StepBackward();
+            CheckResult();
         }
 
         /*******************************************************************************************/
@@ -314,7 +316,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void CheckResult( Result result )
+        private void CheckResult( Result result = Result.OK )
         {
             if ( Settings.Notifications is false )
             {

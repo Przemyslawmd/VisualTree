@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System;
 
 namespace VisualTree
 {
@@ -31,18 +32,18 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void Traverse( Node node, DelegateTraverse callback )
+        public void Traverse( Node node, Action< Node > action )
         {
             if ( node.IsLeft() )
             {
-                Traverse( node.Left, callback );
+                Traverse( node.Left, action );
             }
 
-            callback.Invoke( node );
+            action.Invoke( node );
     
             if ( node.IsRight() )
             {
-                Traverse( node.Right, callback );
+                Traverse( node.Right, action );
             }
         }
         
@@ -118,7 +119,6 @@ namespace VisualTree
         void AttachNodeTwoChildren( Node node )
         {
             Node right = node.Right;
-            Node parent = node.Parent;
 
             if ( right.Left == node.Left )
             {
@@ -129,27 +129,23 @@ namespace VisualTree
                 return;
             }
 
-            // A node that has been inserted into place of removed node
-            Node nodeInserted = node.Right.Parent;
-    
+            Node inserted = node.Right.Parent;
             Node lastLeft = FindMinInSubTree( right );
 
-            // A right child of a removed node has a left child, but the last left child has no a right child
-            if ( nodeInserted.Right != null && nodeInserted.Right.Left is null )
+            if ( inserted.Right != null && inserted.Right.Left is null )
             {
-                lastLeft.Left = nodeInserted;
-                nodeInserted.Parent = lastLeft;
-                nodeInserted.Left = null;
-                nodeInserted.Right = null;
+                lastLeft.Left = inserted;
+                inserted.Parent = lastLeft;
+                inserted.Left = null;
+                inserted.Right = null;
             }
-            // A right child of a removed node has a left child, and lth last left child has a right child
             else
             {
-                lastLeft.Parent.Left = nodeInserted;
-                nodeInserted.Parent = lastLeft.Parent;
-                nodeInserted.Right = lastLeft;
-                nodeInserted.Left = null;
-                lastLeft.Parent = nodeInserted;
+                lastLeft.Parent.Left = inserted;
+                inserted.Parent = lastLeft.Parent;
+                inserted.Right = lastLeft;
+                inserted.Left = null;
+                lastLeft.Parent = inserted;
             }
 
             SetChildOfParentNode( node, node );
@@ -176,6 +172,7 @@ namespace VisualTree
             }
             
             RestoreIfRootExists();
+            ServiceListener.Notify( ActionType.REMOVE, node );
         }
 
         /*******************************************************************************************/
@@ -427,8 +424,6 @@ namespace VisualTree
         /*******************************************************************************************/
 
         public Node Root { get; private set; }
-
-        public delegate void DelegateTraverse( Node node );
     }
 }
 

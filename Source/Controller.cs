@@ -205,7 +205,7 @@ namespace VisualTree
         }
 
 
-        private void Step( DelegateStep action )
+        private void Step( Action< Tree > action )
         {
             action( tree );
 
@@ -324,7 +324,6 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private delegate void DelegateStep( Tree tree ); 
         private Tree tree;
     }
 }

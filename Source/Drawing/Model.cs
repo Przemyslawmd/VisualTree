@@ -31,16 +31,16 @@ namespace VisualTree
 
             Node root = tree.Root;
             SetNodesPosition( root, Padding, Padding, 0 );
-            tree.Traverse( root, new Tree.DelegateTraverse( CalculateMatrixHeight ));
+            tree.Traverse( root, CalculateMatrixHeight );
             PrepareNodesMatrixRow();
-            tree.Traverse( root, new Tree.DelegateTraverse( RegisterNode ));
+            tree.Traverse( root, RegisterNode );
             FixNodesPositions();
-            tree.Traverse( root, new Tree.DelegateTraverse( CalculateTreeWidth ));
+            tree.Traverse( root, CalculateTreeWidth );
             
             if ( beginPosHor < Padding )
             {
                 shiftPos = Padding - beginPosHor; 
-                tree.Traverse( root, new Tree.DelegateTraverse( ShiftNodeHorPosition ));
+                tree.Traverse( root, ShiftNodeHorPosition );
                 beginPosHor += shiftPos;
                 endPosHor += shiftPos;
             }

@@ -20,12 +20,11 @@ namespace VisualTree
             foreach( Node node in nodes )
             {
                 DetachNode( node );
-                ServiceListener.Notify( ActionType.REMOVE, node );
 
                 if ( Root != null )
                 {
                     Traverse( Root, ( Node n ) => ( n as NodeAVL ).UpdateLevel() );
-                    Traverse( Root, new DelegateTraverse( RestoreAVLProperty ));
+                    Traverse( Root, RestoreAVLProperty );
                 }
             }
         }
