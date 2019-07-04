@@ -48,6 +48,7 @@ namespace VisualTree
             PrepareMenuIcons( newTreeType, false );
             controller.DestroyTree();
             Settings.SetTreeType( newTreeType );
+            LabelTreeType.Content = newTreeType == TreeType.CommonBST ? "Tree Type : Common BST" : "Tree Type : AVL";
         }
         
         /*******************************************************************************************/
@@ -71,7 +72,7 @@ namespace VisualTree
 
         private void ActionMenuAbout( object sender, RoutedEventArgs e )
         {
-
+            ShowMinorWindow( new WindowAbout() );
         }
 
         /*******************************************************************************************/
