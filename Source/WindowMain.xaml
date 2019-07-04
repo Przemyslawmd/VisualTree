@@ -55,7 +55,9 @@
 
             <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1" BorderBrush="Blue" BorderThickness="2" 
                     Margin="20, 0, 10, 0" >
-                <TextBlock Name="TextNotifications" Background="White" Padding="5, 5, 5, 5" TextWrapping="Wrap" />
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Background="White">
+                    <TextBlock Name="TextNotifications" Background="White" Padding="5, 5, 5, 5" TextWrapping="Wrap" />
+                </ScrollViewer>
             </Border>
 
             <Border Name="BorderNotifyAction" Grid.Row="2" Grid.Column="2"  Margin="20, 0, 0, 0" >
