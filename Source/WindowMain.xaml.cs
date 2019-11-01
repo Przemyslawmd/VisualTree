@@ -267,7 +267,8 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddMenuIcon( string resource, string toolTipText, DelegateEvent action, ref List< bool >.Enumerator enumerator )
+        private void AddMenuIcon( string resource, string toolTipText, Action< object, RoutedEventArgs> action, 
+                                  ref List< bool >.Enumerator enumerator )
         {
             enumerator.MoveNext();
             
@@ -380,7 +381,6 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private delegate void DelegateEvent( object sender, RoutedEventArgs e );
         private readonly Message messages = new Message();
         private readonly Controller controller = new Controller();
     }

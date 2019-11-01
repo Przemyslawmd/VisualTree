@@ -24,7 +24,7 @@ namespace VisualTree
         {
             foreach( var token in text )
             {
-                if ( Char.IsDigit( token ) == false && token.Equals( ' ' ) == false && token.Equals( ',' ) == false )
+                if ( Char.IsDigit( token ) is false && token.Equals( ' ' ) is false && token.Equals( ',' ) is false )
                 {
                     result = Result.IMPROPER_DATA;
                     return null;
