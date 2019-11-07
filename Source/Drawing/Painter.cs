@@ -1,5 +1,6 @@
 ﻿
 using static System.Math;
+using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -36,6 +37,11 @@ namespace VisualTree
                 Stroke = Brushes.Black
             };
 
+            if ( node.Color != NodeColor.NONE )
+            {
+                ellipse.Fill = BackgroundColor[node.Color];
+            }
+
             Canvas.SetLeft( ellipse, node.PosHor - Radius );
             Canvas.SetTop( ellipse, node.PosVer - Radius );
             canvas.Children.Add( ellipse );
@@ -43,9 +49,9 @@ namespace VisualTree
             TextBlock keyText = new TextBlock 
             {
                 Text = node.Key.ToString(),
-                Foreground = new SolidColorBrush( Colors.Black )
             };
-            
+            keyText.Foreground = new SolidColorBrush( TextColor[node.Color] );
+
             Canvas.SetLeft( keyText, node.PosHor - ( Radius / 2 ));
             Canvas.SetTop( keyText, node.PosVer - ( Radius / 2 ));
             canvas.Children.Add( keyText );
@@ -88,6 +94,22 @@ namespace VisualTree
         private readonly int Radius = Settings.Diameter / 2;
         private readonly int ParentAngle = 40;
         private readonly int ChildAngle = 30;
+
+        private readonly Dictionary< NodeColor, SolidColorBrush > BackgroundColor =
+            new Dictionary< NodeColor, SolidColorBrush >
+        {
+            [NodeColor.NONE]  = null,
+            [NodeColor.BLACK] = Brushes.Black,
+            [NodeColor.RED]   = Brushes.Red
+        };
+
+        private readonly Dictionary< NodeColor, Color > TextColor =
+            new Dictionary< NodeColor, Color >
+        {
+            [NodeColor.NONE]  = Colors.Black,
+            [NodeColor.BLACK] = Colors.White,
+            [NodeColor.RED]   = Colors.White
+        };
     }
 }
 
