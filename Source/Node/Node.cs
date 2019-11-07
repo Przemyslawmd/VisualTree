@@ -39,6 +39,8 @@ namespace VisualTree
             return Right is null ? false : true;
         }
 
+        public NodeColor Color {  get; set; } = NodeColor.NONE;
+        
         public static bool operator > ( Node nodeA, Node nodeB )
         {
             return nodeA.Key > nodeB.Key;
