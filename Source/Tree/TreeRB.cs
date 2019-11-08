@@ -9,6 +9,11 @@ namespace VisualTree
         {
             NodeRB node = new NodeRB( key );
             InsertNode( node );
+
+            if ( node.IsParent() is false )
+            {
+                node.Color = NodeColor.BLACK;
+            }
         }
 
         /*******************************************************************************************/
