@@ -237,13 +237,17 @@ namespace VisualTree
         {
             if ( tree is null )
             {
-                if ( Settings.TreeType is TreeType.CommonBST )
+                if ( Settings.TreeType == TreeType.CommonBST ) 
                 { 
                     tree = new TreeBST();
                 }
-                else 
+                else if ( Settings.TreeType == TreeType.AVL )
                 {
                     tree = new TreeAVL();
+                }
+                else if ( Settings.TreeType == TreeType.RB )
+                {
+                    tree = new TreeRB();
                 }
             }
             return tree;

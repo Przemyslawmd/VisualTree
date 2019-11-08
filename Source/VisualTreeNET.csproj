@@ -75,10 +75,12 @@
     <Compile Include="Message\Note.cs" />
     <Compile Include="Message\Result.cs" />
     <Compile Include="Node\NodeAVL.cs" />
+    <Compile Include="Node\NodeRB.cs" />
     <Compile Include="ServiceListener.cs" />
     <Compile Include="SharedTypes.cs" />
     <Compile Include="StepMode.cs" />
     <Compile Include="Tree\TreeAVL.cs" />
+    <Compile Include="Tree\TreeRB.cs" />
     <Compile Include="WindowAbout.xaml.cs">
       <DependentUpon>WindowAbout.xaml</DependentUpon>
     </Compile>

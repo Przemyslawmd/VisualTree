@@ -1,7 +1,7 @@
 ﻿
 namespace VisualTree
 {
-    public enum TreeType { CommonBST, AVL }; 
+    public enum TreeType { CommonBST, AVL, RB }; 
 
     public enum NodeColor {  NONE, BLACK, RED };
 

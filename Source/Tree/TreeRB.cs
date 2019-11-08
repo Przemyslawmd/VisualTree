@@ -7,7 +7,7 @@ namespace VisualTree
     {
         override public void AddNode( int key )
         {
-            Node node = new Node( key );
+            NodeRB node = new NodeRB( key );
             InsertNode( node );
         }
 

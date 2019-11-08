@@ -38,6 +38,14 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        private void ActionMenuTreeRB( object sender, RoutedEventArgs e )
+        {
+            ChangeTreeType( TreeType.RB );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void ChangeTreeType( TreeType newTreeType )
         {
             if ( Settings.TreeType == newTreeType )
@@ -48,15 +56,7 @@ namespace VisualTree
             PrepareMenuIcons( newTreeType, false );
             controller.DestroyTree();
             Settings.SetTreeType( newTreeType );
-            LabelTreeType.Content = newTreeType == TreeType.CommonBST ? "Tree Type : Common BST" : "Tree Type : AVL";
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private void ActionMenuTreeRB( object sender, RoutedEventArgs e )
-        {
-
+            LabelTreeType.Content = TreeTypeLabel[newTreeType];
         }
 
         /*******************************************************************************************/
@@ -262,6 +262,19 @@ namespace VisualTree
                 AddMenuIcon( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
                 AddMenuIcon( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
             }
+            else if ( treeType is TreeType.RB )
+            {
+                AddMenuIcon( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
+                AddMenuIcon( "PathTreeStep", "Create Tree in Step Mode", ActionDrawTreeInStep, ref enumerator );
+                AddMenuIcon( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
+                AddMenuIcon( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
+                AddMenuIcon( "PathPlusStep", "Add Nodes in Step Mode", ActionAddNodesInStep, ref enumerator );
+                AddMenuIcon( "PathMinusStep", "Delete Nodes in Step Mode", ActionDeleteNodesInStep, ref enumerator );
+                AddMenuIcon( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
+                AddMenuIcon( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
+                AddMenuIcon( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
+                AddMenuIcon( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
+            }
         }
         
         /*******************************************************************************************/
@@ -383,6 +396,13 @@ namespace VisualTree
 
         private readonly Message messages = new Message();
         private readonly Controller controller = new Controller();
+
+        private readonly Dictionary< TreeType, String > TreeTypeLabel = new Dictionary< TreeType, string >
+        { 
+            [TreeType.CommonBST] = "Tree type : Common BST",
+            [TreeType.AVL]       = "Tree type : AVL",
+            [TreeType.RB]        = "Tree type : Red Black"
+        };
     }
 }
 
