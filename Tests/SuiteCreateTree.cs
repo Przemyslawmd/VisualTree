@@ -61,8 +61,8 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeAVL_2()
         {
-            List< int > keysToBuild = new List< int > {  13, 9, 2, 21, 32, 7,  3,  12, 8, 16 };
-            List< int > keysToCheck = new List< int > {  2, 8, 7, 3, 12, 16, 13, 32, 21, 9 };
+            var keysToBuild = new List< int > {  13, 9, 2, 21, 32, 7,  3,  12, 8, 16 };
+            var keysToCheck = new List< int > {  2, 8, 7, 3, 12, 16, 13, 32, 21, 9 };
             new Test().CreateTree( keysToBuild, keysToCheck, TreeType.AVL );
         }
 
@@ -72,11 +72,11 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeAVL_3()
         {
-            List< int > keysToBuild = new List< int > 
+            var keysToBuild = new List< int > 
             { 
                 21, 12, 9, 32, 8, 36, 33, 17, 23, 34, 4, 19, 25, 6, 37, 3, 38, 27, 29, 24
             };
-            List< int > keysToCheck = new List< int > 
+            var keysToCheck = new List< int > 
             {  
                 3, 6, 4, 9, 8, 19, 17, 12, 24, 23, 29, 27, 25, 33, 36, 38, 37, 34, 32, 21
             };
@@ -123,6 +123,26 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        [TestMethod]
+        public void TestCreateTreeRB_3()
+        {
+            var keysToBuild = new List< int > {  1, 6, 7, 10, 12, 3, 5 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1] = NodeColor.RED,
+                 [5] = NodeColor.RED,
+                 [3] = NodeColor.BLACK,
+                 [7] = NodeColor.RED,
+                [12] = NodeColor.RED,
+                [10] = NodeColor.BLACK,
+                 [6] = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+            
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
         [TestMethod]
         public void TestCreateAVLTreeInStepMode_1()
         {
