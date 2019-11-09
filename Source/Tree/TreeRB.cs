@@ -101,6 +101,8 @@ namespace VisualTree
             else 
             {
                 node = RotateNode( node );
+                node.Color = NodeColor.BLACK;
+                node.Parent.Color = NodeColor.RED;
                 return RotateNode( node );
             }
         }

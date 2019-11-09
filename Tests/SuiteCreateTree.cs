@@ -129,13 +129,13 @@ namespace Tests
             var keysToBuild = new List< int > {  1, 6, 7, 10, 12, 3, 5 };
             var nodesToCheck = new Dictionary< int, NodeColor > 
             {  
-                 [1] = NodeColor.RED,
-                 [5] = NodeColor.RED,
-                 [3] = NodeColor.BLACK,
-                 [7] = NodeColor.RED,
-                [12] = NodeColor.RED,
-                [10] = NodeColor.BLACK,
-                 [6] = NodeColor.BLACK
+                 [1]  = NodeColor.RED,
+                 [5]  = NodeColor.RED,
+                 [3]  = NodeColor.BLACK,
+                 [7]  = NodeColor.RED,
+                 [12] = NodeColor.RED,
+                 [10] = NodeColor.BLACK,
+                 [6]  = NodeColor.BLACK
             };
             new Test().CreateTreeRB( keysToBuild, nodesToCheck );
         }
@@ -144,10 +144,32 @@ namespace Tests
         /*******************************************************************************************/
         
         [TestMethod]
+        public void TestCreateTreeRB_4()
+        {
+            var keysToBuild = new List< int > {  12, 6, 9, 10, 1, 16, 15, 11, 2 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.RED,
+                 [6]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
+                 [11]  = NodeColor.RED,
+                 [10] = NodeColor.BLACK,
+                 [15] = NodeColor.RED,
+                 [16]  = NodeColor.BLACK,
+                 [12] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        [TestMethod]
         public void TestCreateAVLTreeInStepMode_1()
         {
-            List< int > keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
-            List< int > keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
+            var keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
+            var keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
             new Test().CreateTreeInStepMode( keysToBuild, keysToCheck, TreeType.AVL );
         }
 
@@ -157,22 +179,19 @@ namespace Tests
         [TestMethod]
         public void TestCreateAVLTreeInStepMode_2()
         {
-            List< int > keysToBuild = new List< int > { 10, 12, 16, 10, 8, 3, 1, 2 };
-            List< int > keysToCheck = new List< int > { 10, 16, 12 };
+            var keysToBuild = new List< int > { 10, 12, 16, 10, 8, 3, 1, 2 };
+            var keysToCheck = new List< int > { 10, 16, 12 };
             new Test().CreateTreeInStepModeBackAndPartial( keysToBuild, keysToCheck, 4, TreeType.AVL );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        //  Create AVL in step mode, next undo all actions till all nodes are deleted, 
-        //  next make restore few actions.
-
         [TestMethod]
         public void TestCreateAVLTreeInStepMode_3()
         {
-            List< int > keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7 };
-            List< int > keysToCheck = new List< int > { 1, 4, 3, 2 };
+            var keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7 };
+            var keysToCheck = new List< int > { 1, 4, 3, 2 };
             new Test().CreateTreeInStepModeBackAndPartial( keysToBuild, keysToCheck, 5, TreeType.AVL, 0, 20 );
         }
         
