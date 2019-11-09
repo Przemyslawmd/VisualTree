@@ -11,8 +11,8 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeBST_1()
         {
-            List< int > keysToBuild = new List< int > { 3, 2, 1, 6 };
-            List< int > keysToCheck = new List< int > { 1, 2, 6, 3 };
+            var keysToBuild = new List< int > { 3, 2, 1, 6 };
+            var keysToCheck = new List< int > { 1, 2, 6, 3 };
             new Test().CreateTree( keysToBuild, keysToCheck, TreeType.CommonBST );
         }
 
@@ -22,8 +22,8 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeBST_2()
         {
-            List< int > keysToBuild = new List< int > { 13, 9, 2, 21, 32, 7, 3, 12, 8, 16 };
-            List< int > keysToCheck = new List< int > { 3, 8, 7, 2, 12, 9, 16, 32, 21, 13 };
+            var keysToBuild = new List< int > { 13, 9, 2, 21, 32, 7, 3, 12, 8, 16 };
+            var keysToCheck = new List< int > { 3, 8, 7, 2, 12, 9, 16, 32, 21, 13 };
             new Test().CreateTree( keysToBuild, keysToCheck, TreeType.CommonBST );
         }
 
@@ -33,11 +33,11 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeBST_3()
         {
-            List< int > keysToBuild = new List< int > 
+            var keysToBuild = new List< int > 
             { 
                 21, 12, 9, 32, 8, 36, 33, 17, 23, 34, 4, 19, 25, 6, 37, 3, 38, 27, 29, 24 
             };
-            List< int > keysToCheck = new List< int > 
+            var keysToCheck = new List< int > 
             {  
                 3, 6, 4, 8, 9, 19, 17, 12, 24, 29, 27, 25, 23, 34, 33, 38, 37, 36, 32, 21
             };
@@ -50,8 +50,8 @@ namespace Tests
         [TestMethod]
         public void TestCreateTreeAVL_1()
         {
-            List< int > keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
-            List< int > keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
+            var keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
+            var keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
             new Test().CreateTree( keysToBuild, keysToCheck, TreeType.AVL );
         }
 
@@ -152,10 +152,10 @@ namespace Tests
                  [1]  = NodeColor.RED,
                  [6]  = NodeColor.RED,
                  [2]  = NodeColor.BLACK,
-                 [11]  = NodeColor.RED,
+                 [11] = NodeColor.RED,
                  [10] = NodeColor.BLACK,
                  [15] = NodeColor.RED,
-                 [16]  = NodeColor.BLACK,
+                 [16] = NodeColor.BLACK,
                  [12] = NodeColor.RED,
                  [9]  = NodeColor.BLACK
             };
@@ -165,6 +165,34 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
         
+        [TestMethod]
+        public void TestCreateTreeRB_5()
+        {
+            var keysToBuild = new List< int > {  12, 6, 8, 9, 30, 10, 18, 2, 27, 1, 22, 23, 24, 4, 17 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.BLACK,
+                 [4]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [2]  = NodeColor.RED,
+                 [10] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+                 [17] = NodeColor.RED,
+                 [18] = NodeColor.BLACK,
+                 [24] = NodeColor.RED,
+                 [23] = NodeColor.BLACK,
+                 [22] = NodeColor.RED,
+                 [30] = NodeColor.BLACK,
+                 [27] = NodeColor.BLACK,
+                 [12] = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+            
         [TestMethod]
         public void TestCreateAVLTreeInStepMode_1()
         {
