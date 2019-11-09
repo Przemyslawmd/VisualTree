@@ -1,7 +1,8 @@
 ﻿
+using VisualTree;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using VisualTree;
+
 
 namespace Tests
 {
@@ -12,6 +13,17 @@ namespace Tests
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuild );
             CheckNode( tree.Root, keysToCheck );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void CreateTreeRB( List< int > keysToBuild, Dictionary< int, NodeColor > nodesToCheck )
+        {
+            Tree tree = GetTree( TreeType.RB );
+            tree.CreateNodes( keysToBuild );
+            CheckNode( tree.Root, new List< int >( nodesToCheck.Keys ));
+            CheckNode( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
         }
 
         /*******************************************************************************************/
@@ -124,27 +136,35 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CheckNode( Node node, List< int > expectedKeys )
+        private void CheckNode< T >( Node node, List< T > valuesToCheck )
         {
-            if ( expectedKeys is null )
+            if ( valuesToCheck is null )
             {
                 Assert.IsNull( node );
                 return;
             }
-            
+
             if ( node.IsLeft() )
             {
-                CheckNode( node.Left, expectedKeys );
+                CheckNode( node.Left, valuesToCheck );
             }
             if ( node.IsRight() )
             {
-                CheckNode( node.Right, expectedKeys );
+                CheckNode( node.Right, valuesToCheck );
             }
 
-            Assert.AreEqual( node.Key, expectedKeys[0] );
-            expectedKeys.RemoveAt( 0 );
+            if ( typeof( T ) == typeof( int ))
+            {
+                Assert.AreEqual( node.Key, valuesToCheck[0] );
+            }
+            else
+            {
+                Assert.AreEqual( node.Color, valuesToCheck[0] );
+            }
+ 
+            valuesToCheck.RemoveAt( 0 );
         }
-        
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -175,7 +195,11 @@ namespace Tests
             {
                 return new TreeBST();
             }
-            return new TreeAVL();
+            else if ( treeType == TreeType.AVL )
+            {
+                return new TreeAVL();
+            }
+            return new TreeRB();
         }
 
         /*******************************************************************************************/

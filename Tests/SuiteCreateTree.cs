@@ -9,7 +9,7 @@ namespace Tests
     public class SuiteCreateTree
     {
         [TestMethod]
-        public void TestCreateBSTTree_1()
+        public void TestCreateTreeBST_1()
         {
             List< int > keysToBuild = new List< int > { 3, 2, 1, 6 };
             List< int > keysToCheck = new List< int > { 1, 2, 6, 3 };
@@ -20,7 +20,7 @@ namespace Tests
         /*******************************************************************************************/
         
         [TestMethod]
-        public void TestCreateBSTTree_2()
+        public void TestCreateTreeBST_2()
         {
             List< int > keysToBuild = new List< int > { 13, 9, 2, 21, 32, 7, 3, 12, 8, 16 };
             List< int > keysToCheck = new List< int > { 3, 8, 7, 2, 12, 9, 16, 32, 21, 13 };
@@ -31,7 +31,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestCreateBSTTree_3()
+        public void TestCreateTreeBST_3()
         {
             List< int > keysToBuild = new List< int > 
             { 
@@ -48,7 +48,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestCreateAVLTree_1()
+        public void TestCreateTreeAVL_1()
         {
             List< int > keysToBuild = new List< int > {  1, 6, 3, 2, 10 };
             List< int > keysToCheck = new List< int > {  2, 1, 10, 6, 3 };
@@ -59,7 +59,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestCreateAVLTree_2()
+        public void TestCreateTreeAVL_2()
         {
             List< int > keysToBuild = new List< int > {  13, 9, 2, 21, 32, 7,  3,  12, 8, 16 };
             List< int > keysToCheck = new List< int > {  2, 8, 7, 3, 12, 16, 13, 32, 21, 9 };
@@ -70,7 +70,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestCreateAVLTree_3()
+        public void TestCreateTreeAVL_3()
         {
             List< int > keysToBuild = new List< int > 
             { 
@@ -83,6 +83,43 @@ namespace Tests
             new Test().CreateTree( keysToBuild, keysToCheck, TreeType.AVL );
         }
 
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestCreateTreeRB_1()
+        {
+            var keysToBuild = new List< int > {  1, 2, 3, 4, 5 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                [1] = NodeColor.BLACK,
+                [3] = NodeColor.RED,
+                [5] = NodeColor.RED,
+                [4] = NodeColor.BLACK,
+                [2] = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        [TestMethod]
+        public void TestCreateTreeRB_2()
+        {
+            var keysToBuild = new List< int > {  6, 5, 4, 3, 2, 1 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                [1] = NodeColor.RED,
+                [2] = NodeColor.BLACK,
+                [4] = NodeColor.BLACK,
+                [3] = NodeColor.RED,
+                [6] = NodeColor.BLACK,
+                [5] = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
