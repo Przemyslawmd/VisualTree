@@ -34,12 +34,12 @@ namespace VisualTree
                 Width = Radius * 2,
                 Height = Radius * 2,
                 StrokeThickness = node.IsSelected ? 3 : 1,
-                Stroke = Brushes.Black
             };
+            ellipse.Stroke = node.IsSelected ? paintColor[node.Color].FrameSelected : Brushes.Black;
 
             if ( node.Color != NodeColor.NONE )
             {
-                ellipse.Fill = BackgroundColor[node.Color];
+                ellipse.Fill = paintColor[node.Color].Background;
             }
 
             Canvas.SetLeft( ellipse, node.PosHor - Radius );
@@ -50,7 +50,7 @@ namespace VisualTree
             {
                 Text = node.Key.ToString(),
             };
-            keyText.Foreground = new SolidColorBrush( TextColor[node.Color] );
+            keyText.Foreground = new SolidColorBrush( paintColor[node.Color].Text );
 
             Canvas.SetLeft( keyText, node.PosHor - ( Radius / 2 ));
             Canvas.SetTop( keyText, node.PosVer - ( Radius / 2 ));
@@ -94,21 +94,13 @@ namespace VisualTree
         private readonly int Radius = Settings.Diameter / 2;
         private readonly int ParentAngle = 40;
         private readonly int ChildAngle = 30;
-
-        private readonly Dictionary< NodeColor, SolidColorBrush > BackgroundColor =
-            new Dictionary< NodeColor, SolidColorBrush >
+        
+        private readonly Dictionary< NodeColor, PainterColor > paintColor = new Dictionary< NodeColor, PainterColor >
         {
-            [NodeColor.NONE]  = null,
-            [NodeColor.BLACK] = Brushes.Black,
-            [NodeColor.RED]   = Brushes.Red
-        };
+            [NodeColor.NONE]  = new PainterColor( null,          Brushes.Black, Colors.Black ),
+            [NodeColor.BLACK] = new PainterColor( Brushes.Black, Brushes.Red,   Colors.White ),
+            [NodeColor.RED]   = new PainterColor( Brushes.Red,   Brushes.Black, Colors.White )
 
-        private readonly Dictionary< NodeColor, Color > TextColor =
-            new Dictionary< NodeColor, Color >
-        {
-            [NodeColor.NONE]  = Colors.Black,
-            [NodeColor.BLACK] = Colors.White,
-            [NodeColor.RED]   = Colors.White
         };
     }
 }

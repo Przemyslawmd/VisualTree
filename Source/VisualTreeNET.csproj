@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Action.cs" />
+    <Compile Include="Drawing\PainterColor.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="Message\Note.cs" />
     <Compile Include="Message\Result.cs" />
