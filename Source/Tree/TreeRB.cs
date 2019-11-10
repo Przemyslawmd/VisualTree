@@ -38,7 +38,7 @@ namespace VisualTree
         {
             while ( true )
             {
-                if ( node is null || node.Parent is null || node.Parent.Color == NodeColor.BLACK )
+                if ( node.Color == NodeColor.BLACK || node.Parent is null || node.Parent.Color == NodeColor.BLACK )
                 {
                     return;
                 }

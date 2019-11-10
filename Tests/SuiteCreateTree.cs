@@ -192,6 +192,39 @@ namespace Tests
         
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestCreateTreeRB_6()
+        {
+            var keysToBuild = new List< int > { 90, 80, 3, 7, 26, 57, 62, 16, 4, 10, 63, 41, 40, 8, 9, 32, 21, 5, 85, 87 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [3]  = NodeColor.RED,
+                 [5]  = NodeColor.RED,
+                 [4]  = NodeColor.BLACK,
+                 [8]  = NodeColor.RED,
+                 [10] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
+                 [7]  = NodeColor.RED,
+                 [21] = NodeColor.RED,
+                 [32] = NodeColor.RED,
+                 [26] = NodeColor.BLACK,
+                 [41] = NodeColor.BLACK,
+                 [40] = NodeColor.RED,
+                 [16] = NodeColor.BLACK,
+                 [63] = NodeColor.RED,
+                 [62] = NodeColor.BLACK, 
+                 [85] = NodeColor.RED,
+                 [90] = NodeColor.RED,
+                 [87] = NodeColor.BLACK,
+                 [80] = NodeColor.BLACK,
+                 [57] = NodeColor.BLACK
+            };
+            new Test().CreateTreeRB( keysToBuild, nodesToCheck );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
             
         [TestMethod]
         public void TestCreateAVLTreeInStepMode_1()
