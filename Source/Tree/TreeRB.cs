@@ -16,7 +16,7 @@ namespace VisualTree
                 return;
             }
 
-            CheckTreeRB( node );
+            CheckTreeAfterCreate( node );
             RestoreRoot();
         }
 
@@ -27,14 +27,16 @@ namespace VisualTree
         {
             foreach ( Node node in nodes )
             {
+                Node parent = node.Parent;
                 DetachNode( node );
+                CheckTreeAfterDelete( parent, node );
             }
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void CheckTreeRB( Node node )
+        public void CheckTreeAfterCreate( Node node )
         {
             while ( true )
             {
@@ -59,6 +61,20 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        public void CheckTreeAfterDelete( Node parent, Node nodeDeleted )
+        {
+            Node nodeReplace = parent > nodeDeleted ? parent.Left : parent.Right;
+            
+            if ( nodeDeleted.Color == NodeColor.RED )
+            {
+                if ( nodeReplace != null )
+                { 
+                    nodeReplace.Color = NodeColor.BLACK;
+                }
+                return;
+            }
+        }
 
         private Node GetUncle( Node node )
         {

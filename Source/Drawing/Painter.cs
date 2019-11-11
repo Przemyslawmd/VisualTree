@@ -100,7 +100,6 @@ namespace VisualTree
             [NodeColor.NONE]  = new PainterColor( null,          Brushes.Black, Colors.Black ),
             [NodeColor.BLACK] = new PainterColor( Brushes.Black, Brushes.Red,   Colors.White ),
             [NodeColor.RED]   = new PainterColor( Brushes.Red,   Brushes.Black, Colors.White )
-
         };
     }
 }
