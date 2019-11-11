@@ -125,9 +125,9 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void BalanceTree( List< int > keysToBuild, List< int > keysToCheck, TreeType treeType )
+        public void BalanceTree( List< int > keysToBuild, List< int > keysToCheck )
         {
-            Tree tree = GetTree( treeType );
+            Tree tree = GetTree( TreeType.CommonBST );
             tree.CreateNodes( keysToBuild );
             new DSW().BalanceTree( tree );
             CheckNode( tree.Root, keysToCheck );
