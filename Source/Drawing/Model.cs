@@ -140,8 +140,7 @@ namespace VisualTree
 
         private void RegisterNode( Node node )
         {	
-            List< Node > nodesRow = Matrix[ node.MatrixRow ];
-            nodesRow.Add( node );
+            Matrix[ node.MatrixRow ].Add( node );
         }
 
         /*******************************************************************************************/
@@ -149,13 +148,13 @@ namespace VisualTree
         
         private void FixNodesPositions( )
         {		
-            int matrixRow = 0;
-            int matrixCol = 0;
+            int row = 0;
+            int col = 0;
 
-            while ( CheckNodesCollision( ref matrixRow, ref matrixCol ))
+            while ( CheckNodesCollision( ref row, ref col ))
             {		
-                Node currNode = Matrix[matrixRow][matrixCol];
-                Node nextNode = Matrix[matrixRow][matrixCol + 1];
+                Node currNode = Matrix[row][col];
+                Node nextNode = Matrix[row][col + 1];
                 
                 int currPos = currNode.PosHor;
                 int nextPos = nextNode.PosHor;
@@ -202,19 +201,16 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        bool CheckNodesCollision( ref int matrixRow, ref int matrixCol )
+        bool CheckNodesCollision( ref int rowWithCollision, ref int colWithCollision )
         {
-            for ( int currMatrixRow = Matrix.Count - 1; currMatrixRow >= 0; currMatrixRow-- )
+            for ( int row = Matrix.Count - 1; row >= 0; row-- )
             {
-                List< Node > nodesRow = Matrix[ currMatrixRow ];
-                int currNodesCol = 0;
-
-                for ( int i = 0; i < nodesRow.Count - 1; i++, currNodesCol++ )
+                for ( int col = 0; col < Matrix[row].Count - 1; col++ )
                 {						
-                    if ( nodesRow[ i ].PosHor >= nodesRow[ i + 1 ].PosHor - Padding )
+                    if ( Matrix[row][col].PosHor >= Matrix[row][col + 1].PosHor - Padding )
                     {
-                        matrixRow = currMatrixRow;
-                        matrixCol = currNodesCol;
+                        rowWithCollision = row;
+                        colWithCollision = col;
                         return true;
                     }
                 }
