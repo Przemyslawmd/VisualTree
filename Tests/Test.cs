@@ -93,9 +93,9 @@ namespace Tests
             tree.CreateNodes( keysToBuild );
             
             Selection selection = Selection.Get();
-            AddNodesToSelection( tree.Root, selection.nodes, keysToDelete );
+            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
 
-            tree.DelSelectedNodes( selection.nodes );
+            tree.DelSelectedNodes( selection.Nodes );
             CheckNode( tree.Root, keysToCheck );
         }
         
@@ -110,10 +110,10 @@ namespace Tests
             tree.CreateNodes( keysToBuild );
             
             Selection selection = Selection.Get();
-            AddNodesToSelection( tree.Root, selection.nodes, keysToDelete );
+            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
 
             StepMode stepMode = StepMode.GetInstance();
-            stepMode.PrepareStepsForDeleteNodes( tree, selection.nodes );
+            stepMode.PrepareStepsForDeleteNodes( tree, selection.Nodes );
 
             TriggerStepModeActions( stepMode.StepForward, tree, firstIter );
             CheckNode( tree.Root, keysToCheck_1 );

@@ -167,7 +167,7 @@ namespace VisualTree
                 return Result.NO_TREE;
             }
 
-            var selectedNodes = Selection.Get().nodes;
+            var selectedNodes = Selection.Get().Nodes;
 
             if ( selectedNodes.Count is 0 )
             {
@@ -313,7 +313,7 @@ namespace VisualTree
                 return null;
             }
 
-            var selectedNodes = Selection.Get().nodes;
+            var selectedNodes = Selection.Get().Nodes;
 
             if ( selectedNodes.Count is 0 )
             {

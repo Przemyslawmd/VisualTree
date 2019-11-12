@@ -27,22 +27,22 @@ namespace VisualTree
 
         public bool CheckCoordinates( int posX, int posY)
         {
-            bool isFound = false;
+            bool isFoundInRows = false;
             var matrix = Model.Get().Matrix;
-
-            var matrixRow = matrix[ 0 ];
-            foreach ( List< Node > nodesRow in matrix )
+            var matrixRow = matrix[0];
+            
+            foreach ( var nodesRow in matrix )
             {
-                int nodePos = nodesRow[ 0 ].PosVer;
+                int nodePos = nodesRow[0].PosVer;
                 if (( nodePos + Radius ) >= posY && ( nodePos - Radius ) <= posY )
                 {
-                    isFound = true;
+                    isFoundInRows = true;
                     matrixRow = nodesRow;
                     break;
                 }
             }
 
-            if ( isFound is false ) 
+            if ( isFoundInRows is false ) 
             {
                 return false;
             }
@@ -55,11 +55,11 @@ namespace VisualTree
                     
                     if ( node.IsSelected is false )
                     {
-                        nodes.Remove( node );
+                        Nodes.Remove( node );
                     }
                     else
                     {
-                        nodes.Add( node );
+                        Nodes.Add( node );
                     }
                     return true;
                 }
@@ -73,7 +73,7 @@ namespace VisualTree
         
         private Selection()
         {
-            nodes = new List< Node >();
+            Nodes = new List< Node >();
         }
         
         /*******************************************************************************************/
@@ -81,7 +81,7 @@ namespace VisualTree
 
         private static Selection selection;
         
-        public List< Node > nodes { get; private set; }
+        public List< Node > Nodes { get; private set; }
         
         private readonly int Radius = Settings.Diameter / 2;
     }
