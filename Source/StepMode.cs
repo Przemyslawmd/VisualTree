@@ -48,11 +48,11 @@ namespace VisualTree
 
             for ( int i = Steps.Count - 1; i >= 0; i-- )
             {
-                if ( Steps[i].ActionType == ActionType.ADD )
+                if ( Steps[i].ActionTreeType == ActionTreeType.ADD )
                 {
                     tree.DetachNode( Steps[i].Node );
                 }
-                else if ( Steps[i].ActionType == ActionType.ROTATION )
+                else if ( Steps[i].ActionTreeType == ActionTreeType.ROTATION )
                 {
                    BackRotationAfterPrepareSteps( tree, i );
                 }
@@ -70,11 +70,11 @@ namespace VisualTree
 
             for ( int i = Steps.Count - 1; i >= 0; i-- )
             {
-                if ( Steps[i].ActionType == ActionType.REMOVE )
+                if ( Steps[i].ActionTreeType == ActionTreeType.REMOVE )
                 {
                     tree.AttachNode( Steps[i].Node );
                 }
-                else if ( Steps[i].ActionType == ActionType.ROTATION )
+                else if ( Steps[i].ActionTreeType == ActionTreeType.ROTATION )
                 {			
                     BackRotationAfterPrepareSteps( tree, i );
                 }
@@ -84,13 +84,13 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void AddAction( ActionType actionType, Node node )
+        public void AddAction( ActionTreeType actionType, Node node )
         {
-            if ( actionType == ActionType.ROTATION )
+            if ( actionType == ActionTreeType.ROTATION )
             {
                 node = node.Parent;
             }
-            Steps.Add( new Action( actionType, node ));
+            Steps.Add( new ActionTree( actionType, node ));
         }
 
         /*******************************************************************************************/
@@ -103,15 +103,15 @@ namespace VisualTree
                 return;
             }
 
-            switch ( Steps[stepNumber].ActionType )
+            switch ( Steps[stepNumber].ActionTreeType )
             {
-                case ActionType.ADD:
+                case ActionTreeType.ADD:
                     tree.AttachNode( Steps[ stepNumber ].Node );
                     break;
-                case ActionType.REMOVE:
+                case ActionTreeType.REMOVE:
                     tree.DetachNode( Steps[ stepNumber].Node );
                     break;
-                case ActionType.ROTATION:
+                case ActionTreeType.ROTATION:
                     TriggerStepRotation( tree );
                     break;
             }
@@ -129,15 +129,15 @@ namespace VisualTree
             }
     
             stepNumber--;
-            switch ( Steps[stepNumber].ActionType )
+            switch ( Steps[stepNumber].ActionTreeType )
             {
-                case ActionType.ADD:
+                case ActionTreeType.ADD:
                     tree.DetachNode( Steps[ stepNumber].Node );
                     return;
-                case ActionType.REMOVE:
+                case ActionTreeType.REMOVE:
                     tree.AttachNode( Steps[ stepNumber ].Node );
                     return;
-                case ActionType.ROTATION:
+                case ActionTreeType.ROTATION:
                     TriggerStepRotation( tree );
                     return;
             }	
@@ -175,7 +175,7 @@ namespace VisualTree
 
         private static StepMode stepMode; 
         
-        public List< Action > Steps { get; } = new List< Action >();
+        public List< ActionTree > Steps { get; } = new List< ActionTree >();
         private int stepNumber;
     }
 }

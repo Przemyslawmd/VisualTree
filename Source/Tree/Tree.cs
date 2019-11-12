@@ -77,7 +77,7 @@ namespace VisualTree
             }
 
             RestoreRoot();
-            ServiceListener.Notify( ActionType.ADD, node );
+            ServiceListener.Notify( ActionTreeType.ADD, node );
         }
             
         /*******************************************************************************************/
@@ -172,7 +172,7 @@ namespace VisualTree
             }
             
             RestoreIfRootExists();
-            ServiceListener.Notify( ActionType.REMOVE, node );
+            ServiceListener.Notify( ActionTreeType.REMOVE, node );
         }
 
         /*******************************************************************************************/
@@ -268,7 +268,7 @@ namespace VisualTree
 
         public Node RotateNode( Node node )
         {
-            ServiceListener.Notify( ActionType.ROTATION, node );
+            ServiceListener.Notify( ActionTreeType.ROTATION, node );
             Node parent = node.Parent;
             node.Parent = parent.Parent;
 
@@ -319,7 +319,7 @@ namespace VisualTree
 
         protected void InsertNode( Node node )
         {
-            ServiceListener.Notify( ActionType.ADD, node );
+            ServiceListener.Notify( ActionTreeType.ADD, node );
 
             if ( Root == null )
             {

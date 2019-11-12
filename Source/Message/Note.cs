@@ -25,9 +25,9 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void AddAction( ActionType actionType, Node node )
+        public void AddAction( ActionTreeType actionType, Node node )
         {
-            Actions.Add( new Action( actionType, node ));
+            Actions.Add( new ActionTree( actionType, node ));
         }
         
         /*******************************************************************************************/
@@ -41,7 +41,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public List< Action > Actions { get; private set; } = new List< Action >();
+        public List< ActionTree > Actions { get; private set; } = new List< ActionTree >();
 
         private static Note note = null;    
     }

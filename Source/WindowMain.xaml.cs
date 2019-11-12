@@ -344,20 +344,20 @@ namespace VisualTree
                 return;
             }
 
-            foreach ( Action action in Note.Get().Actions )
+            foreach ( ActionTree action in Note.Get().Actions )
             {
                 TextNotifications.Text += "Node : " + action.Node.Key + getActionString( action ) + Environment.NewLine;
             }
             Note.Get().ClearActions();
 
 
-            string getActionString( Action action )
+            string getActionString( ActionTree action )
             {
-                if ( action.ActionType == ActionType.ADD )
+                if ( action.ActionTreeType == ActionTreeType.ADD )
                 {
                     return "  added";
                 }
-                else if ( action.ActionType == ActionType.REMOVE )
+                else if ( action.ActionTreeType == ActionTreeType.REMOVE )
                 {
                     return "  deleted";
                 }

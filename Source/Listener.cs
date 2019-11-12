@@ -3,7 +3,7 @@ namespace VisualTree
 {
     interface IListener
     {
-        void AddAction( ActionType actionType, Node node ); 
+        void AddAction( ActionTreeType actionType, Node node ); 
     }
 }
 

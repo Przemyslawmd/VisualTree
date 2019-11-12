@@ -29,7 +29,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public static void Notify( ActionType actionType, Node node )
+        public static void Notify( ActionTreeType actionType, Node node )
         {
             foreach( var listener in listeners )
             {

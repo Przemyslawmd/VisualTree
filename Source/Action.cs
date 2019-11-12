@@ -1,15 +1,15 @@
 ﻿
 namespace VisualTree
 {
-    class Action
+    class ActionTree
     {
-        public Action( ActionType actionType, Node node )
+        public ActionTree( ActionTreeType actionTreeType, Node node )
         {
-            ActionType = actionType;
+            ActionTreeType = actionTreeType;
             Node = node;
         }
 
-        public ActionType ActionType { get; }
+        public ActionTreeType ActionTreeType { get; }
         public Node Node {  get; set; }
     }
 }

@@ -5,6 +5,6 @@ namespace VisualTree
 
     public enum NodeColor {  NONE, BLACK, RED };
 
-    public enum ActionType { ADD, REMOVE, ROTATION };
+    public enum ActionTreeType { ADD, REMOVE, ROTATION };
 }
 
