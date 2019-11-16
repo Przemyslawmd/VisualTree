@@ -28,8 +28,9 @@ namespace VisualTree
             foreach ( Node node in nodes )
             {
                 Node parent = node.Parent;
+                Node lowestGreater = FindLowestNodeAmongGreaters( node );
                 DetachNode( node );
-                CheckTreeAfterDelete( parent, node );
+                CheckTreeAfterDelete( parent, node, lowestGreater );
             }
         }
 
@@ -62,7 +63,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void CheckTreeAfterDelete( Node parent, Node nodeDeleted )
+        public void CheckTreeAfterDelete( Node parent, Node nodeDeleted, Node lowestGreater )
         {
             Node nodeReplace = parent > nodeDeleted ? parent.Left : parent.Right;
             

@@ -130,7 +130,7 @@ namespace VisualTree
             }
 
             Node inserted = node.Right.Parent;
-            Node lastLeft = FindMinInSubTree( right );
+            Node lastLeft = FindLowestNode( right );
 
             if ( inserted.Right != null && inserted.Right.Left is null )
             {
@@ -209,7 +209,7 @@ namespace VisualTree
 
         public void DetachNodeTwoChildren( Node node )
         {
-            Node minNode = FindMinInSubTree( node.Right );
+            Node minNode = FindLowestNode( node.Right );
             
             if ( minNode == node.Right )
             {
@@ -359,13 +359,26 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private Node FindMinInSubTree( Node node )
+        private Node FindLowestNode( Node node )
         {
             while ( node.IsLeft() )
             {
                 node = node.Left;
             }
             return node;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        protected Node FindLowestNodeAmongGreaters( Node node )
+        {
+            if ( node.IsRight() is false )
+            {
+                return null;
+            }
+
+            return FindLowestNode( node.Right );
         }
         
         /*******************************************************************************************/
