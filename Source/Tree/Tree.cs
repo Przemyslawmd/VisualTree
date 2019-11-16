@@ -359,26 +359,18 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private Node FindLowestNode( Node node )
+        protected Node FindLowestNode( Node node )
         {
+            if ( node is null )
+            {
+                return null;
+            }
+            
             while ( node.IsLeft() )
             {
                 node = node.Left;
             }
             return node;
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        protected Node FindLowestNodeAmongGreaters( Node node )
-        {
-            if ( node.IsRight() is false )
-            {
-                return null;
-            }
-
-            return FindLowestNode( node.Right );
         }
         
         /*******************************************************************************************/

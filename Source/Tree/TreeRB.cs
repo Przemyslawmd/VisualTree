@@ -28,7 +28,7 @@ namespace VisualTree
             foreach ( Node node in nodes )
             {
                 Node parent = node.Parent;
-                Node lowestGreater = FindLowestNodeAmongGreaters( node );
+                Node lowestGreater = FindLowestNode( node.Right );
                 DetachNode( node );
                 CheckTreeAfterDelete( parent, node, lowestGreater );
             }
