@@ -25,12 +25,20 @@ namespace VisualTree
 
         override public void DelSelectedNodes( List< Node > nodes )
         {
+            Node doubleBlack;
+
             foreach ( Node node in nodes )
             {
-                Node parent = node.Parent;
-                Node lowestGreater = FindLowestNode( node.Right );
+                Node nodeToReplaceDeleted = null;
+                if ( node.Right != null )
+                {
+                    nodeToReplaceDeleted = FindLowestNode( node.Right );
+                }
+ 
+                doubleBlack = CheckDoubleBlackBeforeDelete( node, nodeToReplaceDeleted );
                 DetachNode( node );
-                CheckTreeAfterDelete( parent, node, lowestGreater );
+                SwapColors( node, nodeToReplaceDeleted );
+                CheckTreeAfterDelete( node, nodeToReplaceDeleted, doubleBlack );
             }
         }
 
@@ -63,19 +71,42 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void CheckTreeAfterDelete( Node parent, Node nodeDeleted, Node lowestGreater )
+        public Node CheckDoubleBlackBeforeDelete( Node nodeDeleted, Node nodeToReplaceDeleted )
         {
-            Node nodeReplace = parent > nodeDeleted ? parent.Left : parent.Right;
-            
-            if ( nodeDeleted.Color == NodeColor.RED )
+            if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.RED )
             {
-                if ( nodeReplace != null )
-                { 
-                    nodeReplace.Color = NodeColor.BLACK;
-                }
+                nodeToReplaceDeleted.Right.Color = NodeColor.BLACK;
+                return null;
+            }
+            else if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.BLACK )
+            {
+                return nodeToReplaceDeleted.Right;
+            }
+            return null;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, Node doubleBlack )
+        {
+            if ( doubleBlack is null )
+            {
                 return;
             }
+
+            Node sibling = GetSibling( doubleBlack );
+
+            if ( sibling.Color == NodeColor.BLACK && 
+                 ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED || 
+                   sibling.IsLeft() && sibling.Left.Color == NodeColor.RED ))
+            {
+
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private Node GetUncle( Node node )
         {
@@ -88,6 +119,15 @@ namespace VisualTree
             }
 
             return grand > parent ? grand.Right : grand.Left;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private Node GetSibling( Node node )
+        {
+            Node parent = node.Parent;
+            return node > parent ? parent.Left : parent.Right;
         }
 
         /*******************************************************************************************/
@@ -122,6 +162,21 @@ namespace VisualTree
                 node.Parent.Color = NodeColor.RED;
                 return RotateNode( node );
             }
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void SwapColors( Node nodeA, Node nodeB )
+        {
+            if ( nodeA is null || nodeB is null )
+            {
+                return;
+            }
+
+            NodeColor temp = nodeA.Color;
+            nodeA.Color = nodeB.Color;
+            nodeB.Color = temp;
         }
     }
 }

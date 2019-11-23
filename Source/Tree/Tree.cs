@@ -197,7 +197,7 @@ namespace VisualTree
             Node child = node.IsLeft() ? node.Left : node.Right;
             SetChildOfParentNode( node, child );
             child.Parent = node.Parent;	
-            
+
             if ( node == Root )
             {
                 Root = child;
@@ -209,35 +209,35 @@ namespace VisualTree
 
         public void DetachNodeTwoChildren( Node node )
         {
-            Node minNode = FindLowestNode( node.Right );
+            Node lowestGreater = FindLowestNode( node.Right );
             
-            if ( minNode == node.Right )
+            if ( lowestGreater == node.Right )
             {
-                minNode.Parent = node.Parent;
-                SetChildOfParentNode( node, minNode );
-                minNode.Left = node.Left;
-                node.Left.Parent = minNode;	
+                lowestGreater.Parent = node.Parent;
+                SetChildOfParentNode( node, lowestGreater );
+                lowestGreater.Left = node.Left;
+                node.Left.Parent = lowestGreater;
                 return;
             }	
     
-            if ( minNode.Right is null )
+            if ( lowestGreater.Right is null )
             {
-                minNode.Parent.Left = null;
-                minNode.Parent = node.Parent;
+                lowestGreater.Parent.Left = null;
+                lowestGreater.Parent = node.Parent;
             }
             else
             {
-                minNode.Parent.Left = minNode.Right;
-                minNode.Right.Parent = minNode.Parent;
-                minNode.Parent = node.Parent;
+                lowestGreater.Parent.Left = lowestGreater.Right;
+                lowestGreater.Right.Parent = lowestGreater.Parent;
+                lowestGreater.Parent = node.Parent;
             }
 
-            SetChildOfParentNode( node, minNode );
+            SetChildOfParentNode( node, lowestGreater );
 
-            minNode.Right = node.Right;
-            node.Right.Parent = minNode;
-            minNode.Left = node.Left;
-            node.Left.Parent = minNode;
+            lowestGreater.Right = node.Right;
+            node.Right.Parent = lowestGreater;
+            lowestGreater.Left = node.Left;
+            node.Left.Parent = lowestGreater;
         }
 
         /*******************************************************************************************/
