@@ -25,7 +25,7 @@ namespace VisualTree
 
         override public void DelSelectedNodes( List< Node > nodes )
         {
-            Node doubleBlack;
+            DoubleBlack doubleBlack;
 
             foreach ( Node node in nodes )
             {
@@ -71,7 +71,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public Node CheckDoubleBlackBeforeDelete( Node nodeDeleted, Node nodeToReplaceDeleted )
+        private DoubleBlack CheckDoubleBlackBeforeDelete( Node nodeDeleted, Node nodeToReplaceDeleted )
         {
             if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.RED )
             {
@@ -80,7 +80,11 @@ namespace VisualTree
             }
             else if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.BLACK )
             {
-                return nodeToReplaceDeleted.Right;
+                return new DoubleBlack( nodeToReplaceDeleted.Right, false);
+            }
+            else if ( nodeToReplaceDeleted.IsRight() is false && nodeToReplaceDeleted.IsLeft() is false )
+            {
+                return new DoubleBlack( nodeToReplaceDeleted, true );
             }
             return null;
         }
@@ -88,14 +92,14 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, Node doubleBlack )
+        private void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, DoubleBlack doubleBlack )
         {
             if ( doubleBlack is null )
             {
                 return;
             }
 
-            Node sibling = GetSibling( doubleBlack );
+            Node sibling = GetSibling( doubleBlack.Node );
 
             if ( sibling.Color == NodeColor.BLACK && 
                  ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED || 
@@ -177,6 +181,21 @@ namespace VisualTree
             NodeColor temp = nodeA.Color;
             nodeA.Color = nodeB.Color;
             nodeB.Color = temp;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private class DoubleBlack
+        {
+            public DoubleBlack( Node node, bool isNull )
+            {
+                Node = node;
+                IsNull = isNull;
+            }
+
+            public Node Node { get; }
+            public bool IsNull { get; }
         }
     }
 }
