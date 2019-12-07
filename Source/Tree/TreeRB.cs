@@ -25,20 +25,13 @@ namespace VisualTree
 
         override public void DelSelectedNodes( List< Node > nodes )
         {
-            DoubleBlack doubleBlack;
-
             foreach ( Node node in nodes )
             {
-                Node nodeToReplaceDeleted = null;
-                if ( node.Right != null )
-                {
-                    nodeToReplaceDeleted = FindLowestNode( node.Right );
-                }
- 
-                doubleBlack = CheckDoubleBlackBeforeDelete( node, nodeToReplaceDeleted );
+                Node nodeToReplace = FindLowestNode( node.Right );
+                DoubleBlackNode doubleBlackNode = CheckDoubleBlackBeforeDelete( nodeToReplace );
                 DetachNode( node );
-                SwapColors( node, nodeToReplaceDeleted );
-                CheckTreeAfterDelete( node, nodeToReplaceDeleted, doubleBlack );
+                SwapColors( node, nodeToReplace );
+                CheckTreeAfterDelete( node, nodeToReplace, doubleBlackNode );
             }
         }
 
@@ -71,20 +64,28 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private DoubleBlack CheckDoubleBlackBeforeDelete( Node nodeDeleted, Node nodeToReplaceDeleted )
+        private DoubleBlackNode CheckDoubleBlackBeforeDelete( Node nodeToReplace )
         {
-            if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.RED )
+            if ( nodeToReplace is null )
             {
-                nodeToReplaceDeleted.Right.Color = NodeColor.BLACK;
                 return null;
             }
-            else if ( nodeToReplaceDeleted.IsRight() && nodeToReplaceDeleted.Right.Color == NodeColor.BLACK )
+            if ( nodeToReplace.Color == NodeColor.RED || 
+               ( nodeToReplace.IsRight() && nodeToReplace.Right.Color == NodeColor.RED ))
             {
-                return new DoubleBlack( nodeToReplaceDeleted.Right, false);
+                if ( nodeToReplace.IsRight() )
+                { 
+                    nodeToReplace.Right.Color = NodeColor.BLACK;
+                }
+                return null;
             }
-            else if ( nodeToReplaceDeleted.IsRight() is false && nodeToReplaceDeleted.IsLeft() is false )
+            if ( nodeToReplace.IsRight() && nodeToReplace.Right.Color == NodeColor.BLACK )
             {
-                return new DoubleBlack( nodeToReplaceDeleted, true );
+                return new DoubleBlackNode( nodeToReplace.Right, nodeToReplace );
+            }
+            if ( nodeToReplace.IsRight() is false )
+            {
+                return new DoubleBlackNode( null, nodeToReplace );
             }
             return null;
         }
@@ -92,20 +93,38 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, DoubleBlack doubleBlack )
+        private void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, DoubleBlackNode doubleBlackNode )
         {
-            if ( doubleBlack is null )
+            if ( doubleBlackNode is null )
             {
                 return;
             }
 
-            Node sibling = GetSibling( doubleBlack.Node );
+            Node sibling = GetSibling( doubleBlackNode.Node );
 
-            if ( sibling.Color == NodeColor.BLACK && 
-                 ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED || 
-                   sibling.IsLeft() && sibling.Left.Color == NodeColor.RED ))
+            if ( sibling.Color == NodeColor.BLACK )
+            { 
+                if ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED )
+                {
+                    Node node = RotateNode( sibling.Right );
+                    RotateNode( node );
+                    return;
+                }
+                if ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )
+                {
+                    Node node = RotateNode( sibling.Left );
+                    RotateNode( node );
+                    return;
+                }
+                if (( sibling.IsRight() is false || sibling.Right.Color == NodeColor.BLACK ) &&
+                      sibling.IsLeft() is false || sibling.Left.Color == NodeColor.BLACK )
+                {
+                      sibling.Parent.Color = NodeColor.RED;  
+                }
+            }
+            else
             {
-
+                RotateNode( sibling );
             }
         }
 
@@ -186,16 +205,17 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private class DoubleBlack
+        private class DoubleBlackNode
         {
-            public DoubleBlack( Node node, bool isNull )
+            public DoubleBlackNode( Node node, Node parent )
             {
                 Node = node;
-                IsNull = isNull;
+                Parent = parent;
             }
 
             public Node Node { get; }
-            public bool IsNull { get; }
+
+            public Node Parent {  get; }
         }
     }
 }
