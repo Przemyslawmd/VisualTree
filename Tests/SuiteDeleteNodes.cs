@@ -163,6 +163,52 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        [TestMethod]
+        public void TestDeleteNodesRB_1()
+        {
+            var keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0 };
+            var keysToDelete = new List< int > { 8 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [0]  = NodeColor.RED,
+                 [1]  = NodeColor.BLACK,
+                 [3]  = NodeColor.BLACK,
+                 [2]  = NodeColor.BLACK,
+                 [5]  = NodeColor.BLACK,
+                 [7]  = NodeColor.BLACK,
+                 [10] = NodeColor.BLACK,
+                 [9]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestDeleteNodesRB_2()
+        {
+            var keysToBuild = new List< int > { 3, 6, 19, 21, 36, 45, 2 };
+            var keysToDelete = new List< int > { 3 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [2]  = NodeColor.BLACK,
+                 [19] = NodeColor.BLACK,
+                 [45] = NodeColor.RED,
+                 [36] = NodeColor.BLACK,
+                 [21] = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestCleanup]
         public void CleanUp()
         {
@@ -171,5 +217,4 @@ namespace Tests
         }
     }
 }
-
 

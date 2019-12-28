@@ -94,9 +94,25 @@ namespace Tests
             
             Selection selection = Selection.Get();
             AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
-
             tree.DelSelectedNodes( selection.Nodes );
+            
             CheckNode( tree.Root, keysToCheck );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        public void DeleteNodesTreeRB( List< int > keysToBuild, Dictionary< int, NodeColor > nodesToCheck, 
+                                       List< int > keysToDelete )
+        {
+            Tree tree = GetTree( TreeType.RB );
+            tree.CreateNodes( keysToBuild );
+            
+            Selection selection = Selection.Get();
+            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
+            tree.DelSelectedNodes( selection.Nodes );
+            
+            CheckNode( tree.Root, new List< int >( nodesToCheck.Keys ));
+            CheckNode( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
         }
         
         /*******************************************************************************************/

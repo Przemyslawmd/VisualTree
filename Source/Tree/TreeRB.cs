@@ -28,6 +28,11 @@ namespace VisualTree
             foreach ( Node node in nodes )
             {
                 Node nodeToReplace = FindLowestNode( node.Right );
+                if ( nodeToReplace is null )
+                {
+                    nodeToReplace = node.Left;
+                }
+                
                 DoubleBlackNode doubleBlackNode = CheckDoubleBlackBeforeDelete( nodeToReplace );
                 DetachNode( node );
                 SwapColors( node, nodeToReplace );
