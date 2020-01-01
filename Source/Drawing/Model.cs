@@ -148,13 +148,17 @@ namespace VisualTree
         
         private void FixNodesPositions( )
         {		
-            int row = 0;
-            int col = 0;
-
-            while ( CheckNodesCollision( ref row, ref col ))
+            while ( true )
             {		
-                Node currNode = Matrix[row][col];
-                Node nextNode = Matrix[row][col + 1];
+                var ( IsCollision, Row, Column ) = CheckNodesCollision();
+
+                if ( IsCollision is false )
+                {
+                    return;
+                }
+                
+                Node currNode = Matrix[Row][Column];
+                Node nextNode = Matrix[Row][Column + 1];
                 
                 int currPos = currNode.PosHor;
                 int nextPos = nextNode.PosHor;
@@ -201,7 +205,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        bool CheckNodesCollision( ref int rowWithCollision, ref int colWithCollision )
+        ( bool IsCollision, int Row, int Column ) CheckNodesCollision()
         {
             for ( int row = Matrix.Count - 1; row >= 0; row-- )
             {
@@ -209,13 +213,11 @@ namespace VisualTree
                 {						
                     if ( Matrix[row][col].PosHor >= Matrix[row][col + 1].PosHor - Padding )
                     {
-                        rowWithCollision = row;
-                        colWithCollision = col;
-                        return true;
+                        return ( true, row, col );
                     }
                 }
             }
-            return false;
+            return ( false, 0, 0 );
         }
             
         /*******************************************************************************************/
