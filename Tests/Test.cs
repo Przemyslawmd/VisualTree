@@ -2,7 +2,7 @@
 using VisualTree;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-
+using System;
 
 namespace Tests
 {
@@ -221,18 +221,13 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void TriggerStepModeActions( DelegateStepModeAction action, Tree tree, int count )
+        private void TriggerStepModeActions( Action< Tree > action, Tree tree, int count )
         {
             for ( int i = 0; i < count; i++ )
             {
                 action( tree );
             }
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private delegate void DelegateStepModeAction( Tree tree );
     }
 }
 

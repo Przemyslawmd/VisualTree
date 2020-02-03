@@ -164,7 +164,7 @@ namespace VisualTree
             }
             else if ( node.IsRight() && node.IsLeft() )
             {
-                DetachNodeTwoChildren( node );
+                DetachNodeTwoChildren( ref node );
             }
             else
             {
@@ -207,37 +207,32 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void DetachNodeTwoChildren( Node node )
+        public void DetachNodeTwoChildren( ref Node node )
         {
-            Node lowestGreater = FindLowestNode( node.Right );
-            
-            if ( lowestGreater == node.Right )
+            Node lowestSuccessor = FindLowestNode( node.Right );
+                        
+            if ( lowestSuccessor == node.Right )
             {
-                lowestGreater.Parent = node.Parent;
-                SetChildOfParentNode( node, lowestGreater );
-                lowestGreater.Left = node.Left;
-                node.Left.Parent = lowestGreater;
+                lowestSuccessor.Parent = node.Parent;
+                SetChildOfParentNode( node, lowestSuccessor );
+                lowestSuccessor.Left = node.Left;
+                node.Left.Parent = lowestSuccessor;
                 return;
             }	
     
-            if ( lowestGreater.Right is null )
+            if ( lowestSuccessor.Right != null )
             {
-                lowestGreater.Parent.Left = null;
-                lowestGreater.Parent = node.Parent;
+                lowestSuccessor.Right.Parent = lowestSuccessor.Parent;
             }
-            else
-            {
-                lowestGreater.Parent.Left = lowestGreater.Right;
-                lowestGreater.Right.Parent = lowestGreater.Parent;
-                lowestGreater.Parent = node.Parent;
-            }
+           
+            lowestSuccessor.Parent.Left = lowestSuccessor.Right;
+            lowestSuccessor.Parent = node.Parent;
+            SetChildOfParentNode( node, lowestSuccessor );
 
-            SetChildOfParentNode( node, lowestGreater );
-
-            lowestGreater.Right = node.Right;
-            node.Right.Parent = lowestGreater;
-            lowestGreater.Left = node.Left;
-            node.Left.Parent = lowestGreater;
+            lowestSuccessor.Right = node.Right;
+            lowestSuccessor.Left = node.Left;
+            node.Right.Parent = lowestSuccessor;
+            node.Left.Parent = lowestSuccessor;
         }
 
         /*******************************************************************************************/
