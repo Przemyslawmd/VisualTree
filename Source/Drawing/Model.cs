@@ -32,7 +32,7 @@ namespace VisualTree
             tree.Traverse( root, CalculateMatrixHeight );
             PrepareNodesMatrixRow();
             tree.Traverse( root, RegisterNode );
-            FixNodesPositions();
+            FixNodesPositions( tree );
             tree.Traverse( root, CalculateTreeWidth );
             
             if ( beginPosHor < Padding )
@@ -137,7 +137,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void FixNodesPositions( )
+        private void FixNodesPositions( Tree tree )
         {		
             while ( true )
             {		
@@ -187,7 +187,7 @@ namespace VisualTree
                     continue;
                 }
 
-                Node sharedParent = FindSharedParent( currNode, nextNode );
+                Node sharedParent = tree.FindSharedParent( currNode, nextNode );
                 ShiftParentSubTree( sharedParent.Left, - shiftPos, currNode );
                 ShiftParentSubTree( sharedParent.Right, shiftPos, nextNode ); 
             }
@@ -246,20 +246,6 @@ namespace VisualTree
                 ShiftParentSubTree( node.Right, shift, excluded );
             }
         }    
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private Node FindSharedParent( Node left, Node right )
-        {	
-            while( left.Parent != right.Parent )
-            {
-                left = left.Parent;
-                right = right.Parent;
-            }
-
-            return left.Parent;
-        }
         
         /*******************************************************************************************/
         /*******************************************************************************************/

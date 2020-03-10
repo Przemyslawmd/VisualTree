@@ -261,6 +261,20 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        public Node FindSharedParent( Node left, Node right )
+        {	
+            while( left.Parent != right.Parent )
+            {
+                left = left.Parent;
+                right = right.Parent;
+            }
+
+            return left.Parent;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public Node RotateNode( Node node )
         {
             ServiceListener.Notify( ActionTreeType.ROTATION, node );
@@ -276,6 +290,43 @@ namespace VisualTree
         }
         
         /*******************************************************************************************/
+        /* PROTECTED                                                                               */
+        /*******************************************************************************************/
+
+        protected Node FindLowestNode( Node node )
+        {
+            if ( node is null )
+            {
+                return null;
+            }
+            
+            while ( node.IsLeft() )
+            {
+                node = node.Left;
+            }
+            return node;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        protected void InsertNode( Node node )
+        {
+            ServiceListener.Notify( ActionTreeType.ADD, node );
+
+            if ( Root == null )
+            {
+                Root = node;
+                Root.Parent = null;
+                return;
+            }
+
+            Node parent = FindParentForNewNode( node.Key );
+            InsertNewNode( parent, node );
+        }
+        
+        /*******************************************************************************************/
+        /* PRIVATE                                                                                 */
         /*******************************************************************************************/
 
         private Node RotateLeft( Node parent, Node child )
@@ -311,24 +362,6 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
-
-        protected void InsertNode( Node node )
-        {
-            ServiceListener.Notify( ActionTreeType.ADD, node );
-
-            if ( Root == null )
-            {
-                Root = node;
-                Root.Parent = null;
-                return;
-            }
-
-            Node parent = FindParentForNewNode( node.Key );
-            InsertNewNode( parent, node );
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
         
         private Node FindParentForNewNode( int key )
         {
@@ -350,24 +383,7 @@ namespace VisualTree
                 }
             }
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        
-        protected Node FindLowestNode( Node node )
-        {
-            if ( node is null )
-            {
-                return null;
-            }
-            
-            while ( node.IsLeft() )
-            {
-                node = node.Left;
-            }
-            return node;
-        }
-        
+                
         /*******************************************************************************************/
         /*******************************************************************************************/
 
