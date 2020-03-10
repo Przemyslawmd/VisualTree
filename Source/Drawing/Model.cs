@@ -27,8 +27,6 @@ namespace VisualTree
             
         public void ModelTree( Tree tree )
         {
-            InitializeStartingValues();
-
             Node root = tree.Root;
             SetNodesPosition( root, Padding, Padding, 0 );
             tree.Traverse( root, CalculateMatrixHeight );
@@ -56,17 +54,10 @@ namespace VisualTree
         }
 
         /*******************************************************************************************/
+        /* PRIVATE                                                                                 */
         /*******************************************************************************************/
         
         private Model() { }
-            
-        private void InitializeStartingValues()
-        {
-            matrixHeight = 0;
-            beginPosHor = Padding;
-            endPosHor = 0;
-            diameter = Settings.Diameter;
-        }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
@@ -205,7 +196,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        ( bool IsCollision, int Row, int Column ) CheckNodesCollision()
+        private ( bool IsCollision, int Row, int Column ) CheckNodesCollision()
         {
             for ( int row = Matrix.Count - 1; row >= 0; row-- )
             {
@@ -275,9 +266,9 @@ namespace VisualTree
             
         private static Model model;
             
-        private int beginPosHor;
+        private int beginPosHor = Settings.Diameter;
         private int endPosHor;
-        private int diameter;
+        private int diameter = Settings.Diameter;
         private int shiftPos;
         private readonly int Padding = Settings.Diameter;
         private int matrixHeight;
