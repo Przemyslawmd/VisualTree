@@ -62,9 +62,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Source\VisualTreeNET.csproj">
+    <ProjectReference Include="..\Source\VisualTree.csproj">
       <Project>{c60227a2-9c6b-4275-83f7-130ff6b6957c}</Project>
-      <Name>VisualTreeNET</Name>
+      <Name>VisualTree</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
