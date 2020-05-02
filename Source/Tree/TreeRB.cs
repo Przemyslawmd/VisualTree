@@ -27,16 +27,20 @@ namespace VisualTree
         {
             foreach ( Node node in nodes )
             {
-                Node nodeToReplace = FindLowestNode( node.Right );
-                if ( nodeToReplace is null )
+                if ( node.IsLeaf() )
                 {
-                    nodeToReplace = node.Left;
+                    DeleteNodeLeaf( node );
                 }
-                
-                DoubleBlackNode doubleBlackNode = CheckDoubleBlackBeforeDelete( nodeToReplace );
-                DetachNode( node );
-                SwapColors( node, nodeToReplace );
-                CheckTreeAfterDelete( node, nodeToReplace, doubleBlackNode );
+                else if ( node.AreBothChildren() )
+                {
+                    DeleteNodeWithBothChildren( node );
+                }
+                else
+                {
+                    DeleteNodeWithOneChild( node );
+                }
+
+                // to do check double black are removed
             }
         }
 
@@ -68,68 +72,90 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
-
-        private DoubleBlackNode CheckDoubleBlackBeforeDelete( Node nodeToReplace )
+        
+        private void DeleteNodeLeaf( Node node )
         {
-            if ( nodeToReplace is null )
-            {
-                return null;
+            if ( node.Color == NodeColor.RED )
+            { 
+                DetachNode( node );
             }
-            if ( nodeToReplace.Color == NodeColor.RED || 
-               ( nodeToReplace.IsRight() && nodeToReplace.Right.Color == NodeColor.RED ))
+            else
             {
-                if ( nodeToReplace.IsRight() )
-                { 
-                    nodeToReplace.Right.Color = NodeColor.BLACK;
-                }
-                return null;
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( node ); 
+                DetachNode( node );
+                FixDoubleBlackNode( nodeDB );
             }
-            if ( nodeToReplace.IsRight() && nodeToReplace.Right.Color == NodeColor.BLACK )
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void DeleteNodeWithOneChild( Node node )
+        {
+            Node child = node.Left is null ? node.Right : node.Left;
+                
+            if ( node.Color == NodeColor.RED || child.Color == NodeColor.RED )
             {
-                return new DoubleBlackNode( nodeToReplace.Right, nodeToReplace );
+                child.Color = NodeColor.BLACK;
+                DetachNode( node );
             }
-            if ( nodeToReplace.IsRight() is false )
+            else
             {
-                return new DoubleBlackNode( null, nodeToReplace );
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( child );
+                DetachNode( node );
+                FixDoubleBlackNode( nodeDB );
             }
-            return null;
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void CheckTreeAfterDelete( Node nodeDeleted, Node nodeToReplace, DoubleBlackNode doubleBlackNode )
+        private void DeleteNodeWithBothChildren( Node node )
         {
-            if ( doubleBlackNode is null )
+            Node leastSuccessor = FindLowestNode ( node.Right );
+            Node leastSuccessorChild = leastSuccessor.Right is null ? null : leastSuccessor.Right;
+                
+            if ( leastSuccessor.Color == NodeColor.RED || 
+               ( leastSuccessorChild != null && leastSuccessorChild.Color == NodeColor.RED ))
             {
-                return;
+                leastSuccessor.Color = NodeColor.BLACK;
+                SwapColors( node, leastSuccessor );
+                DetachNode( node );
             }
+            else 
+            { 
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( leastSuccessor );
+                DetachNode( node );
+                FixDoubleBlackNode( nodeDB );
+            }
+        }
 
-            Node sibling = GetSibling( doubleBlackNode.Node );
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+               
+        private void FixDoubleBlackNode( NodeDoubleBlack nodeDB )
+        {
+            Node sibling = GetSibling( nodeDB.Node );
+
+            if ( sibling is null )
+            {
+
+            }
 
             if ( sibling.Color == NodeColor.BLACK )
-            { 
-                if ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED )
-                {
-                    Node node = RotateNode( sibling.Right );
-                    RotateNode( node );
-                    return;
-                }
-                if ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )
-                {
-                    Node node = RotateNode( sibling.Left );
-                    RotateNode( node );
-                    return;
-                }
-                if (( sibling.IsRight() is false || sibling.Right.Color == NodeColor.BLACK ) &&
-                      sibling.IsLeft() is false || sibling.Left.Color == NodeColor.BLACK )
-                {
-                      sibling.Parent.Color = NodeColor.RED;  
-                }
-            }
-            else
             {
-                RotateNode( sibling );
+
+            }
+
+
+            if ( sibling.Color == NodeColor.BLACK )
+            {
+
+            }
+
+            if ( sibling.Color == NodeColor.RED )
+            {
+
             }
         }
 
@@ -207,20 +233,17 @@ namespace VisualTree
             nodeB.Color = temp;
         }
 
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private class DoubleBlackNode
+        private class NodeDoubleBlack
         {
-            public DoubleBlackNode( Node node, Node parent )
+            public NodeDoubleBlack( Node node )
             {
                 Node = node;
-                Parent = parent;
+                Parent = node.Parent;
             }
 
             public Node Node { get; }
 
-            public Node Parent {  get; }
+            public Node Parent { get; }
         }
     }
 }

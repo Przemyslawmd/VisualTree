@@ -39,6 +39,16 @@ namespace VisualTree
             return Right is null ? false : true;
         }
 
+        public bool IsLeaf()
+        {
+            return Right is null && Left is null;
+        }
+
+        public bool AreBothChildren()
+        {
+            return IsLeft() && IsRight();
+        }
+
         public NodeColor Color {  get; set; } = NodeColor.NONE;
         
         public static bool operator > ( Node nodeA, Node nodeB )
