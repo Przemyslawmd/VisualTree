@@ -114,12 +114,19 @@ namespace VisualTree
         {
             Node leastSuccessor = FindLowestNode ( node.Right );
             Node leastSuccessorChild = leastSuccessor.Right is null ? null : leastSuccessor.Right;
-                
-            if ( leastSuccessor.Color == NodeColor.RED || 
+            
+            SwapColors( node, leastSuccessor );
+
+            if ( node.Color == NodeColor.RED || leastSuccessor.Color == NodeColor.RED )
+            {
+                leastSuccessor.Color = NodeColor.BLACK;
+                DetachNode( node );
+            }
+
+            else if ( leastSuccessor.Color == NodeColor.RED || 
                ( leastSuccessorChild != null && leastSuccessorChild.Color == NodeColor.RED ))
             {
                 leastSuccessor.Color = NodeColor.BLACK;
-                SwapColors( node, leastSuccessor );
                 DetachNode( node );
             }
             else 
@@ -135,32 +142,93 @@ namespace VisualTree
                
         private void FixDoubleBlackNode( NodeDoubleBlack nodeDB )
         {
+            if ( nodeDB.Parent is null )
+            {
+                return;
+            }
+            
             Node sibling = GetSibling( nodeDB.Node );
 
-            if ( sibling is null )
+            if ( sibling.Color == NodeColor.BLACK && HasNodeRedChild( sibling ))
             {
+                if ( sibling < sibling.Parent && 
+                   ( HasNodeBothChildrenRed( sibling ) || ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )))
+                {
+                    // Left Left case
+                    SwapColors( sibling, sibling.Parent );
+                    RotateNode( sibling );
+                }
 
+                if ( sibling < sibling.Parent && 
+                     sibling.IsRight() && sibling.Right.Color == NodeColor.RED )
+                {
+                    // Left Right Case
+                    RotateNode( sibling.Right );
+                    RotateNode( sibling.Right );
+                }
+
+                if ( sibling > sibling.Parent && 
+                   ( HasNodeBothChildrenRed( sibling ) || ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED )))
+                {
+                    // Right Right Case
+                    SwapColors( sibling, sibling.Parent );
+                    RotateNode( sibling );
+                }
+
+                if ( sibling > sibling.Parent && 
+                     sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )
+                {
+                    // Left Right Case
+                    RotateNode( sibling.Left );
+                    RotateNode( sibling.Left );
+                }
             }
-
-            if ( sibling.Color == NodeColor.BLACK )
+            
+            if ( sibling.Color == NodeColor.BLACK && HasNodeBothChildrenBlack( sibling ))
             {
-
-            }
-
-
-            if ( sibling.Color == NodeColor.BLACK )
-            {
-
+                // Recolour
+                if ( sibling.Parent.Color == NodeColor.BLACK )
+                {
+                    sibling.Color = NodeColor.RED;
+                }
             }
 
             if ( sibling.Color == NodeColor.RED )
             {
-
+                SwapColors( sibling, sibling.Parent );
+                RotateNode( sibling );
             }
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
+
+        private bool HasNodeRedChild( Node node )
+        {
+            if ( node.IsRight() && node.Right.Color == NodeColor.RED )
+            {
+                return true;
+            }
+            
+            if ( node.IsLeft() && node.Left.Color == NodeColor.RED )
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
+        private bool HasNodeBothChildrenBlack( Node node )
+        {
+            return ( node.IsRight() == false || node.Right.Color == NodeColor.BLACK ) &&
+                   ( node.IsLeft() == false || node.Left.Color == NodeColor.BLACK );
+        }
+
+        private bool HasNodeBothChildrenRed( Node node )
+        {
+            return ( node.IsRight() && node.Right.Color == NodeColor.RED ) &&
+                   ( node.IsLeft() && node.Left.Color == NodeColor.RED );
+        }
 
         private Node GetUncle( Node node )
         {
@@ -231,6 +299,18 @@ namespace VisualTree
             NodeColor temp = nodeA.Color;
             nodeA.Color = nodeB.Color;
             nodeB.Color = temp;
+        }
+
+        private void SwapKeys( Node nodeA, Node nodeB )
+        {
+            if ( nodeA is null || nodeB is null )
+            {
+                return;
+            }
+
+            int temp = nodeA.Key; 
+            nodeA.Key = nodeB.Key;
+            //nodeB.Key = ;
         }
 
         private class NodeDoubleBlack

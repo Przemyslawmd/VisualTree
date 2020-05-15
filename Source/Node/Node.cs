@@ -8,7 +8,7 @@ namespace VisualTree
             Key = key;
         }
         
-        public int Key { get; }
+        public int Key { get; set; }
         
         public int Level {  get; set; } = 1;
 
