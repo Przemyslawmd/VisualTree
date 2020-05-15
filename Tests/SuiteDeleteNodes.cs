@@ -209,6 +209,76 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        //[TestMethod] Crash
+        public void TestDeleteNodesRB_3()
+        {
+            var keysToBuild = new List< int > { 6, 4, 2, 1, 10, 8 };
+            var keysToDelete = new List< int > { 8 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
+                 [10] = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        //[TestMethod] // Crash
+        public void TestDeleteNodesRB_4()
+        {
+            var keysToBuild = new List< int > { 12, 2, 3, 11, 9, 21, 17, 23, 5 };
+            var keysToDelete = new List< int > { 3 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [2]  = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
+                 [5]  = NodeColor.RED,
+                 [12] = NodeColor.BLACK,
+                 [23] = NodeColor.RED,
+                 [21] = NodeColor.BLACK,
+                 [17] = NodeColor.RED,
+                 [11] = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        //[TestMethod] // Not crash but result is failed
+        public void TestDeleteNodesRB_5()
+        {
+            var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
+            var keysToDelete = new List< int > { 18 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.BLACK,
+                 [3]  = NodeColor.BLACK,
+                 [7]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
+                 [9]  = NodeColor.BLACK,
+                 [11] = NodeColor.BLACK,
+                 [10] = NodeColor.RED,
+                 [30] = NodeColor.BLACK,
+                 [14] = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestCleanup]
         public void CleanUp()
         {
