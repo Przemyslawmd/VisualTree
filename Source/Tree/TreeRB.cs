@@ -39,7 +39,6 @@ namespace VisualTree
                 {
                     DeleteNodeWithOneChild( node );
                 }
-
                 // to do check double black are removed
             }
         }
@@ -114,19 +113,13 @@ namespace VisualTree
         {
             Node leastSuccessor = FindLowestNode ( node.Right );
             Node leastSuccessorChild = leastSuccessor.Right is null ? null : leastSuccessor.Right;
+
+            SwapColorsRecursively( node );
             
-            SwapColors( node, leastSuccessor );
-
-            if ( node.Color == NodeColor.RED || leastSuccessor.Color == NodeColor.RED )
-            {
-                leastSuccessor.Color = NodeColor.BLACK;
-                DetachNode( node );
-            }
-
-            else if ( leastSuccessor.Color == NodeColor.RED || 
+            if ( leastSuccessor.Color == NodeColor.RED || 
                ( leastSuccessorChild != null && leastSuccessorChild.Color == NodeColor.RED ))
             {
-                leastSuccessor.Color = NodeColor.BLACK;
+                leastSuccessorChild.Color = NodeColor.BLACK;
                 DetachNode( node );
             }
             else 
@@ -203,32 +196,61 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private bool HasNodeRedChild( Node node )
+        private bool HasNodeLeftRedChild( Node node )
         {
-            if ( node.IsRight() && node.Right.Color == NodeColor.RED )
-            {
-                return true;
-            }
-            
-            if ( node.IsLeft() && node.Left.Color == NodeColor.RED )
-            {
-                return true;
-            }
-
-            return false;
+            return node.IsLeft() && node.Left.Color == NodeColor.RED;
         }
         
-        private bool HasNodeBothChildrenBlack( Node node )
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private bool HasNodeRightRedChild( Node node )
         {
-            return ( node.IsRight() == false || node.Right.Color == NodeColor.BLACK ) &&
-                   ( node.IsLeft() == false || node.Left.Color == NodeColor.BLACK );
+            return node.IsRight() && node.Right.Color == NodeColor.RED;
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private bool HasNodeLeftBlackChild( Node node )
+        {
+            return node.Left is null || node.Left.Color == NodeColor.BLACK;
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private bool HasNodeRightBlackChild( Node node )
+        {
+            return node.Right is null || node.Right.Color == NodeColor.BLACK;
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private bool HasNodeRedChild( Node node )
+        {
+            return HasNodeLeftRedChild( node ) || HasNodeRightRedChild( node );
+        }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private bool HasNodeBothChildrenRed( Node node )
         {
-            return ( node.IsRight() && node.Right.Color == NodeColor.RED ) &&
-                   ( node.IsLeft() && node.Left.Color == NodeColor.RED );
+            return HasNodeLeftRedChild( node ) && HasNodeRightRedChild( node );
         }
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private bool HasNodeBothChildrenBlack( Node node )
+        {
+            return HasNodeLeftBlackChild( node ) && HasNodeRightBlackChild( node );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private Node GetUncle( Node node )
         {
@@ -301,17 +323,21 @@ namespace VisualTree
             nodeB.Color = temp;
         }
 
-        private void SwapKeys( Node nodeA, Node nodeB )
-        {
-            if ( nodeA is null || nodeB is null )
-            {
-                return;
-            }
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
-            int temp = nodeA.Key; 
-            nodeA.Key = nodeB.Key;
-            //nodeB.Key = ;
+        private void SwapColorsRecursively( Node node )
+        {
+            while ( node.IsLeaf() == false )
+            {
+                Node leastSuccessor = FindLowestNode( node.Right );
+                SwapColors( node, leastSuccessor );
+                node = leastSuccessor;
+            }
         }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
         private class NodeDoubleBlack
         {
