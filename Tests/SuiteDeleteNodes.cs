@@ -176,8 +176,8 @@ namespace Tests
                  [2]  = NodeColor.BLACK,
                  [5]  = NodeColor.BLACK,
                  [7]  = NodeColor.BLACK,
-                 [10] = NodeColor.BLACK,
-                 [9]  = NodeColor.RED,
+                 [10] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
                  [6]  = NodeColor.BLACK,
                  [4]  = NodeColor.BLACK,
             };
@@ -209,7 +209,7 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        //[TestMethod] Crash
+        [TestMethod]
         public void TestDeleteNodesRB_3()
         {
             var keysToBuild = new List< int > { 6, 4, 2, 1, 10, 8 };
@@ -218,8 +218,8 @@ namespace Tests
             {  
                  [1]  = NodeColor.RED,
                  [2]  = NodeColor.BLACK,
-                 [10] = NodeColor.RED,
-                 [6]  = NodeColor.BLACK,
+                 [6]  = NodeColor.RED,
+                 [10] = NodeColor.BLACK,
                  [4]  = NodeColor.BLACK,
             };
             
@@ -229,14 +229,14 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        //[TestMethod] // Crash
+        [TestMethod] 
         public void TestDeleteNodesRB_4()
         {
             var keysToBuild = new List< int > { 12, 2, 3, 11, 9, 21, 17, 23, 5 };
             var keysToDelete = new List< int > { 3 };
             var nodesToCheck = new Dictionary< int, NodeColor > 
             {  
-                 [2]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
                  [9]  = NodeColor.BLACK,
                  [5]  = NodeColor.RED,
                  [12] = NodeColor.BLACK,

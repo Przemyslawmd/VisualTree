@@ -6,6 +6,13 @@ namespace VisualTree
 {
     abstract class Tree
     {
+        public abstract void AddNode( int key );
+        
+        public abstract void DelSelectedNodes( List< Node > nodes );
+        
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         public void CreateNodes( List< int > keys )
         {
             foreach( int key in keys ) 
@@ -49,13 +56,6 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /*******************************************************************************************/
-        
-        public abstract void AddNode( int key );
-        
-        public abstract void DelSelectedNodes( List< Node > nodes );
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
 
         public void AttachNode( Node node )
         {
@@ -63,7 +63,7 @@ namespace VisualTree
             {
                 Root = node;
             }
-            else if ( node.Left is null && node.Right is null )
+            else if ( node.IsLeaf() )
             {
                 AttachNodeNoChildren( node );
             }
@@ -158,7 +158,7 @@ namespace VisualTree
 
         public void DetachNode( Node node )
         {
-            if ( node.Right is null && node.Left is null )
+            if ( node.IsLeaf() )
             {
                 DetachNodeNoChildren( node );
             }
