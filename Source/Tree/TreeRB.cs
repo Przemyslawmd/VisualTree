@@ -39,7 +39,6 @@ namespace VisualTree
                 {
                     DeleteNodeWithOneChild( node );
                 }
-                // to do check double black are removed
             }
         }
 
@@ -80,7 +79,7 @@ namespace VisualTree
             }
             else
             {
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( node ); 
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( null, node ); 
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -100,7 +99,7 @@ namespace VisualTree
             }
             else
             {
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( child );
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( child, node );
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -114,17 +113,20 @@ namespace VisualTree
             Node leastSuccessor = FindLowestNode ( node.Right );
             Node leastSuccessorChild = leastSuccessor.Right is null ? null : leastSuccessor.Right;
 
-            SwapColorsRecursively( node );
+            SwapColors( node, leastSuccessor );
             
             if ( leastSuccessor.Color == NodeColor.RED || 
                ( leastSuccessorChild != null && leastSuccessorChild.Color == NodeColor.RED ))
             {
-                leastSuccessorChild.Color = NodeColor.BLACK;
+                if ( leastSuccessorChild != null )
+                { 
+                    leastSuccessorChild.Color = NodeColor.BLACK;
+                }
                 DetachNode( node );
             }
             else 
             { 
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( leastSuccessor );
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( leastSuccessorChild, leastSuccessor );
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -140,7 +142,7 @@ namespace VisualTree
                 return;
             }
             
-            Node sibling = GetSibling( nodeDB.Node );
+            Node sibling = GetSibling( nodeDB );
 
             if ( sibling.Color == NodeColor.BLACK && HasNodeRedChild( sibling ))
             {
@@ -268,10 +270,17 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private Node GetSibling( Node node )
+        private Node GetSibling( NodeDoubleBlack nodeDB )
         {
-            Node parent = node.Parent;
-            return node > parent ? parent.Left : parent.Right;
+            if ( nodeDB.Node != null )
+            { 
+                Node parent = nodeDB.Parent;
+                return nodeDB.Node > parent ? parent.Left : parent.Right;
+            }
+            else
+            {
+                return nodeDB.Parent.IsLeft() ? nodeDB.Parent.Left : nodeDB.Parent.Right;
+            }
         }
 
         /*******************************************************************************************/
@@ -326,25 +335,12 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void SwapColorsRecursively( Node node )
-        {
-            while ( node.IsLeaf() == false )
-            {
-                Node leastSuccessor = FindLowestNode( node.Right );
-                SwapColors( node, leastSuccessor );
-                node = leastSuccessor;
-            }
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
         private class NodeDoubleBlack
         {
-            public NodeDoubleBlack( Node node )
+            public NodeDoubleBlack( Node node, Node parent )
             {
                 Node = node;
-                Parent = node.Parent;
+                Parent = parent;
             }
 
             public Node Node { get; }

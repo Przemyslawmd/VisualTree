@@ -176,8 +176,8 @@ namespace Tests
                  [2]  = NodeColor.BLACK,
                  [5]  = NodeColor.BLACK,
                  [7]  = NodeColor.BLACK,
-                 [10] = NodeColor.RED,
-                 [9]  = NodeColor.BLACK,
+                 [10] = NodeColor.BLACK,
+                 [9]  = NodeColor.RED,
                  [6]  = NodeColor.BLACK,
                  [4]  = NodeColor.BLACK,
             };
@@ -218,8 +218,8 @@ namespace Tests
             {  
                  [1]  = NodeColor.RED,
                  [2]  = NodeColor.BLACK,
-                 [6]  = NodeColor.RED,
-                 [10] = NodeColor.BLACK,
+                 [10] = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
                  [4]  = NodeColor.BLACK,
             };
             
@@ -246,13 +246,13 @@ namespace Tests
                  [11] = NodeColor.BLACK,
             };
             
-            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        //[TestMethod] // Not crash but result is failed
+        [TestMethod]
         public void TestDeleteNodesRB_5()
         {
             var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
@@ -273,7 +273,7 @@ namespace Tests
                  [8]  = NodeColor.BLACK,
             };
             
-            new Test().DeleteNodesTreeRB( keysToBuild,  nodesToCheck, keysToDelete );
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
         }
 
         /*******************************************************************************************/
