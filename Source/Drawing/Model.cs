@@ -37,10 +37,10 @@ namespace VisualTree
             
             if ( beginPosHor < Padding )
             {
-                shiftPos = Padding - beginPosHor; 
+                int shift = Padding - beginPosHor; 
                 tree.Traverse( root, ShiftNodeHorPosition );
-                beginPosHor += shiftPos;
-                endPosHor += shiftPos;
+                beginPosHor += shift;
+                endPosHor += shift;
             }
         }
 
@@ -49,7 +49,7 @@ namespace VisualTree
         
         public void GetTreeCanvasSize( out int width, out int height )
         {
-            height = ( matrixHeight + 1 ) * ( diameter + 10 ) + Padding;
+            height = ( matrixHeight + 1 ) * ( Diameter + 10 ) + Padding;
             width = endPosHor + Padding;
         }
 
@@ -66,7 +66,7 @@ namespace VisualTree
         {
             if ( node.IsLeft() )
             {
-                SetNodesPosition( node.Left, posHor - diameter, posVer + diameter + 10, matrixRow + 1 );
+                SetNodesPosition( node.Left, posHor - Diameter, posVer + Diameter + 10, matrixRow + 1 );
             }
             
             node.PosHor = posHor;
@@ -75,7 +75,7 @@ namespace VisualTree
 
             if ( node.IsRight() )
             {
-                SetNodesPosition( node.Right, posHor + diameter, posVer + diameter + 10, matrixRow + 1 );
+                SetNodesPosition( node.Right, posHor + Diameter, posVer + Diameter + 10, matrixRow + 1 );
             }
         }
         
@@ -110,7 +110,7 @@ namespace VisualTree
         
         private void ShiftNodeHorPosition( Node node )
         {	
-            node.PosHor += shiftPos;
+            node.PosHor += ( Padding - beginPosHor );
         }
 
         /*******************************************************************************************/
@@ -154,33 +154,26 @@ namespace VisualTree
                 int currPos = currNode.PosHor;
                 int nextPos = nextNode.PosHor;
 
-                if ( currPos >= nextPos )
-                { 
-                    shiftPos = ( currPos - nextPos + diameter + 5 ) / 2;
-                }
-                else
-                {
-                    shiftPos = ( nextPos - currPos ) + 5 / 2;
-                }
-                
-                currNode.PosHor -= shiftPos; 
-                nextNode.PosHor += shiftPos;
+                int shift = currPos >= nextPos ? ( currPos - nextPos + Diameter + 5 ) / 2 : 
+                                                 ( nextPos - currPos ) + 5 / 2;
+                currNode.PosHor -= shift; 
+                nextNode.PosHor += shift;
                 
                 if ( currNode.IsLeft() )
                 {
-                    ShiftChildSubTree( currNode.Left, - shiftPos );
+                    ShiftChildSubTree( currNode.Left, -shift );
                 }
                 if ( currNode.IsRight() )
                 {
-                    ShiftChildSubTree( currNode.Right, - shiftPos );
+                    ShiftChildSubTree( currNode.Right, -shift );
                 }
                 if ( nextNode.IsLeft() )
                 {
-                    ShiftChildSubTree( nextNode.Left, shiftPos );
+                    ShiftChildSubTree( nextNode.Left, shift );
                 }
                 if ( nextNode.IsRight() )
                 {
-                    ShiftChildSubTree( nextNode.Right, shiftPos );
+                    ShiftChildSubTree( nextNode.Right, shift );
                 }
                 if ( currNode.Parent == nextNode.Parent )
                 {
@@ -188,8 +181,8 @@ namespace VisualTree
                 }
 
                 Node sharedParent = tree.FindSharedParent( currNode, nextNode );
-                ShiftParentSubTree( sharedParent.Left, - shiftPos, currNode );
-                ShiftParentSubTree( sharedParent.Right, shiftPos, nextNode ); 
+                ShiftParentSubTree( sharedParent.Left, -shift, currNode );
+                ShiftParentSubTree( sharedParent.Right, shift, nextNode ); 
             }
         }       
             
@@ -254,11 +247,11 @@ namespace VisualTree
             
         private int beginPosHor = Settings.Diameter;
         private int endPosHor;
-        private int diameter = Settings.Diameter;
-        private int shiftPos;
-        private readonly int Padding = Settings.Diameter;
         private int matrixHeight;
         
+        private readonly int Diameter = Settings.Diameter;
+        private readonly int Padding = Settings.Diameter;
+
         public List< List< Node >> Matrix { get; private set; }
     }
 }
