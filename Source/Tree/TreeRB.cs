@@ -79,7 +79,7 @@ namespace VisualTree
             }
             else
             {
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( null, node ); 
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( node.Parent, node, null ); 
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -99,7 +99,7 @@ namespace VisualTree
             }
             else
             {
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( child, node );
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( node.Parent, node, child );
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -110,10 +110,8 @@ namespace VisualTree
 
         private void DeleteNodeWithBothChildren( Node node )
         {
-            Node leastSuccessor = FindLowestNode ( node.Right );
+            Node leastSuccessor = FindLowestNode( node.Right );
             Node leastSuccessorChild = leastSuccessor.Right is null ? null : leastSuccessor.Right;
-
-            SwapColors( node, leastSuccessor );
             
             if ( leastSuccessor.Color == NodeColor.RED || 
                ( leastSuccessorChild != null && leastSuccessorChild.Color == NodeColor.RED ))
@@ -122,11 +120,13 @@ namespace VisualTree
                 { 
                     leastSuccessorChild.Color = NodeColor.BLACK;
                 }
+                SwapColors( node, leastSuccessor );
                 DetachNode( node );
             }
             else 
             { 
-                NodeDoubleBlack nodeDB = new NodeDoubleBlack( leastSuccessorChild, leastSuccessor );
+                NodeDoubleBlack nodeDB = new NodeDoubleBlack( leastSuccessor.Parent, leastSuccessor, leastSuccessorChild );
+                SwapColors( node, leastSuccessor );
                 DetachNode( node );
                 FixDoubleBlackNode( nodeDB );
             }
@@ -134,7 +134,7 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
-               
+
         private void FixDoubleBlackNode( NodeDoubleBlack nodeDB )
         {
             if ( nodeDB.Parent is null )
@@ -142,19 +142,21 @@ namespace VisualTree
                 return;
             }
             
-            Node sibling = GetSibling( nodeDB );
+            Node sibling = nodeDB.Sibling;
 
-            if ( sibling.Color == NodeColor.BLACK && HasNodeRedChild( sibling ))
+            if ( sibling != null && sibling.Color == NodeColor.BLACK && HasRedNode( sibling ))
             {
+                Node siblingRedChild = sibling.IsLeft() && sibling.Left.Color == NodeColor.RED ? sibling.Left : sibling.Right;
+                
                 if ( sibling < sibling.Parent && 
-                   ( HasNodeBothChildrenRed( sibling ) || ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )))
+                   ( HasBothNodesRed( sibling ) || ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )))
                 {
                     // Left Left case
                     SwapColors( sibling, sibling.Parent );
                     RotateNode( sibling );
                 }
 
-                if ( sibling < sibling.Parent && 
+                else if ( sibling < sibling.Parent && 
                      sibling.IsRight() && sibling.Right.Color == NodeColor.RED )
                 {
                     // Left Right Case
@@ -162,15 +164,15 @@ namespace VisualTree
                     RotateNode( sibling.Right );
                 }
 
-                if ( sibling > sibling.Parent && 
-                   ( HasNodeBothChildrenRed( sibling ) || ( sibling.IsRight() && sibling.Right.Color == NodeColor.RED )))
+                else if (( sibling > sibling.Parent && siblingRedChild > sibling ) || HasBothNodesRed( sibling ))
                 {
                     // Right Right Case
-                    SwapColors( sibling, sibling.Parent );
                     RotateNode( sibling );
+                    SwapColors( sibling, sibling.Parent );
+                    
                 }
 
-                if ( sibling > sibling.Parent && 
+                else if ( sibling > sibling.Parent && 
                      sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )
                 {
                     // Left Right Case
@@ -179,7 +181,7 @@ namespace VisualTree
                 }
             }
             
-            if ( sibling.Color == NodeColor.BLACK && HasNodeBothChildrenBlack( sibling ))
+            else if ( sibling.Color == NodeColor.BLACK && HasBothNodesBlack( sibling ))
             {
                 // Recolour
                 if ( sibling.Parent.Color == NodeColor.BLACK )
@@ -188,7 +190,7 @@ namespace VisualTree
                 }
             }
 
-            if ( sibling.Color == NodeColor.RED )
+            else if ( sibling.Color == NodeColor.RED )
             {
                 SwapColors( sibling, sibling.Parent );
                 RotateNode( sibling );
@@ -198,57 +200,42 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private bool HasNodeLeftRedChild( Node node )
+        private bool HasLeftNodeRed( Node node )
         {
             return node.IsLeft() && node.Left.Color == NodeColor.RED;
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
 
-        private bool HasNodeRightRedChild( Node node )
+        private bool HasRightNodeRed( Node node )
         {
             return node.IsRight() && node.Right.Color == NodeColor.RED;
         }
 
+          private bool HasRedNode( Node node )
+        {
+            return HasLeftNodeRed( node ) || HasRightNodeRed( node );
+        }
+        
+        private bool HasBothNodesRed( Node node )
+        {
+            return HasLeftNodeRed( node ) && HasRightNodeRed( node );
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private bool HasNodeLeftBlackChild( Node node )
+        private bool HasLeftNodeBlack( Node node )
         {
             return node.Left is null || node.Left.Color == NodeColor.BLACK;
         }
 
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private bool HasNodeRightBlackChild( Node node )
+        private bool HasRightNodeBlack( Node node )
         {
             return node.Right is null || node.Right.Color == NodeColor.BLACK;
         }
         
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private bool HasNodeRedChild( Node node )
+        private bool HasBothNodesBlack( Node node )
         {
-            return HasNodeLeftRedChild( node ) || HasNodeRightRedChild( node );
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private bool HasNodeBothChildrenRed( Node node )
-        {
-            return HasNodeLeftRedChild( node ) && HasNodeRightRedChild( node );
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private bool HasNodeBothChildrenBlack( Node node )
-        {
-            return HasNodeLeftBlackChild( node ) && HasNodeRightBlackChild( node );
+            return HasLeftNodeBlack( node ) && HasRightNodeBlack( node );
         }
 
         /*******************************************************************************************/
@@ -265,22 +252,6 @@ namespace VisualTree
             }
 
             return grand > parent ? grand.Right : grand.Left;
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private Node GetSibling( NodeDoubleBlack nodeDB )
-        {
-            if ( nodeDB.Node != null )
-            { 
-                Node parent = nodeDB.Parent;
-                return nodeDB.Node > parent ? parent.Left : parent.Right;
-            }
-            else
-            {
-                return nodeDB.Parent.IsLeft() ? nodeDB.Parent.Left : nodeDB.Parent.Right;
-            }
         }
 
         /*******************************************************************************************/
@@ -337,15 +308,18 @@ namespace VisualTree
 
         private class NodeDoubleBlack
         {
-            public NodeDoubleBlack( Node node, Node parent )
+            public NodeDoubleBlack( Node parent, Node nodeToRemove, Node child )
             {
-                Node = node;
+                NodeReplace = child;
                 Parent = parent;
+                Sibling = nodeToRemove > parent ? parent.Left : parent.Right;
             }
 
-            public Node Node { get; }
+            public Node NodeReplace { get; }
 
             public Node Parent { get; }
+
+            public Node Sibling { get; } 
         }
     }
 }
