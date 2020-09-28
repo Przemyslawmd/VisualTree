@@ -197,6 +197,12 @@ namespace VisualTree
         private void ActionCheckNode( object sender, MouseButtonEventArgs e )
         {
             Canvas canvas = sender as Canvas;
+            
+            if (canvas is null || canvas.Children.Count == 0)
+            {
+                return;
+            }
+
             Point point = e.GetPosition( canvas );
             controller.SelectNode( canvas, (int) point.X, (int) point.Y );
         }
