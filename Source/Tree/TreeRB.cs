@@ -146,34 +146,34 @@ namespace VisualTree
 
             if ( sibling != null && sibling.Color == NodeColor.BLACK && HasRedNode( sibling ))
             {
-                Node siblingRedChild = sibling.IsLeft() && sibling.Left.Color == NodeColor.RED ? sibling.Left : sibling.Right;
+                Node siblingRedChild = HasLeftNodeRed( sibling ) ? sibling.Left : sibling.Right;
                 
                 if ( sibling < sibling.Parent && 
-                   ( HasBothNodesRed( sibling ) || ( sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )))
+                   ( HasBothNodesRed( sibling ) || HasLeftNodeRed( sibling )))
                 {
                     // Left Left case
+                    sibling.Left.Color = NodeColor.BLACK;
                     SwapColors( sibling, sibling.Parent );
                     RotateNode( sibling );
                 }
 
-                else if ( sibling < sibling.Parent && 
-                     sibling.IsRight() && sibling.Right.Color == NodeColor.RED )
+                else if ( sibling < sibling.Parent && siblingRedChild > sibling )
                 {
                     // Left Right Case
-                    RotateNode( sibling.Right );
-                    RotateNode( sibling.Right );
+                    SwapColors( siblingRedChild, sibling );
+                    RotateNode( siblingRedChild );
+                    RotateNode( siblingRedChild );
                 }
 
-                else if (( sibling > sibling.Parent && siblingRedChild > sibling ) || HasBothNodesRed( sibling ))
+                else if (( sibling > sibling.Parent && siblingRedChild > sibling ) || 
+                           HasBothNodesRed( sibling ))
                 {
                     // Right Right Case
                     RotateNode( sibling );
                     SwapColors( sibling, sibling.Parent );
-                    
                 }
 
-                else if ( sibling > sibling.Parent && 
-                     sibling.IsLeft() && sibling.Left.Color == NodeColor.RED )
+                else if ( sibling > sibling.Parent && HasLeftNodeRed( sibling ))
                 {
                     // Left Right Case
                     RotateNode( sibling.Left );
@@ -210,7 +210,7 @@ namespace VisualTree
             return node.IsRight() && node.Right.Color == NodeColor.RED;
         }
 
-          private bool HasRedNode( Node node )
+        private bool HasRedNode( Node node )
         {
             return HasLeftNodeRed( node ) || HasRightNodeRed( node );
         }

@@ -163,8 +163,9 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        // U is black with one red child
         [TestMethod]
-        public void TestDeleteNodesRB_BlackWithOneRedChild()
+        public void TestDeleteNodesRB_01()
         {
             var keysToBuild = new List< int > { 3, 6, 19, 21, 36, 45, 2 };
             var keysToDelete = new List< int > { 3 };
@@ -184,8 +185,9 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        // U is red with both black children 
         [TestMethod]
-        public void TestDeleteNodesRB_RedWithBothBlackChildren()
+        public void TestDeleteNodesRB_02()
         {
             var keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0 };
             var keysToDelete = new List< int > { 8 };
@@ -209,8 +211,9 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        // U is black with both red children
         [TestMethod]
-        public void TestDeleteNodesRB_BlackWithBothRedChildren()
+        public void TestDeleteNodesRB_03()
         {
             var keysToBuild = new List< int > { 6, 4, 2, 1, 10, 8 };
             var keysToDelete = new List< int > { 8 };
@@ -230,7 +233,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod] 
-        public void TestDeleteNodesRB_4()
+        public void TestDeleteNodesRB_04()
         {
             var keysToBuild = new List< int > { 12, 2, 3, 11, 9, 21, 17, 23, 5 };
             var keysToDelete = new List< int > { 3 };
@@ -253,7 +256,7 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void TestDeleteNodesRB_5()
+        public void TestDeleteNodesRB_05()
         {
             var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
             var keysToDelete = new List< int > { 18 };
@@ -282,7 +285,7 @@ namespace Tests
         // Sibling is red and at least one of its child is red
         // Sibling is right child and its red child is right child
         [TestMethod]
-        public void TestDeleteNodesRB_6()
+        public void TestDeleteNodesRB_06()
         {
             var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
             var keysToDelete = new List< int > { 2 };
@@ -305,11 +308,173 @@ namespace Tests
             new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
         }
 
-        // Remove 1 OK
-        // Remove 3 OK
-        // Remove 14 crash
-        // Remove 30 OK
-        // Remove 11 - crash
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestDeleteNodesRB_07()
+        {
+            var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
+            var keysToDelete = new List< int > { 1 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [3]  = NodeColor.BLACK,
+                 [2]  = NodeColor.RED,
+                 [7]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.BLACK,
+                 [10] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
+                 [14] = NodeColor.BLACK,
+                 [11] = NodeColor.RED,
+                 [30] = NodeColor.BLACK,
+                 [18] = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        [TestMethod]
+        public void TestDeleteNodesRB_08()
+        {
+            var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
+            var keysToDelete = new List< int > { 3 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.BLACK,
+                 [4]  = NodeColor.RED,
+                 [7]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [2]  = NodeColor.BLACK,
+                 [10] = NodeColor.RED,
+                 [9]  = NodeColor.BLACK,
+                 [14] = NodeColor.BLACK,
+                 [11] = NodeColor.RED,
+                 [30] = NodeColor.BLACK,
+                 [18] = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        
+        // U and V are black
+        // Sibling is a left black child and has a right red child
+        [TestMethod]
+        public void TestDeleteNodesRB_09()
+        {
+            var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
+            var keysToDelete = new List< int > { 11 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.BLACK,
+                 [3]  = NodeColor.BLACK,
+                 [7]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
+                 [9]  = NodeColor.RED,
+                 [14] = NodeColor.RED,
+                 [10] = NodeColor.BLACK,
+                 [30] = NodeColor.BLACK,
+                 [18] = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+        // U and V are black
+        // Sibling is a left black child and has a right red child 
+        [TestMethod]
+        public void TestDeleteNodesRB_10()
+        {
+            var keysToBuild = new List< int > { 2, 8, 1, 3, 14, 6, 30, 18, 4, 9, 7, 11, 10 };
+            var keysToDelete = new List< int > { 14 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]  = NodeColor.BLACK,
+                 [3]  = NodeColor.BLACK,
+                 [7]  = NodeColor.RED,
+                 [6]  = NodeColor.BLACK,
+                 [4]  = NodeColor.RED,
+                 [2]  = NodeColor.BLACK,
+                 [9]  = NodeColor.RED,
+                 [11] = NodeColor.RED,
+                 [10] = NodeColor.BLACK,
+                 [30] = NodeColor.BLACK,
+                 [18] = NodeColor.BLACK,
+                 [8]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestDeleteNodesRB_11()
+        {
+            var keysToBuild = new List< int > { 4, 5, 12, 101, 1, 23, 13, 67, 89, 8, 32, 41, 98, 25, 3 };
+            var keysToDelete = new List< int > { 67 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]   = NodeColor.RED,
+                 [4]   = NodeColor.RED,
+                 [3]   = NodeColor.BLACK,
+                 [8]   = NodeColor.RED,
+                 [13]  = NodeColor.RED,  
+                 [12]  = NodeColor.BLACK,
+                 [5]   = NodeColor.BLACK,
+                 [25]  = NodeColor.BLACK,
+                 [41]  = NodeColor.BLACK,
+                 [32]  = NodeColor.RED,
+                 [98]  = NodeColor.RED,
+                 [101] = NodeColor.BLACK,
+                 [89]  = NodeColor.BLACK,
+                 [23]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void TestDeleteNodesRB_12()
+        {
+            var keysToBuild = new List< int > { 4, 5, 12, 101, 1, 23, 13, 67, 89, 8, 32, 41, 98, 25, 3 };
+            var keysToDelete = new List< int > { 41, 67 };
+            var nodesToCheck = new Dictionary< int, NodeColor > 
+            {  
+                 [1]   = NodeColor.RED,
+                 [4]   = NodeColor.RED,
+                 [3]   = NodeColor.BLACK,
+                 [8]   = NodeColor.RED,
+                 [13]  = NodeColor.RED,  
+                 [12]  = NodeColor.BLACK,
+                 [5]   = NodeColor.BLACK,
+                 [25]  = NodeColor.BLACK,
+                 [32]  = NodeColor.RED,
+                 [98]  = NodeColor.RED,
+                 [101] = NodeColor.BLACK,
+                 [89]  = NodeColor.BLACK,
+                 [23]  = NodeColor.BLACK,
+            };
+            
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
