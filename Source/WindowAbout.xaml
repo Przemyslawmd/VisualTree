@@ -6,11 +6,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualTreeNET"
         mc:Ignorable="d"
-        Title="" Height="250" Width="500">
+        Title="" Height="180" Width="500">
     
     <Grid Margin="15, 30, 20, 15">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25*" />
             <RowDefinition Height="25*" />
             <RowDefinition Height="25*" />
             <RowDefinition Height="25*" />
@@ -20,14 +19,11 @@
             <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="Version" />
-        <Label Grid.Column="1" Grid.Row="0" Content="2.0" />
+        <Label Grid.Column="0" Grid.Row="0" Content="Author"/>
+        <Label Grid.Column="1" Grid.Row="0" Content="Przemyslaw Madej" />
 
-        <Label Grid.Column="0" Grid.Row="1" Content="Author"/>
-        <Label Grid.Column="1" Grid.Row="1" Content="Przemyslaw Madej, Warsaw 2019" />
-
-        <Label Grid.Column="0" Grid.Row="2" Content="Email" />
-        <Label Grid.Column="1" Grid.Row="2">
+        <Label Grid.Column="0" Grid.Row="1" Content="Email" />
+        <Label Grid.Column="1" Grid.Row="1">
             <TextBox Text="przemyslawmd@gmail.com" IsReadOnly="True" BorderThickness="0" />
         </Label>
 
