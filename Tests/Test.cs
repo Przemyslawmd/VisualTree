@@ -93,7 +93,7 @@ namespace Tests
             tree.CreateNodes( keysToBuild );
             
             Selection selection = Selection.Get();
-            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
+            AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
             CheckNode( tree.Root, keysToCheck );
@@ -108,7 +108,7 @@ namespace Tests
             tree.CreateNodes( keysToBuild );
             
             Selection selection = Selection.Get();
-            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
+            AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
             CheckNode( tree.Root, new List< int >( nodesToCheck.Keys ));
@@ -126,7 +126,7 @@ namespace Tests
             tree.CreateNodes( keysToBuild );
             
             Selection selection = Selection.Get();
-            AddNodesToSelection( tree.Root, selection.Nodes, keysToDelete );
+            AddNodesToSelection( tree, selection.Nodes, keysToDelete );
 
             StepMode stepMode = StepMode.GetInstance();
             stepMode.PrepareStepsForDeleteNodes( tree, selection.Nodes );
@@ -184,21 +184,15 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddNodesToSelection( Node node, List< Node > selectedNodes, List< int > selectedKeys )
+        private void AddNodesToSelection( Tree tree, List< Node > selectedNodes, List< int > selectedKeys )
         {
-            if ( node.IsLeft() )
+            foreach ( int key in selectedKeys)
             {
-                AddNodesToSelection( node.Left, selectedNodes, selectedKeys );
-            }
-
-            if ( selectedKeys.Contains( node.Key ))
-            {
-                selectedNodes.Add( node );
-            }
-
-            if ( node.IsRight() )
-            {
-                AddNodesToSelection( node.Right, selectedNodes, selectedKeys );
+                Node node = tree.FindNodeByKey( key, tree.Root );
+                if ( node != null )
+                {
+                    selectedNodes.Add( node );
+                }
             }
         }
         
