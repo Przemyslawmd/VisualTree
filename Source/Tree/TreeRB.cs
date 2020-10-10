@@ -181,10 +181,11 @@ namespace VisualTree
                 }
             }
             
-            else if ( sibling.Color == NodeColor.BLACK && HasBothNodesBlack( sibling ))
+            else if ( sibling is null || 
+                    ( sibling.Color == NodeColor.BLACK && HasBothNodesBlack( sibling )))
             {
                 // Recolour
-                if ( sibling.Parent.Color == NodeColor.BLACK )
+                if ( nodeDB.Parent.Color == NodeColor.BLACK && sibling != null )
                 {
                     sibling.Color = NodeColor.RED;
                 }
