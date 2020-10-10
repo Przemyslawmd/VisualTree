@@ -479,6 +479,33 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        [TestMethod]
+        public void TestDeleteNodesRB_13()
+        {
+            var keysToBuild = new List< int > { 4, 5, 12, 101, 1, 23, 13, 67, 89, 8, 32, 41, 98, 25, 3 };
+            var keysToDelete = new List< int > { 41, 67, 23 };
+            var nodesToCheck = new Dictionary< int, NodeColor >
+            {
+                 [1]   = NodeColor.RED,
+                 [4]   = NodeColor.RED,
+                 [3]   = NodeColor.BLACK,
+                 [8]   = NodeColor.RED,
+                 [13]  = NodeColor.RED,
+                 [12]  = NodeColor.BLACK,
+                 [5]   = NodeColor.BLACK,
+                 [32]  = NodeColor.RED,
+                 [98]  = NodeColor.RED,
+                 [101] = NodeColor.BLACK,
+                 [89]  = NodeColor.BLACK,
+                 [25]  = NodeColor.BLACK,
+            };
+
+            new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestCleanup]
         public void CleanUp()
         {
