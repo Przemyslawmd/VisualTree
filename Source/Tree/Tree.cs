@@ -28,7 +28,7 @@ namespace VisualTree
         {
             foreach( int key in keys )
             {
-                if ( CheckKeyExists( key, Root ))
+                if ( FindNodeByKey( key, Root ) != null )
                 {
                     return false;
                 }
@@ -290,6 +290,26 @@ namespace VisualTree
         }
         
         /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        public Node FindNodeByKey( int key, Node node )
+        {
+            if ( key < node.Key && node.IsLeft() )
+            {
+                return FindNodeByKey( key, node.Left );
+            }
+            if ( key > node.Key && node.IsRight() )
+            {
+                return FindNodeByKey( key, node.Right );
+            }
+            if ( key == node.Key )
+            {
+                return node;
+            }
+            return null;
+        }
+
+        /*******************************************************************************************/
         /* PROTECTED                                                                               */
         /*******************************************************************************************/
 
@@ -416,26 +436,6 @@ namespace VisualTree
             }
         }      
         
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        
-        private bool CheckKeyExists( int key, Node node )
-        {
-            if ( key < node.Key && node.IsLeft() )
-            {
-                return CheckKeyExists( key, node.Left );
-            }
-            if ( key > node.Key && node.IsRight() )
-            {
-                return CheckKeyExists( key, node.Right );
-            }
-            if ( key == node.Key )
-            {
-                return true;
-            }
-            return false;
-        }
-
         /*******************************************************************************************/
         /*******************************************************************************************/
 
