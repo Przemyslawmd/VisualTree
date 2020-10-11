@@ -122,7 +122,7 @@
                 </DrawingBrush.Drawing>
             </DrawingBrush>
 
-            <DrawingBrush x:Key="PathBalanceTreeInStep" Stretch="Fill">
+            <DrawingBrush x:Key="PathBalanceTreeStep" Stretch="Fill">
                 <DrawingBrush.Drawing >
                     <DrawingGroup>
                         <DrawingGroup.Children>

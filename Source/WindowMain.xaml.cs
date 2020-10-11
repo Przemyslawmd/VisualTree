@@ -244,50 +244,37 @@ namespace VisualTree
 
             if ( treeType is TreeType.CommonBST )
             { 
-                AddMenuIcon( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
-                AddMenuIcon( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
-                AddMenuIcon( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
-                AddMenuIcon( "PathRotation", "Rotate Node", ActionRotationNode, ref enumerator );
-                AddMenuIcon( "PathBalanceTree", "Balance Tree", ActionBalanceTree, ref enumerator );
-                AddMenuIcon( "PathBalanceTreeInStep", "Balance Tree in Step Mode", ActionBalanceTreeInStep, ref enumerator );
-                AddMenuIcon( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
-                AddMenuIcon( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
-                AddMenuIcon( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
-                AddMenuIcon( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
+                AddMenuIcon( IconType.CreateTree,          ActionDrawTree,           ref enumerator );
+                AddMenuIcon( IconType.AddNodes,            ActionAddNodes,           ref enumerator );
+                AddMenuIcon( IconType.DeleteNodes,         ActionDeleteNodes,        ref enumerator );
+                AddMenuIcon( IconType.Rotate,              ActionRotationNode,       ref enumerator );
+                AddMenuIcon( IconType.BalanceTree,         ActionBalanceTree,        ref enumerator );
+                AddMenuIcon( IconType.BalanceTreeStepMode, ActionBalanceTreeInStep,  ref enumerator );
+                AddMenuIcon( IconType.StepForward,         ActionStepForward,        ref enumerator );
+                AddMenuIcon( IconType.StepBackward,        ActionStepBackward,       ref enumerator );
+                AddMenuIcon( IconType.LeaveStepMode,       ActionStepModeLeave,      ref enumerator );
+                AddMenuIcon( IconType.DestroyTree,         ActionDestroyTree,        ref enumerator );
             }
-            else if ( treeType is TreeType.AVL )
+            else 
             { 
-                AddMenuIcon( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
-                AddMenuIcon( "PathTreeStep", "Create Tree in Step Mode", ActionDrawTreeInStep, ref enumerator );
-                AddMenuIcon( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
-                AddMenuIcon( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
-                AddMenuIcon( "PathPlusStep", "Add Nodes in Step Mode", ActionAddNodesInStep, ref enumerator );
-                AddMenuIcon( "PathMinusStep", "Delete Nodes in Step Mode", ActionDeleteNodesInStep, ref enumerator );
-                AddMenuIcon( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
-                AddMenuIcon( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
-                AddMenuIcon( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
-                AddMenuIcon( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
-            }
-            else if ( treeType is TreeType.RB )
-            {
-                AddMenuIcon( "PathTree", "Create Tree", ActionDrawTree, ref enumerator );
-                AddMenuIcon( "PathTreeStep", "Create Tree in Step Mode", ActionDrawTreeInStep, ref enumerator );
-                AddMenuIcon( "PathPlus", "Add Nodes", ActionAddNodes, ref enumerator );
-                AddMenuIcon( "PathMinus", "Delete Nodes", ActionDeleteNodes, ref enumerator );
-                AddMenuIcon( "PathPlusStep", "Add Nodes in Step Mode", ActionAddNodesInStep, ref enumerator );
-                AddMenuIcon( "PathMinusStep", "Delete Nodes in Step Mode", ActionDeleteNodesInStep, ref enumerator );
-                AddMenuIcon( "PathStepForward", "Step Forward", ActionStepForward, ref enumerator );
-                AddMenuIcon( "PathStepBackward", "Step Backward", ActionStepBackward, ref enumerator );
-                AddMenuIcon( "PathStepModeLeave", "Leave Step Mode", ActionStepModeLeave, ref enumerator );
-                AddMenuIcon( "PathDestroyTree", "Destroy Tree", ActionDestroyTree, ref enumerator );
+                AddMenuIcon( IconType.CreateTree,          ActionDrawTree,          ref enumerator );
+                AddMenuIcon( IconType.CreateTreeStepMode,  ActionDrawTreeInStep,    ref enumerator );
+                AddMenuIcon( IconType.AddNodes,            ActionAddNodes,          ref enumerator );
+                AddMenuIcon( IconType.DeleteNodes,         ActionDeleteNodes,       ref enumerator );
+                AddMenuIcon( IconType.AddNodesStepMode,    ActionAddNodesInStep,    ref enumerator );
+                AddMenuIcon( IconType.DeleteNodesStepMode, ActionDeleteNodesInStep, ref enumerator );
+                AddMenuIcon( IconType.StepForward,         ActionStepForward,       ref enumerator );
+                AddMenuIcon( IconType.StepBackward,        ActionStepBackward,      ref enumerator );
+                AddMenuIcon( IconType.LeaveStepMode,       ActionStepModeLeave,     ref enumerator );
+                AddMenuIcon( IconType.DestroyTree,         ActionDestroyTree,       ref enumerator );
             }
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void AddMenuIcon( string resource, string toolTipText, Action< object, RoutedEventArgs> action, 
-                                  ref List< bool >.Enumerator enumerator )
+        private void AddMenuIcon( IconType icon, 
+                                  Action< object, RoutedEventArgs> action, ref List< bool >.Enumerator enumerator )
         {
             enumerator.MoveNext();
             
@@ -295,7 +282,7 @@ namespace VisualTree
             {
                 Height = 50,
                 Width = 50,
-                Fill = Application.Current.Resources[resource] as DrawingBrush
+                Fill = Application.Current.Resources[IconProperties[icon].Item1] as DrawingBrush
             };
             
             Button button = new Button
@@ -307,8 +294,9 @@ namespace VisualTree
             
             ToolTip toolTip = new ToolTip
             {
-                Content = toolTipText
+                Content = enumerator.Current ? IconProperties[icon].Item2 : IconProperties[icon].Item3,
             };
+            ToolTipService.SetShowOnDisabled( button, toolTip.Content != null );
             ToolTipService.SetToolTip( button, toolTip );
             
             MenuPanel.Children.Add( button );
@@ -403,11 +391,46 @@ namespace VisualTree
         private readonly Message messages = new Message();
         private readonly Controller controller = new Controller();
 
+        private enum IconType
+        {
+            CreateTree,
+            CreateTreeStepMode,
+            AddNodes,
+            AddNodesStepMode,
+            DeleteNodes, 
+            DeleteNodesStepMode,
+            Rotate,
+            BalanceTree,
+            BalanceTreeStepMode,
+            StepForward, 
+            StepBackward, 
+            LeaveStepMode,
+            DestroyTree
+        }
+        
         private readonly Dictionary< TreeType, String > TreeTypeLabel = new Dictionary< TreeType, string >
         { 
             [TreeType.CommonBST] = "Tree type : Common BST",
             [TreeType.AVL]       = "Tree type : AVL",
             [TreeType.RB]        = "Tree type : Red Black"
+        };
+
+        private readonly Dictionary< IconType, Tuple< string, string, string >> IconProperties 
+            = new Dictionary< IconType, Tuple< string, string, string >>
+        { 
+            [IconType.CreateTree]          = Tuple.Create( "PathTree", "Create Tree", (string) null ),
+            [IconType.CreateTreeStepMode]  = Tuple.Create( "PathTreeStep", "Create Tree in Step Mode", (string) null ),
+            [IconType.AddNodes]            = Tuple.Create( "PathPlus", "Add Nodes", (string) null ),
+            [IconType.AddNodesStepMode]    = Tuple.Create( "PathPlusStep", "Add Nodes in Step Mode", (string) null ),
+            [IconType.DeleteNodes]         = Tuple.Create( "PathMinus", "Delete Nodes", (string) null ),
+            [IconType.DeleteNodesStepMode] = Tuple.Create( "PathMinusStep", "Delete Nodes in Step Mode", (string) null ),
+            [IconType.Rotate]              = Tuple.Create( "PathRotation", "Rotate Node", (string) null ),
+            [IconType.BalanceTree]         = Tuple.Create( "PathBalanceTree", "Balance Tree", (string) null ),
+            [IconType.BalanceTreeStepMode] = Tuple.Create( "PathBalanceTreeStep", "Balance Tree in Step Mode", (string) null ),
+            [IconType.StepForward]         = Tuple.Create( "PathStepForward", "Step Forward", "Active in Step Mode" ),
+            [IconType.StepBackward]        = Tuple.Create( "PathStepBackward", "Step Backward", "Active in Step Mode" ),
+            [IconType.LeaveStepMode]       = Tuple.Create( "PathStepModeLeave", "Leave Step Mode", "Active in Step Mode" ),
+            [IconType.DestroyTree]         = Tuple.Create( "PathDestroyTree", "Destroy Tree", (string) null ),
         };
     }
 }
