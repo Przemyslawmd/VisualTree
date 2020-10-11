@@ -13,7 +13,7 @@
         <DockPanel>
             <Menu Name="MenuMain" DockPanel.Dock="Top">
                 <MenuItem Header="Tree" Margin="20, 2, 0, 0">
-                    <MenuItem  Name="MenuTreeBST"  Click="ActionMenuTreeBST" Header="Classic BST Tree" />
+                    <MenuItem  Name="MenuTreeBST"  Click="ActionMenuTreeBST" Header="Common BST Tree" />
                     <Separator />
                     <MenuItem Name="MenuTreeAVL" Click="ActionMenuTreeAVL" Header="AVL Tree" />
                     <Separator />
