@@ -27,18 +27,17 @@ namespace VisualTree
             
         public void ModelTree( Tree tree )
         {
-            Node root = tree.Root;
-            SetNodesPosition( root, Padding, Padding, 0 );
-            tree.Traverse( root, CalculateMatrixHeight );
+            SetNodesPosition( tree.Root, Padding, Padding, 0 );
+            SetMatrixHeight( tree );
             PrepareNodesMatrixRow();
-            tree.Traverse( root, RegisterNode );
+            tree.Traverse( tree.Root, RegisterNode );
             FixNodesPositions( tree );
-            tree.Traverse( root, CalculateTreeWidth );
+            tree.Traverse( tree.Root, CalculateTreeWidth );
             
             if ( beginPosHor < Padding )
             {
                 int shift = Padding - beginPosHor; 
-                tree.Traverse( root, ShiftNodeHorPosition );
+                tree.Traverse( tree.Root, ShiftNodeHorPosition );
                 beginPosHor += shift;
                 endPosHor += shift;
             }
@@ -82,6 +81,15 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
+        private void SetMatrixHeight( Tree tree )
+        {
+            matrixHeight = 0;
+            tree.Traverse( tree.Root, CalculateMatrixHeight );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         private void CalculateMatrixHeight( Node node )
         {
             if ( node.MatrixRow > matrixHeight )
