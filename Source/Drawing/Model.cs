@@ -28,11 +28,11 @@ namespace VisualTree
         public void ModelTree( Tree tree )
         {
             SetNodesPosition( tree.Root, Padding, Padding, 0 );
-            SetMatrixHeight( tree );
+            FindMatrixHeight( tree );
             PrepareNodesMatrixRow();
             tree.Traverse( tree.Root, RegisterNode );
             FixNodesPositions( tree );
-            tree.Traverse( tree.Root, CalculateTreeWidth );
+            FindTreeWidthPositions( tree );
             
             if ( beginPosHor < Padding )
             {
@@ -81,16 +81,16 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void SetMatrixHeight( Tree tree )
+        private void FindMatrixHeight( Tree tree )
         {
             matrixHeight = 0;
-            tree.Traverse( tree.Root, CalculateMatrixHeight );
+            tree.Traverse( tree.Root, SetMatrixHeight );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void CalculateMatrixHeight( Node node )
+        private void SetMatrixHeight( Node node )
         {
             if ( node.MatrixRow > matrixHeight )
             {
@@ -101,7 +101,16 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CalculateTreeWidth( Node node )
+        private void FindTreeWidthPositions( Tree tree )
+        {
+            endPosHor = 0;
+            tree.Traverse( tree.Root, SetTreeWidthPosition );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void SetTreeWidthPosition( Node node )
         {
             if ( node.PosHor < beginPosHor )
             {
