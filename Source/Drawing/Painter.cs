@@ -52,6 +52,11 @@ namespace VisualTree
             };
             keyText.Foreground = new SolidColorBrush( paintColor[node.Color].Text );
 
+            if ( Radius >= 25 )
+            {
+                keyText.FontSize += ( Radius - 20 ) / 5;
+            }
+
             Canvas.SetLeft( keyText, node.PosHor - ( Radius / 2 ));
             Canvas.SetTop( keyText, node.PosVer - ( Radius / 2 ));
             canvas.Children.Add( keyText );
