@@ -30,7 +30,7 @@ namespace VisualTree
         public static bool MenuPanelToolTips {  get; set; } = true;
 
         private static readonly int MaxDiameter = 100;
-        private static readonly int MinDiameter = 5;
+        private static readonly int MinDiameter = 20;
     }
 }
 
