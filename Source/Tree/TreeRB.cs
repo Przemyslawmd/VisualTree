@@ -317,6 +317,7 @@ namespace VisualTree
                 return;
             }
             
+            ServiceListener.Notify( ActionTreeType.CHANGE_NODE_COLOR, node );
             node.Color = color;
         }
 

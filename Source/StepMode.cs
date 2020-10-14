@@ -56,6 +56,10 @@ namespace VisualTree
                 {
                    BackRotationAfterPrepareSteps( tree, i );
                 }
+                else if (Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
+                {
+                    ( Steps[i].Node as NodeRB ).ChangeColor();
+                }
             }	
         }
 
@@ -77,6 +81,10 @@ namespace VisualTree
                 else if ( Steps[i].ActionTreeType == ActionTreeType.ROTATION )
                 {			
                     BackRotationAfterPrepareSteps( tree, i );
+                }
+                else if (Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
+                {
+                    ( Steps[i].Node as NodeRB ).ChangeColor();
                 }
             }
         }
@@ -106,13 +114,16 @@ namespace VisualTree
             switch ( Steps[stepNumber].ActionTreeType )
             {
                 case ActionTreeType.ADD:
-                    tree.AttachNode( Steps[ stepNumber ].Node );
+                    tree.AttachNode( Steps[stepNumber].Node );
                     break;
                 case ActionTreeType.REMOVE:
-                    tree.DetachNode( Steps[ stepNumber].Node );
+                    tree.DetachNode( Steps[stepNumber].Node );
                     break;
                 case ActionTreeType.ROTATION:
                     TriggerStepRotation( tree );
+                    break;
+                case ActionTreeType.CHANGE_NODE_COLOR:
+                    ( Steps[stepNumber].Node as NodeRB ).ChangeColor();
                     break;
             }
             stepNumber++;
@@ -132,14 +143,17 @@ namespace VisualTree
             switch ( Steps[stepNumber].ActionTreeType )
             {
                 case ActionTreeType.ADD:
-                    tree.DetachNode( Steps[ stepNumber].Node );
+                    tree.DetachNode( Steps[stepNumber].Node );
                     return;
                 case ActionTreeType.REMOVE:
-                    tree.AttachNode( Steps[ stepNumber ].Node );
+                    tree.AttachNode( Steps[stepNumber].Node );
                     return;
                 case ActionTreeType.ROTATION:
                     TriggerStepRotation( tree );
                     return;
+                case ActionTreeType.CHANGE_NODE_COLOR:
+                    ( Steps[stepNumber].Node as NodeRB ).ChangeColor();
+                    break;
             }	
         }
         

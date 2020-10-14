@@ -7,6 +7,11 @@ namespace VisualTree
         {
             Color = NodeColor.RED;
         }
+
+        public void ChangeColor()
+        {
+            Color = Color == NodeColor.BLACK ? NodeColor.RED : NodeColor.BLACK;
+        }
     }
 }
 
