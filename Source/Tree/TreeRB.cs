@@ -12,7 +12,7 @@ namespace VisualTree
 
             if ( node.IsParent() is false )
             {
-                node.Color = NodeColor.BLACK;
+                SetNodeColor( node, NodeColor.BLACK );
                 return;
             }
 
@@ -94,7 +94,7 @@ namespace VisualTree
                 
             if ( node.Color == NodeColor.RED || child.Color == NodeColor.RED )
             {
-                child.Color = NodeColor.BLACK;
+                SetNodeColor( child, NodeColor.BLACK );
                 DetachNode( node );
             }
             else
@@ -118,7 +118,7 @@ namespace VisualTree
             {
                 if ( leastSuccessorChild != null )
                 { 
-                    leastSuccessorChild.Color = NodeColor.BLACK;
+                    SetNodeColor( leastSuccessorChild, NodeColor.BLACK );
                 }
                 SwapColors( node, leastSuccessor );
                 DetachNode( node );
@@ -152,11 +152,10 @@ namespace VisualTree
                    ( HasBothNodesRed( sibling ) || HasLeftNodeRed( sibling )))
                 {
                     // Left Left case
-                    sibling.Left.Color = NodeColor.BLACK;
+                    SetNodeColor( sibling.Left, NodeColor.BLACK );
                     SwapColors( sibling, sibling.Parent );
                     RotateNode( sibling );
                 }
-
                 else if ( sibling < sibling.Parent && siblingRedChild > sibling )
                 {
                     // Left Right Case
@@ -164,7 +163,6 @@ namespace VisualTree
                     RotateNode( siblingRedChild );
                     RotateNode( siblingRedChild );
                 }
-
                 else if (( sibling > sibling.Parent && siblingRedChild > sibling ) || 
                            HasBothNodesRed( sibling ))
                 {
@@ -172,7 +170,6 @@ namespace VisualTree
                     RotateNode( sibling );
                     SwapColors( sibling, sibling.Parent );
                 }
-
                 else if ( sibling > sibling.Parent && HasLeftNodeRed( sibling ))
                 {
                     // Left Right Case
@@ -180,17 +177,15 @@ namespace VisualTree
                     RotateNode( sibling.Left );
                 }
             }
-            
             else if ( sibling is null || 
                     ( sibling.Color == NodeColor.BLACK && HasBothNodesBlack( sibling )))
             {
                 // Recolour
                 if ( nodeDB.Parent.Color == NodeColor.BLACK && sibling != null )
                 {
-                    sibling.Color = NodeColor.RED;
+                    SetNodeColor( sibling, NodeColor.RED );
                 }
             }
-
             else if ( sibling.Color == NodeColor.RED )
             {
                 SwapColors( sibling, sibling.Parent );
@@ -260,9 +255,18 @@ namespace VisualTree
 
         private Node FixTreeByChangingColor( Node siblingA, Node siblingB )
         {
-            siblingA.Color = NodeColor.BLACK;
-            siblingB.Color = NodeColor.BLACK;
-            siblingA.Parent.Color = siblingA.Parent.IsParent() ? NodeColor.RED : NodeColor.BLACK;
+            SetNodeColor( siblingA, NodeColor.BLACK );
+            SetNodeColor( siblingB, NodeColor.BLACK );
+            
+            if ( siblingA.Parent.IsParent() )
+            {
+                SetNodeColor( siblingA.Parent, NodeColor.RED );
+            }
+            else
+            {
+                SetNodeColor( siblingA.Parent, NodeColor.BLACK );
+            }
+            
             return siblingA.Parent;
         }
 
@@ -276,22 +280,21 @@ namespace VisualTree
 
             if (( grand > parent && parent > node ) || ( grand < parent && parent < node ))
             {
-                parent.Color = NodeColor.BLACK;
-                grand.Color = NodeColor.RED;
+                SetNodeColor( parent, NodeColor.BLACK );
+                SetNodeColor( grand, NodeColor.RED );
                 return RotateNode( parent );
             }
             else 
             {
                 node = RotateNode( node );
-                node.Color = NodeColor.BLACK;
-                node.Parent.Color = NodeColor.RED;
+                SetNodeColor( node, NodeColor.BLACK );
+                SetNodeColor( node.Parent, NodeColor.RED );
                 return RotateNode( node );
             }
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
-
         private void SwapColors( Node nodeA, Node nodeB )
         {
             if ( nodeA is null || nodeB is null )
@@ -300,13 +303,25 @@ namespace VisualTree
             }
 
             NodeColor temp = nodeA.Color;
-            nodeA.Color = nodeB.Color;
-            nodeB.Color = temp;
+            SetNodeColor( nodeA, nodeB.Color );
+            SetNodeColor( nodeB, temp );
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
+        private void SetNodeColor( Node node, NodeColor color)
+        {
+            if ( node.Color == color )
+            {
+                return;
+            }
+            
+            node.Color = color;
+        }
+
+        /******************************************************************************************/
+        /*******************************************************************************************/
         private class NodeDoubleBlack
         {
             public NodeDoubleBlack( Node parent, Node nodeToRemove, Node child )
