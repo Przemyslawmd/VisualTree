@@ -56,7 +56,7 @@ namespace VisualTree
                 {
                    BackRotationAfterPrepareSteps( tree, i );
                 }
-                else if (Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
+                else if ( Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
                 {
                     ( Steps[i].Node as NodeRB ).ChangeColor();
                 }
@@ -82,7 +82,7 @@ namespace VisualTree
                 {			
                     BackRotationAfterPrepareSteps( tree, i );
                 }
-                else if (Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
+                else if ( Steps[i].ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
                 {
                     ( Steps[i].Node as NodeRB ).ChangeColor();
                 }

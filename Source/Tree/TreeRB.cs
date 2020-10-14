@@ -180,11 +180,11 @@ namespace VisualTree
             else if ( sibling is null || 
                     ( sibling.Color == NodeColor.BLACK && HasBothNodesBlack( sibling )))
             {
-                // Recolour
-                if ( nodeDB.Parent.Color == NodeColor.BLACK && sibling != null )
-                {
+                 // Recolour
+                 if ( nodeDB.Parent.Color == NodeColor.BLACK && sibling != null )
+                 {
                     SetNodeColor( sibling, NodeColor.RED );
-                }
+                 }
             }
             else if ( sibling.Color == NodeColor.RED )
             {
@@ -310,7 +310,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private void SetNodeColor( Node node, NodeColor color)
+        private void SetNodeColor( Node node, NodeColor color )
         {
             if ( node.Color == color )
             {
@@ -321,8 +321,9 @@ namespace VisualTree
             node.Color = color;
         }
 
-        /******************************************************************************************/
         /*******************************************************************************************/
+        /*******************************************************************************************/
+        
         private class NodeDoubleBlack
         {
             public NodeDoubleBlack( Node parent, Node nodeToRemove, Node child )

@@ -351,6 +351,10 @@ namespace VisualTree
                 {
                     return "  added";
                 }
+                else if ( action.ActionTreeType == ActionTreeType.CHANGE_NODE_COLOR )
+                {
+                    return "  color changed";
+                }
                 else if ( action.ActionTreeType == ActionTreeType.REMOVE_NODE )
                 {
                     return "  deleted";
