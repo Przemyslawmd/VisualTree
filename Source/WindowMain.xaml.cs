@@ -347,11 +347,11 @@ namespace VisualTree
 
             string getActionString( ActionTree action )
             {
-                if ( action.ActionTreeType == ActionTreeType.ADD )
+                if ( action.ActionTreeType == ActionTreeType.ADD_NODE )
                 {
                     return "  added";
                 }
-                else if ( action.ActionTreeType == ActionTreeType.REMOVE )
+                else if ( action.ActionTreeType == ActionTreeType.REMOVE_NODE )
                 {
                     return "  deleted";
                 }
