@@ -75,12 +75,10 @@ namespace VisualTree
                 if ( nodesValues.Contains( number ) is false )
                 {
                     nodesValues.Add( number );
+                    return true;
                 }
-                else if ( Settings.RemoveDuplicatedNodes is false )
-                {
-                    return false;
-                }
-                return true;
+                
+                return Settings.RemoveDuplicatedNodes;
             }
         }
     }

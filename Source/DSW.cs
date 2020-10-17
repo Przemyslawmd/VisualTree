@@ -54,20 +54,17 @@ namespace VisualTree
             int nodesCount = 1;
             Node node = tree.RestoreRoot();
 
-            while ( true )
+            while ( node.IsLeaf() is false )
             {
                 if ( node.IsLeft() )
                 {
                     node = tree.RotateNode( node.Left );
-                    continue;
                 }
                 else if ( node.IsRight() )
                 {
                     node = node.Right;
                     nodesCount++;
-                    continue;
                 }
-                break;
             }
 
             return nodesCount;
