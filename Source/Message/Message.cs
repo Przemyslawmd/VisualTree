@@ -19,7 +19,7 @@ namespace VisualTree
                 [Result.NO_NODE_SELECTED]       = "None node is selected.",
                 [Result.ROTATION_MULTIPLE]      = "Select only one node to make rotation.",
                 [Result.ROTATION_ROOT]          = "Root can not be rotated.",
-                [Result.SYMBOL_LIMIT]           = "To many symbols typed."
+                [Result.SYMBOL_LIMIT]           = "Too many symbols typed."
             };
         }              
         
