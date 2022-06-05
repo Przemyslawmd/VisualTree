@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualTree"
         mc:Ignorable="d"
-        Title="" Height="600" Width="1000">
+        Title="" Height="800" Width="1400">
 
     <Grid>
 
@@ -40,11 +40,11 @@
             <StackPanel Name="MenuPanel" Grid.Row="0" Grid.ColumnSpan="2" Width="auto" Orientation="Horizontal" 
                         Margin="20, 5, 0, 0" />
 
-            <Border Grid.Row="1" Grid.Column="0"  BorderBrush="Blue" BorderThickness="2" Margin="20, 10, 10, 5">
+            <Border Grid.Row="1" Grid.Column="0"  BorderBrush="Black" BorderThickness="1" Margin="20, 10, 10, 5">
                 <TextBox Name="TextNode" VerticalContentAlignment="Center" Padding="10, 5, 10, 5"  FontSize="15"/>
             </Border>
 
-            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Blue" BorderThickness="2" Margin="20, 0, 10, 0">
+            <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="20, 0, 10, 0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Background="White">
                     <Canvas Name="CanvasTree" x:FieldModifier="public" HorizontalAlignment="Left" VerticalAlignment="Top"
                             MouseLeftButtonDown="ActionCheckNode" Background="White"/>
@@ -53,7 +53,7 @@
 
             <Label Name="LabelTreeType" Grid.Row="1" Grid.Column="1" Content="Tree Type : Common BST" Margin="20, 10, 0, 0" />
 
-            <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1" BorderBrush="Blue" BorderThickness="2" 
+            <Border Name="BorderNotify" Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1" 
                     Margin="20, 0, 10, 0" >
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Background="White">
                     <TextBlock Name="TextNotifications" Background="White" Padding="5, 5, 5, 5" TextWrapping="Wrap" />
