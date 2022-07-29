@@ -17,8 +17,7 @@ namespace Tests
         [TestCleanup]
         public void CleanUp()
         {
-            TreeServices.Stop();
-            StepMode.Destroy();
+            TreeServices.Stop();            
         }
 
         /*******************************************************************************************/

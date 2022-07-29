@@ -32,7 +32,7 @@ namespace Tests
         public void CreateTreeInStepMode( List< int > keysToBuld, List< int > keysToCheck, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-            StepMode stepMode = StepMode.GetInstance();
+            StepMode stepMode = TreeServices.StepMode;
             stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
@@ -46,7 +46,7 @@ namespace Tests
                                                         TreeType treeType, int firstIter = 10, int secondIter = 20 )
         {
             Tree tree = GetTree( treeType );
-            StepMode stepMode = StepMode.GetInstance();
+            StepMode stepMode = TreeServices.StepMode;
             stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + firstIter );
@@ -74,7 +74,7 @@ namespace Tests
         {
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuld );
-            StepMode stepMode = StepMode.GetInstance();
+            StepMode stepMode = TreeServices.StepMode;
             stepMode.PrepareStepsForAddNodes( tree, keysToAdd );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 100 );
@@ -128,7 +128,7 @@ namespace Tests
             Selection selection = TreeServices.Selection;
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
 
-            StepMode stepMode = StepMode.GetInstance();
+            StepMode stepMode = TreeServices.StepMode;
             stepMode.PrepareStepsForDeleteNodes( tree, selection.Nodes );
 
             TriggerStepModeActions( stepMode.StepForward, tree, firstIter );

@@ -80,7 +80,7 @@
     <Compile Include="ServiceListener.cs" />
     <Compile Include="TreeServices\TreeServices.cs" />
     <Compile Include="SharedTypes.cs" />
-    <Compile Include="StepMode.cs" />
+    <Compile Include="TreeServices\StepMode.cs" />
     <Compile Include="Tree\TreeAVL.cs" />
     <Compile Include="Tree\TreeRB.cs" />
     <Compile Include="WindowAbout.xaml.cs">

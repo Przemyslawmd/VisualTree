@@ -3,23 +3,11 @@ using System.Collections.Generic;
 
 namespace VisualTree
 {
-    class StepMode : IListener
+    public class StepMode : IListener
     {
-        public static StepMode GetInstance()
+        public StepMode()
         {
-            if ( stepMode is null )
-            {
-                stepMode = new StepMode();
-            }
-            return stepMode;
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        public static void Destroy()
-        {
-            stepMode = null;
+            Steps = new List<ActionTree>();
         }
 
         /*******************************************************************************************/
@@ -160,11 +148,6 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private StepMode() {}
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
         private void TriggerStepRotation( Tree tree )
         {
             Node parent = Steps[stepNumber].Node.Parent;
@@ -186,10 +169,9 @@ namespace VisualTree
 
         /*******************************************************************************************/
         /*******************************************************************************************/
-
-        private static StepMode stepMode; 
         
-        public List< ActionTree > Steps { get; } = new List< ActionTree >();
+        public List< ActionTree > Steps { get; private set; }
+        
         private int stepNumber;
     }
 }

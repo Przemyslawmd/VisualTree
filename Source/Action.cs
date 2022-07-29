@@ -1,7 +1,7 @@
 ﻿
 namespace VisualTree
 {
-    class ActionTree
+    public class ActionTree
     {
         public ActionTree( ActionTreeType actionTreeType, Node node )
         {

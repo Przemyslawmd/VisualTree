@@ -7,6 +7,7 @@ namespace VisualTree
         {
             Model = new Model();
             Selection = new Selection();
+            StepMode = new StepMode();
         }
 
         /*******************************************************************************************/
@@ -16,6 +17,7 @@ namespace VisualTree
         {
             Model = null;
             Selection = null;
+            StepMode = null;
         }
 
         /*******************************************************************************************/
@@ -23,6 +25,7 @@ namespace VisualTree
 
         public static Model Model { get; private set; }
         public static Selection Selection {  get; private set; }
+        public static StepMode StepMode {  get; private set;}
     }
 }
 

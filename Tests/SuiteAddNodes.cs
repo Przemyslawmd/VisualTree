@@ -8,6 +8,21 @@ namespace Tests
     [TestClass]
     public class SuiteAddNodes
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            TreeServices.Start();
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            TreeServices.Stop();
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestMethod]
         public void TestAddNodesBST_1()
         {
@@ -63,16 +78,7 @@ namespace Tests
             var keysToAdd = new List< int > { 2, 11, 10 };
             var keysToCheck = new List< int > { 2, 1, 7, 3, 10, 12, 11, 27, 30, 20, 8 };
             new Test().AddNodesInStepModeAndBack( keysToBuild, keysToAdd, keysToCheck, 4, TreeType.AVL );
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            StepMode.Destroy();
-        }
+        }   
     }
 }
 

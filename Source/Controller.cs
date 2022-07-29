@@ -36,7 +36,7 @@ namespace VisualTree
             DestroyTree();
             TreeServices.Start();
             tree = GetTree();
-            StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
+            TreeServices.StepMode.PrepareStepsForAddNodes( tree, keys );
             return Result.OK;
         }
 
@@ -82,7 +82,7 @@ namespace VisualTree
                 return result;
             }
 
-            StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
+            TreeServices.StepMode.PrepareStepsForAddNodes( tree, keys );
             return Result.OK;
         }
         
@@ -125,7 +125,7 @@ namespace VisualTree
                 return result;
             }
 
-            StepMode.GetInstance().PrepareStepsForDeleteNodes( tree, selectedNodes );
+            TreeServices.StepMode.PrepareStepsForDeleteNodes( tree, selectedNodes );
             return Result.OK;
         }
 
@@ -154,7 +154,7 @@ namespace VisualTree
                 return Result.NO_TREE;
             }
 
-            StepMode.GetInstance().PrepareStepsForTreeBalancing( tree );
+            TreeServices.StepMode.PrepareStepsForTreeBalancing( tree );
             return Result.OK;
         }
         
@@ -196,13 +196,13 @@ namespace VisualTree
             
         public void StepForward()
         {
-            Step( StepMode.GetInstance().StepForward );
+            Step( TreeServices.StepMode.StepForward );
         }
         
 
         public void StepBackward()
         {
-            Step( StepMode.GetInstance().StepBackward );
+            Step( TreeServices.StepMode.StepBackward );
         }
 
 

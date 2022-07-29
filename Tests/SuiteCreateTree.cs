@@ -8,6 +8,21 @@ namespace Tests
     [TestClass]
     public class SuiteCreateTree
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            TreeServices.Start();
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            TreeServices.Stop();
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestMethod]
         public void TestCreateTreeBST_1()
         {
@@ -254,16 +269,7 @@ namespace Tests
             var keysToBuild = new List< int > { 1, 2, 3, 4, 5, 6, 7 };
             var keysToCheck = new List< int > { 1, 4, 3, 2 };
             new Test().CreateTreeInStepModeBackAndPartial( keysToBuild, keysToCheck, 5, TreeType.AVL, 0, 20 );
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            StepMode.Destroy();
-        }
+        }       
     }
 }
 

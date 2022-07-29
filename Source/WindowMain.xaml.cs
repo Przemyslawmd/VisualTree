@@ -187,7 +187,6 @@ namespace VisualTree
 
         private void ActionStepModeLeave( object sender, RoutedEventArgs e )
         {
-            StepMode.Destroy();
             PrepareMenuIcons( Settings.TreeType, false );
         }
 
