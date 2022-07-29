@@ -167,12 +167,10 @@ namespace VisualTree
                 
                 Node currNode = Matrix[Row][Column];
                 Node nextNode = Matrix[Row][Column + 1];
-                
-                int currPos = currNode.PosHor;
-                int nextPos = nextNode.PosHor;
 
-                int shift = currPos >= nextPos ? ( currPos - nextPos + Diameter + 5 ) / 2 : 
-                                                 ( nextPos - currPos ) + 5 / 2;
+                int shift = currNode.PosHor >= nextNode.PosHor ?
+                                               ( currNode.PosHor - nextNode.PosHor + Diameter + 5 ) / 2 :
+                                               ( nextNode.PosHor - currNode.PosHor ) + 5 / 2;
                 currNode.PosHor -= shift; 
                 nextNode.PosHor += shift;
                 
