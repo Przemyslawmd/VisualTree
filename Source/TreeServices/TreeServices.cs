@@ -5,8 +5,8 @@ namespace VisualTree
     {
         public static void Start()
         {
-            model = new Model();
-            selection = new Selection();
+            Model = new Model();
+            Selection = new Selection();
         }
 
         /*******************************************************************************************/
@@ -14,30 +14,15 @@ namespace VisualTree
 
         public static void Stop()
         {
-            model = null;
-            selection = null;
+            Model = null;
+            Selection = null;
         }
 
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public static Model GetModel()
-        {
-            return model;
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        public static Selection GetSelection()
-        {
-            return selection;
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        private static Model model;
-        private static Selection selection;
+        public static Model Model { get; private set; }
+        public static Selection Selection {  get; private set; }
     }
 }
+

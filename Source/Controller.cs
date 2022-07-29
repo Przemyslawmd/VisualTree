@@ -167,7 +167,7 @@ namespace VisualTree
                 return Result.NO_TREE;
             }
 
-            var selectedNodes = TreeServices.GetSelection().Nodes;
+            var selectedNodes = TreeServices.Selection.Nodes;
 
             if ( selectedNodes.Count is 0 )
             {
@@ -223,7 +223,7 @@ namespace VisualTree
 
         public void SelectNode( Canvas canvas, int posX, int posY )
         {
-            if ( TreeServices.GetSelection().CheckCoordinates( posX, posY ))
+            if ( TreeServices.Selection.CheckCoordinates( posX, posY ))
             {
                 canvas.Children.Clear();
                 new Painter().DrawTree( tree.Root, canvas );
@@ -258,7 +258,7 @@ namespace VisualTree
         
         private void ShowTree()
         {
-            Model model = TreeServices.GetModel();
+            Model model = TreeServices.Model;
             model.ModelTree( tree );
 
             Canvas canvas = ServiceControls.GetInstance().Canvas;
@@ -313,7 +313,7 @@ namespace VisualTree
                 return null;
             }
 
-            var selectedNodes = TreeServices.GetSelection().Nodes;
+            var selectedNodes = TreeServices.Selection.Nodes;
 
             if ( selectedNodes.Count is 0 )
             {

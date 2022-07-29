@@ -92,7 +92,7 @@ namespace Tests
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuild );
             
-            Selection selection = TreeServices.GetSelection();
+            Selection selection = TreeServices.Selection;
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
@@ -107,7 +107,7 @@ namespace Tests
             Tree tree = GetTree( TreeType.RB );
             tree.CreateNodes( keysToBuild );
             
-            Selection selection = TreeServices.GetSelection();
+            Selection selection = TreeServices.Selection;
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
@@ -125,7 +125,7 @@ namespace Tests
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuild );
             
-            Selection selection = TreeServices.GetSelection();
+            Selection selection = TreeServices.Selection;
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
 
             StepMode stepMode = StepMode.GetInstance();

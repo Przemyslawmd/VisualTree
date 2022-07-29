@@ -30,7 +30,7 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            TreeServices.GetModel().ModelTree( tree );
+            TreeServices.Model.ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
@@ -50,7 +50,7 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            TreeServices.GetModel().ModelTree( tree );
+            TreeServices.Model.ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 4,   90, 30 ));
