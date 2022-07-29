@@ -78,7 +78,7 @@
     <Compile Include="Node\NodeAVL.cs" />
     <Compile Include="Node\NodeRB.cs" />
     <Compile Include="ServiceListener.cs" />
-    <Compile Include="TreeServices.cs" />
+    <Compile Include="TreeServices\TreeServices.cs" />
     <Compile Include="SharedTypes.cs" />
     <Compile Include="StepMode.cs" />
     <Compile Include="Tree\TreeAVL.cs" />
@@ -102,13 +102,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controller.cs" />
-    <Compile Include="Drawing\Model.cs" />
+    <Compile Include="TreeServices\Model.cs" />
     <Compile Include="Drawing\Painter.cs" />
     <Compile Include="DSW.cs" />
     <Compile Include="Message\Message.cs" />
     <Compile Include="Node\Node.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Selection.cs" />
+    <Compile Include="TreeServices\Selection.cs" />
     <Compile Include="ServiceControls.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Tree\Tree.cs" />
