@@ -8,8 +8,24 @@ namespace Tests
     [TestClass]
     public class SuiteDeleteNodes
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            TreeServices.Start();
+        }
+
+        [TestCleanup]
+        public void CleanUp()
+        {
+            TreeServices.Stop();
+            StepMode.Destroy();
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         // Nodes to be deleted have no children
-        
+
         [TestMethod]
         public void TestDeleteNodesBST_1()
         {
@@ -501,17 +517,7 @@ namespace Tests
             };
 
             new Test().DeleteNodesTreeRB( keysToBuild, nodesToCheck, keysToDelete );
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        [TestCleanup]
-        public void CleanUp()
-        {
-            Selection.Destroy();
-            StepMode.Destroy();
-        }
+        } 
     }
 }
 

@@ -3,25 +3,13 @@ using System.Collections.Generic;
 
 namespace VisualTree
 {
-    class Selection
+    public class Selection
     {
-        public static Selection Get()
+        public Selection()
         {
-            if ( selection is null )
-            {
-                selection = new Selection();
-            }
-            return selection;
+            Nodes = new List<Node>();
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
 
-        public static void Destroy()
-        {
-            selection = null;
-        }
-        
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -70,17 +58,7 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /*******************************************************************************************/
-        
-        private Selection()
-        {
-            Nodes = new List< Node >();
-        }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
 
-        private static Selection selection;
-        
         public List< Node > Nodes { get; private set; }
         
         private readonly int Radius = Settings.Diameter / 2;
