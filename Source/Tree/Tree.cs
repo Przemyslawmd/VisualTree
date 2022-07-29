@@ -4,7 +4,7 @@ using System;
 
 namespace VisualTree
 {
-    abstract class Tree
+    public abstract class Tree
     {
         public abstract void AddNode( int key );
         

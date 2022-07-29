@@ -48,7 +48,7 @@ namespace VisualTree
             {
                 Canvas canvas = ServiceControls.GetInstance().Canvas;
                 canvas.Children.Clear();
-                Model.Destroy();
+                TreeServices.Stop();
                 Selection.Destroy();
                 tree = null;
             }
@@ -258,7 +258,8 @@ namespace VisualTree
         
         private void ShowTree()
         {
-            Model model = Model.Get();
+            TreeServices.Start();
+            Model model = TreeServices.GetModel();
             model.ModelTree( tree );
 
             Canvas canvas = ServiceControls.GetInstance().Canvas;

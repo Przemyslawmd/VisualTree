@@ -8,6 +8,21 @@ namespace Tests
     [TestClass]
     public class TestModel
     {
+        [TestInitialize]
+        public void Setup()
+        {
+            TreeServices.Start();
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+            TreeServices.Stop();
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
         [TestMethod]
         public void TestModelBSTTree_1()
         {
@@ -15,7 +30,7 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model.Get().ModelTree( tree );
+            TreeServices.GetModel().ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
@@ -35,7 +50,7 @@ namespace Tests
             Tree tree = new TreeBST();
             tree.CreateNodes( keys );   
             
-            Model.Get().ModelTree( tree );
+            TreeServices.GetModel().ModelTree( tree );
             
             Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 4,   90, 30 ));

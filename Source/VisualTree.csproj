@@ -78,6 +78,7 @@
     <Compile Include="Node\NodeAVL.cs" />
     <Compile Include="Node\NodeRB.cs" />
     <Compile Include="ServiceListener.cs" />
+    <Compile Include="TreeServices.cs" />
     <Compile Include="SharedTypes.cs" />
     <Compile Include="StepMode.cs" />
     <Compile Include="Tree\TreeAVL.cs" />

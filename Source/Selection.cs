@@ -28,7 +28,7 @@ namespace VisualTree
         public bool CheckCoordinates( int posX, int posY)
         {
             bool isFoundInRows = false;
-            var matrix = Model.Get().Matrix;
+            var matrix = TreeServices.GetModel().Matrix;
             var matrixRow = matrix[0];
             
             foreach ( var nodesRow in matrix )

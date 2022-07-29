@@ -1,7 +1,7 @@
 ﻿
 namespace VisualTree
 {
-    class Node
+    public class Node
     {
         public Node( int key )
         {
