@@ -34,6 +34,7 @@ namespace VisualTree
             }
 
             DestroyTree();
+            TreeServices.Start();
             tree = GetTree();
             StepMode.GetInstance().PrepareStepsForAddNodes( tree, keys );
             return Result.OK;
