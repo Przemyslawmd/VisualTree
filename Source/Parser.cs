@@ -12,8 +12,7 @@ namespace VisualTree
             {
                 result = Result.NO_DATA_TO_CREATE_TREE;
                 return null;
-            }
-            
+            }            
             return ParseText( text, out result );
         }
 
@@ -31,7 +30,7 @@ namespace VisualTree
                 }
             }
         
-            List< int > nodesValues = new List< int >();
+            var nodesValues = new List< int >();
             int number = 0;
             bool lastTokenIsDigit = false;
 
@@ -76,8 +75,7 @@ namespace VisualTree
                 {
                     nodesValues.Add( number );
                     return true;
-                }
-                
+                }                
                 return Settings.RemoveDuplicatedNodes;
             }
         }

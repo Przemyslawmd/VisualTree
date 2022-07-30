@@ -38,7 +38,6 @@ namespace VisualTree
             return Result.OK;
         }
 
-
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -171,12 +170,10 @@ namespace VisualTree
             {
                 return Result.NO_NODE_SELECTED;
             }
-
             if ( selectedNodes.Count > 1 )
             {
                 return Result.ROTATION_MULTIPLE;
             }
-
             if ( selectedNodes[0].Parent is null )
             {
                 return Result.ROTATION_ROOT;

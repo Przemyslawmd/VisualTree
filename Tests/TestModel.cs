@@ -32,7 +32,7 @@ namespace Tests
             
             TreeServices.Model.ModelTree( tree );
             
-            Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
+            var expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
             expectedPositions.Push( new NodePosition( 2, 60, 70 ));
             expectedPositions.Push( new NodePosition( 3, 90, 110 ));
@@ -52,7 +52,7 @@ namespace Tests
             
             TreeServices.Model.ModelTree( tree );
             
-            Stack< NodePosition > expectedPositions = new Stack< NodePosition >(); 
+            var expectedPositions = new Stack< NodePosition >(); 
             expectedPositions.Push( new NodePosition( 4,   90, 30 ));
             expectedPositions.Push( new NodePosition( 10, 120, 70 ));
             expectedPositions.Push( new NodePosition( 3,   60, 70 ));
