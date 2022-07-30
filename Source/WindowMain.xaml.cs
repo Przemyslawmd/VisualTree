@@ -1,4 +1,4 @@
-﻿
+﻿  
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
@@ -55,6 +55,7 @@ namespace VisualTree
 
             PrepareMenuIcons( newTreeType, false );
             controller.DestroyTree();
+            TreeServices.Stop();
             Settings.SetTreeType( newTreeType );
             LabelTreeType.Content = TreeTypeLabel[newTreeType];
         }
@@ -80,6 +81,7 @@ namespace VisualTree
 
         private void ActionDrawTree( object sender, RoutedEventArgs e )
         {
+            TreeServices.Start();
             Result result = controller.DrawTree( TextNode.Text );
             CheckResult( result );
         }
@@ -89,6 +91,8 @@ namespace VisualTree
 
         private void ActionDrawTreeInStep( object sender, RoutedEventArgs e )
         {
+            TreeServices.Start();
+            TreeServices.StartStepMode();
             Result result = controller.DrawTreePrepareSteps( TextNode.Text );
             TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
@@ -99,6 +103,7 @@ namespace VisualTree
         private void ActionDestroyTree( object sender, RoutedEventArgs e )
         {
             controller.DestroyTree();
+            TreeServices.Stop();
         }
         
         /*******************************************************************************************/
@@ -115,6 +120,7 @@ namespace VisualTree
 
         private void ActionAddNodesInStep( object sender, RoutedEventArgs e )
         {
+            TreeServices.StartStepMode();
             Result result = controller.AddNodesPrepareSteps( TextNode.Text );
             TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
@@ -133,6 +139,7 @@ namespace VisualTree
 
         private void ActionDeleteNodesInStep( object sender, RoutedEventArgs e )
         {
+            TreeServices.StartStepMode();
             Result result = controller.DeleteNodesPrepareSteps();
             TryPrepareMenuIconsForStepMode( result, TreeType.AVL );
         }
@@ -160,6 +167,7 @@ namespace VisualTree
 
         private void ActionBalanceTreeInStep( object sender, RoutedEventArgs e )
         {
+            TreeServices.StartStepMode();
             Result result = controller.BalanceTreePrepareSteps();
             TryPrepareMenuIconsForStepMode( result, TreeType.CommonBST );
         }
@@ -187,6 +195,7 @@ namespace VisualTree
 
         private void ActionStepModeLeave( object sender, RoutedEventArgs e )
         {
+            TreeServices.StopStepMode();
             PrepareMenuIcons( Settings.TreeType, false );
         }
 

@@ -16,7 +16,6 @@ namespace VisualTree
             }
                         
             DestroyTree();
-            TreeServices.Start();
             GetTree().CreateNodes( keys );
             ShowTree();
             return result;
@@ -34,7 +33,6 @@ namespace VisualTree
             }
 
             DestroyTree();
-            TreeServices.Start();
             tree = GetTree();
             TreeServices.StepMode.PrepareStepsForAddNodes( tree, keys );
             return Result.OK;
@@ -50,7 +48,6 @@ namespace VisualTree
             {
                 Canvas canvas = ServiceControls.GetInstance().Canvas;
                 canvas.Children.Clear();
-                TreeServices.Stop();
                 tree = null;
             }
         }

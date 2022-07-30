@@ -11,13 +11,13 @@ namespace Tests
         [TestInitialize]
         public void Setup()
         {
-            TreeServices.Start();
+            TreeServices.StartStepMode();
         }
 
         [TestCleanup]
         public void CleanUp()
         {
-            TreeServices.Stop();
+            TreeServices.StopStepMode();
         }
 
         /*******************************************************************************************/
