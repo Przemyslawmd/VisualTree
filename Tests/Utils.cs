@@ -8,22 +8,11 @@ namespace Tests
 {
     class Utils
     {
-        public void CreateTree( List< int > keysToBuild, List< int > keysToCheck, TreeType treeType )
+        public Tree CreateTree( List< int > keys, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-            tree.CreateNodes( keysToBuild );
-            CheckNodes( tree.Root, keysToCheck );
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        public void CreateTreeRB( List< int > keysToBuild, Dictionary< int, NodeColor > nodesToCheck )
-        {
-            Tree tree = GetTree( TreeType.RB );
-            tree.CreateNodes( keysToBuild );
-            CheckNodes( tree.Root, new List< int >( nodesToCheck.Keys ));
-            CheckNodes( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
+            tree.CreateNodes( keys );
+            return tree;
         }
 
         /*******************************************************************************************/
