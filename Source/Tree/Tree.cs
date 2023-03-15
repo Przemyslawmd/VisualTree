@@ -171,7 +171,7 @@ namespace VisualTree
                 DetachNodeOneChild( node );
             }
             
-            RestoreIfRootExists();
+            RestoreRoot();
             ServiceListener.Notify( ActionTreeType.REMOVE_NODE, node );
         }
 
@@ -238,24 +238,17 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void RestoreIfRootExists()
+        public void RestoreRoot()
         {
-            if ( Root != null )
+            if ( Root == null )
             {
-                RestoreRoot();
+                return;
             }
-        }
 
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        public Node RestoreRoot()
-        {
             while ( Root.IsParent() )
             {
                 Root = Root.Parent;
             }
-            return Root;
         }
 
         /*******************************************************************************************/
