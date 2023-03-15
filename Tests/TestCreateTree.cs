@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Tests
 {
     [TestClass]
-    public class SuiteCreateTree
+    public class TestCreateTree
     {
         [TestInitialize]
         public void Setup()

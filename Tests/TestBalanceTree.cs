@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Tests
 {
     [TestClass]
-    public class SuiteBalanceTree
+    public class TestBalanceTree
     {
         [TestMethod]
         public void TestBalanceTree_1()

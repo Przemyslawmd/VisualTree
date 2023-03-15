@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Tests
 {
     [TestClass]
-    public class SuiteDeleteNodes
+    public class TestDeleteNodes
     {
         [TestInitialize]
         public void Setup()
