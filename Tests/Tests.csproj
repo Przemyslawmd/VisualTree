@@ -52,7 +52,7 @@
     <Compile Include="TestAddNodes.cs" />
     <Compile Include="SuiteBalanceTree.cs" />
     <Compile Include="SuiteDeleteNodes.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="TestModel.cs" />
     <Compile Include="TestParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

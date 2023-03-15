@@ -77,7 +77,7 @@ namespace Tests
             var keysToBuild = new List< int > { 7, 12, 8, 3, 1, 20, 30, 27 };
             var keysToAdd = new List< int > { 2, 11, 10 };
             var keysToCheck = new List< int > { 2, 1, 7, 3, 10, 12, 11, 27, 30, 20, 8 };
-            new Test().AddNodesInStepModeAndBack( keysToBuild, keysToAdd, keysToCheck, 4, TreeType.AVL );
+            new Utils().AddNodesInStepModeAndBack( keysToBuild, keysToAdd, keysToCheck, 4, TreeType.AVL );
         }
 
         /*******************************************************************************************/
@@ -85,7 +85,7 @@ namespace Tests
 
         public void TestAddNodes( List< int > keysToBuild, List< int > keysToAdd, List< int > keysToCheck, TreeType treeType )
         {
-            var test = new Test();
+            var test = new Utils();
             Tree tree = test.GetTree( treeType );
             tree.CreateNodes( keysToBuild );
             tree.CreateNodes( keysToAdd );

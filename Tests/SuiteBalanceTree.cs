@@ -13,7 +13,7 @@ namespace Tests
         {
             var keysToBuild = new List< int > { 20, 15, 30, 25, 40, 23, 28 };
             var keysToCheck = new List< int > { 15, 23, 20, 28, 40, 30, 25 };
-            new Test().BalanceTree( keysToBuild, keysToCheck );
+            new Utils().BalanceTree( keysToBuild, keysToCheck );
         }
         
         /*******************************************************************************************/
@@ -32,7 +32,7 @@ namespace Tests
                 1, 3, 2, 15, 12, 20, 23, 22, 17, 25, 29, 28, 31, 40, 34, 30, 24, 45, 65, 56, 100, 102,
                 101, 76, 104, 106, 105, 108, 110, 109, 107, 103, 43
             };
-            new Test().BalanceTree( keysToBuild, keysToCheck );
+            new Utils().BalanceTree( keysToBuild, keysToCheck );
         }
     }
 }

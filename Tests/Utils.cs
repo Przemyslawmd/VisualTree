@@ -6,7 +6,7 @@ using System;
 
 namespace Tests
 {
-    class Test
+    class Utils
     {
         public void CreateTree( List< int > keysToBuild, List< int > keysToCheck, TreeType treeType )
         {
