@@ -6,24 +6,13 @@ using System;
 
 namespace Tests
 {
-    class Test
+    class Utils
     {
-        public void CreateTree( List< int > keysToBuild, List< int > keysToCheck, TreeType treeType )
+        public Tree CreateTree( List< int > keys, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
-            tree.CreateNodes( keysToBuild );
-            CheckNode( tree.Root, keysToCheck );
-        }
-
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-
-        public void CreateTreeRB( List< int > keysToBuild, Dictionary< int, NodeColor > nodesToCheck )
-        {
-            Tree tree = GetTree( TreeType.RB );
-            tree.CreateNodes( keysToBuild );
-            CheckNode( tree.Root, new List< int >( nodesToCheck.Keys ));
-            CheckNode( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
+            tree.CreateNodes( keys );
+            return tree;
         }
 
         /*******************************************************************************************/
@@ -36,7 +25,7 @@ namespace Tests
             stepMode.PrepareStepsForAddNodes( tree, keysToBuld );
 
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 10 );
-            CheckNode( tree.Root, keysToCheck );
+            CheckNodes( tree.Root, keysToCheck );
         }
 
         /*******************************************************************************************/
@@ -52,18 +41,18 @@ namespace Tests
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + firstIter );
             TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + secondIter );
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
-            CheckNode( tree.Root, keysToCheck );
+            CheckNodes( tree.Root, keysToCheck );
         }
-        
+       
         /*******************************************************************************************/
         /*******************************************************************************************/
-        
-        public void AddNodes( List< int > keysToBuild, List< int > keysToAdd, List< int > keysToCheck, TreeType treeType )
+
+        public Tree BuildTreeAndAddNodes( List< int > keysToBuild, List< int > keysToAdd, TreeType treeType )
         {
             Tree tree = GetTree( treeType );
             tree.CreateNodes( keysToBuild );
             tree.CreateNodes( keysToAdd );
-            CheckNode( tree.Root, keysToCheck );
+            return tree;
         }
 
         /*******************************************************************************************/
@@ -80,7 +69,7 @@ namespace Tests
             TriggerStepModeActions( stepMode.StepForward, tree, stepMode.Steps.Count + 100 );
             TriggerStepModeActions( stepMode.StepBackward, tree, stepMode.Steps.Count + 200 );
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
-            CheckNode( tree.Root, keysToCheck );
+            CheckNodes( tree.Root, keysToCheck );
         }
 
         /*******************************************************************************************/
@@ -96,7 +85,7 @@ namespace Tests
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
-            CheckNode( tree.Root, keysToCheck );
+            CheckNodes( tree.Root, keysToCheck );
         }
         
         /*******************************************************************************************/
@@ -111,8 +100,8 @@ namespace Tests
             AddNodesToSelection( tree, selection.Nodes, keysToDelete );
             tree.DelSelectedNodes( selection.Nodes );
             
-            CheckNode( tree.Root, new List< int >( nodesToCheck.Keys ));
-            CheckNode( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
+            CheckNodes( tree.Root, new List< int >( nodesToCheck.Keys ));
+            CheckNodes( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
         }
         
         /*******************************************************************************************/
@@ -132,10 +121,10 @@ namespace Tests
             stepMode.PrepareStepsForDeleteNodes( tree, selection.Nodes );
 
             TriggerStepModeActions( stepMode.StepForward, tree, firstIter );
-            CheckNode( tree.Root, keysToCheck_1 );
+            CheckNodes( tree.Root, keysToCheck_1 );
 
             TriggerStepModeActions( stepMode.StepBackward, tree, secondIter );
-            CheckNode( tree.Root, keysToCheck_2 );
+            CheckNodes( tree.Root, keysToCheck_2 );
         }
         
         /*******************************************************************************************/
@@ -146,13 +135,13 @@ namespace Tests
             Tree tree = GetTree( TreeType.CommonBST );
             tree.CreateNodes( keysToBuild );
             new DSW().BalanceTree( tree );
-            CheckNode( tree.Root, keysToCheck );
+            CheckNodes( tree.Root, keysToCheck );
         }
         
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CheckNode< T >( Node node, List< T > valuesToCheck )
+        public void CheckNodes< T >( Node node, List< T > valuesToCheck )
         {
             if ( valuesToCheck is null )
             {
@@ -162,11 +151,11 @@ namespace Tests
 
             if ( node.IsLeft() )
             {
-                CheckNode( node.Left, valuesToCheck );
+                CheckNodes( node.Left, valuesToCheck );
             }
             if ( node.IsRight() )
             {
-                CheckNode( node.Right, valuesToCheck );
+                CheckNodes( node.Right, valuesToCheck );
             }
 
             if ( typeof( T ) == typeof( int ))
@@ -199,7 +188,7 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private Tree GetTree( TreeType treeType )
+        public Tree GetTree( TreeType treeType )
         {
             if ( treeType == TreeType.CommonBST )
             {

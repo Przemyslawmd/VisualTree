@@ -49,14 +49,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SuiteAddNodes.cs" />
-    <Compile Include="SuiteBalanceTree.cs" />
-    <Compile Include="SuiteDeleteNodes.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="TestAddNodes.cs" />
+    <Compile Include="TestBalanceTree.cs" />
+    <Compile Include="TestDeleteNodes.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="TestModel.cs" />
     <Compile Include="TestParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SuiteCreateTree.cs" />
+    <Compile Include="TestCreateTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
