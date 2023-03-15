@@ -54,18 +54,7 @@ namespace Tests
             TriggerStepModeActions( stepMode.StepForward, tree, finalStep );
             CheckNode( tree.Root, keysToCheck );
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        
-        public void AddNodes( List< int > keysToBuild, List< int > keysToAdd, List< int > keysToCheck, TreeType treeType )
-        {
-            Tree tree = GetTree( treeType );
-            tree.CreateNodes( keysToBuild );
-            tree.CreateNodes( keysToAdd );
-            CheckNode( tree.Root, keysToCheck );
-        }
-
+       
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -152,7 +141,7 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
         
-        private void CheckNode< T >( Node node, List< T > valuesToCheck )
+        public void CheckNode< T >( Node node, List< T > valuesToCheck )
         {
             if ( valuesToCheck is null )
             {
@@ -199,7 +188,7 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private Tree GetTree( TreeType treeType )
+        public Tree GetTree( TreeType treeType )
         {
             if ( treeType == TreeType.CommonBST )
             {
