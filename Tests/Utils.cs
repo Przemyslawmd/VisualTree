@@ -75,35 +75,13 @@ namespace Tests
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void DeleteNodes( List< int > keysToBuild, List< int > keysToCheck, List< int > keysToDelete, 
-                                 TreeType treeType )
+        public void DeleteNodes( Tree tree, List< int > keys )
         {
-            Tree tree = GetTree( treeType );
-            tree.CreateNodes( keysToBuild );
-            
             Selection selection = TreeServices.Selection;
-            AddNodesToSelection( tree, selection.Nodes, keysToDelete );
+            AddNodesToSelection( tree, selection.Nodes, keys );
             tree.DelSelectedNodes( selection.Nodes );
-            
-            CheckNodes( tree.Root, keysToCheck );
         }
-        
-        /*******************************************************************************************/
-        /*******************************************************************************************/
-        public void DeleteNodesTreeRB( List< int > keysToBuild, Dictionary< int, NodeColor > nodesToCheck, 
-                                       List< int > keysToDelete )
-        {
-            Tree tree = GetTree( TreeType.RB );
-            tree.CreateNodes( keysToBuild );
-            
-            Selection selection = TreeServices.Selection;
-            AddNodesToSelection( tree, selection.Nodes, keysToDelete );
-            tree.DelSelectedNodes( selection.Nodes );
-            
-            CheckNodes( tree.Root, new List< int >( nodesToCheck.Keys ));
-            CheckNodes( tree.Root, new List< NodeColor >( nodesToCheck.Values ));
-        }
-        
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
