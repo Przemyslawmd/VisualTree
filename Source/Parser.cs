@@ -6,7 +6,7 @@ namespace VisualTree
 {
     class Parser
     {
-        public List< int > GetNodesValues( String text, out Result result )
+        public List< int > GetKeys( String text, out Result result )
         {
             if ( text.Length == 0 )
             {

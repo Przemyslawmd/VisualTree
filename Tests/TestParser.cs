@@ -11,12 +11,8 @@ namespace Tests
         [TestMethod]
         public void ParserProperData()
         {
-            string data = "2,4,56,33,12,3,44,39, 31, 556,424";
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-            var expectedNodes = new List< int >() {  2, 4, 56, 33, 12, 3, 44, 39, 31, 556, 424 };
-            
-            CollectionAssert.AreEqual( nodes, expectedNodes );
+            var nodes = new Parser().GetKeys( "2,4,56,33,12,3,44,39, 31, 556,424", out Result result );
+            CollectionAssert.AreEqual( nodes, new List< int >(){ 2, 4, 56, 33, 12, 3, 44, 39, 31, 556, 424 } );
             Assert.AreEqual( result, Result.OK );
         }
 
@@ -26,10 +22,7 @@ namespace Tests
         [TestMethod]
         public void ParserImproperData()
         {
-            string data = "2,4,56,33,12,3,44,3,3.556,44";
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-
+            var nodes = new Parser().GetKeys( "2,4,56,33,12,3,44,3,3.556,44", out Result result );
             Assert.IsNull( nodes );
             Assert.AreEqual( result, Result.IMPROPER_DATA );
         }
@@ -41,10 +34,7 @@ namespace Tests
         public void ParserDuplicatedData()
         {
             Settings.RemoveDuplicatedNodes = false;
-            string data = "2,4,56,33,12,3,44,3,3,556,44";
-
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-
+            var nodes = new Parser().GetKeys( "2,4,56,33,12,3,44,3,3,556,44", out Result result );
             Assert.IsNull( nodes );
             Assert.AreEqual( result, Result.DUPLICATED_SYMBOL );
         }
@@ -56,12 +46,8 @@ namespace Tests
         public void ParserDuplicatedDataRemove()
         {
             Settings.RemoveDuplicatedNodes = true;
-            string data = "2,4,56,33,12,3,44,3,3,556,44";
-            var expectedNodes = new List< int >() {  2, 4, 56, 33, 12, 3, 44, 556 };
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-
-            CollectionAssert.AreEqual( nodes, expectedNodes );
+            var nodes = new Parser().GetKeys( "2,4,56,33,12,3,44,3,3,556,44", out Result result );
+            CollectionAssert.AreEqual( nodes, new List< int >(){ 2, 4, 56, 33, 12, 3, 44, 556 } );
             Assert.AreEqual( result, Result.OK );
         }
     }
