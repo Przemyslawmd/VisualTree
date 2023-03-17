@@ -21,8 +21,6 @@ namespace VisualTree
                
         public static int Diameter {  get; private set; } = 30;
 
-        public static bool RemoveDuplicatedNodes {  get; set; } = true;
-
         public static TreeType TreeType {  get; private set; } = TreeType.CommonBST; 
         
         public static bool Notifications {  get; set; } = true;

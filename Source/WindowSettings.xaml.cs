@@ -10,7 +10,6 @@ namespace VisualTree
         {
             InitializeComponent();
             TextDiameter.Text = Settings.Diameter.ToString();
-            CheckRemoveDuplicated.IsChecked = Settings.RemoveDuplicatedNodes;
             CheckToolTips.IsChecked = Settings.MenuPanelToolTips;
         }
 
@@ -38,7 +37,6 @@ namespace VisualTree
             }
 
             Settings.MenuPanelToolTips = CheckToolTips.IsChecked == true;
-            Settings.RemoveDuplicatedNodes = CheckRemoveDuplicated.IsChecked == true;
             Close();
         }
     }
