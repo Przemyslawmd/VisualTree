@@ -30,7 +30,7 @@ namespace VisualTree
                 }
             }
         
-            var nodesValues = new List< int >();
+            var keys = new List< int >();
             int number = 0;
             bool lastTokenIsDigit = false;
 
@@ -42,8 +42,7 @@ namespace VisualTree
                     lastTokenIsDigit = true;
                     continue;
                 }
-                        
-                if ( lastTokenIsDigit && CheckLastNumber() is false )
+                if ( lastTokenIsDigit && CheckCurrentNumber() is false )
                 {
                     result = Result.DUPLICATED_SYMBOL;
                     return null;
@@ -53,11 +52,11 @@ namespace VisualTree
                 lastTokenIsDigit = false;		
             }
             
-            if ( lastTokenIsDigit && CheckLastNumber() is false )
+            if ( lastTokenIsDigit && CheckCurrentNumber() is false )
             {
                 result = Result.DUPLICATED_SYMBOL;
             }
-            else if ( nodesValues.Count == 0 )
+            else if ( keys.Count == 0 )
             {
                 result = Result.IMPROPER_DATA;
             }
@@ -65,18 +64,17 @@ namespace VisualTree
             { 
                 result = Result.OK;
             }
-            
-            return result == Result.OK ? nodesValues : null;
+            return result == Result.OK ? keys : null;
 
 
-            bool CheckLastNumber()
+            bool CheckCurrentNumber()
             {
-                if ( nodesValues.Contains( number ) is false )
+                if ( keys.Contains( number ))
                 {
-                    nodesValues.Add( number );
-                    return true;
+                    return false;
                 }                
-                return Settings.RemoveDuplicatedNodes;
+                keys.Add( number );
+                return true;
             }
         }
     }
