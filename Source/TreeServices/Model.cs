@@ -10,14 +10,14 @@ namespace VisualTree
             SetNodesPosition( tree.Root, Padding, Padding, 0 );
             FindMatrixHeight( tree );
             PrepareNodesMatrixRow();
-            tree.Traverse( tree.Root, RegisterNode );
+            tree.InvokeActionForEachNode<Node>( RegisterNode );
             FixNodesPositions( tree );
             FindTreeWidthPositions( tree );
             
             if ( beginPosHor < Padding )
             {
                 int shift = Padding - beginPosHor; 
-                tree.Traverse( tree.Root, ShiftNodeHorPosition );
+                tree.InvokeActionForEachNode<Node>( ShiftNodeHorPosition );
                 beginPosHor += shift;
                 endPosHor += shift;
             }
@@ -58,7 +58,7 @@ namespace VisualTree
         private void FindMatrixHeight( Tree tree )
         {
             matrixHeight = 0;
-            tree.Traverse( tree.Root, SetMatrixHeight );
+            tree.InvokeActionForEachNode<Node>( SetMatrixHeight );
         }
 
         /*******************************************************************************************/
@@ -78,7 +78,7 @@ namespace VisualTree
         private void FindTreeWidthPositions( Tree tree )
         {
             endPosHor = 0;
-            tree.Traverse( tree.Root, SetTreeWidthPosition );
+            tree.InvokeActionForEachNode<Node>( SetTreeWidthPosition );
         }
 
         /*******************************************************************************************/

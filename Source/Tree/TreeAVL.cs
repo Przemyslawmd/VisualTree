@@ -23,8 +23,8 @@ namespace VisualTree
 
                 if ( Root != null )
                 {
-                    Traverse( Root, ( Node n ) => ( n as NodeAVL ).UpdateLevel() );
-                    Traverse( Root, RestoreAVLProperty );
+                    InvokeActionForEachNode<NodeAVL>( UpdateLevel );
+                    InvokeActionForEachNode<NodeAVL>( RestoreAVLProperty );
                 }
             }
         }
@@ -159,6 +159,14 @@ namespace VisualTree
             UpdateLevelToRoot( parent );
         }
         
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        private void UpdateLevel( NodeAVL node )
+        {
+            node.UpdateLevel();
+        }
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 

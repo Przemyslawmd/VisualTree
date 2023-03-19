@@ -39,21 +39,11 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void Traverse( Node node, Action< Node > action )
+        public void InvokeActionForEachNode< T >( Action< T > action ) where T : Node
         {
-            if ( node.IsLeft() )
-            {
-                Traverse( node.Left, action );
-            }
-
-            action.Invoke( node );
-    
-            if ( node.IsRight() )
-            {
-                Traverse( node.Right, action );
-            }
+            TraverseTreeWithAction( Root, action );
         }
-        
+
         /*******************************************************************************************/
         /*******************************************************************************************/
 
@@ -340,6 +330,24 @@ namespace VisualTree
         
         /*******************************************************************************************/
         /* PRIVATE                                                                                 */
+        /*******************************************************************************************/
+
+        private void TraverseTreeWithAction<T>( Node node, Action<T> action ) where T : Node
+        {
+            if ( node.IsLeft() )
+            {
+                TraverseTreeWithAction( node.Left, action );
+            }
+
+            action( node as T );
+
+            if ( node.IsRight() )
+            {
+                TraverseTreeWithAction( node.Right, action );
+            }
+        }
+
+        /*******************************************************************************************/
         /*******************************************************************************************/
 
         private Node RotateLeft( Node parent, Node child )
