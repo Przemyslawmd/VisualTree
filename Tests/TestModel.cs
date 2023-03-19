@@ -26,13 +26,11 @@ namespace Tests
         [TestMethod]
         public void TestModelBSTTree_1()
         {
-            List< int > keys = new List< int > { 1, 2, 3 };
             Tree tree = new TreeBST();
-            tree.CreateNodes( keys );   
-            
+            tree.CreateNodes( new List< int >{ 1, 2, 3 } );
             TreeServices.Model.ModelTree( tree );
             
-            var expectedPositions = new Stack< NodePosition >(); 
+            var expectedPositions = new Stack< NodePosition >();
             expectedPositions.Push( new NodePosition( 1, 30, 30 ));
             expectedPositions.Push( new NodePosition( 2, 60, 70 ));
             expectedPositions.Push( new NodePosition( 3, 90, 110 ));
@@ -46,10 +44,8 @@ namespace Tests
         [TestMethod]
         public void TestModelBSTTree_2()
         {
-            List< int > keys = new List< int > { 4, 3, 10, 1 };
             Tree tree = new TreeBST();
-            tree.CreateNodes( keys );   
-            
+            tree.CreateNodes( new List< int >{ 4, 3, 10, 1 } );
             TreeServices.Model.ModelTree( tree );
             
             var expectedPositions = new Stack< NodePosition >(); 
@@ -75,10 +71,10 @@ namespace Tests
                 CheckNode( node.Right, expectedPositions );
             }
 
-            NodePosition nodePosition = expectedPositions.Pop();
-            Assert.AreEqual( node.Key, nodePosition.key );
-            Assert.AreEqual( node.PosHor, nodePosition.posHor );
-            Assert.AreEqual( node.PosVer, nodePosition.posVer );
+            NodePosition position = expectedPositions.Pop();
+            Assert.AreEqual( node.Key, position.key );
+            Assert.AreEqual( node.PosHor, position.posHor );
+            Assert.AreEqual( node.PosVer, position.posVer );
         }
         
         /*******************************************************************************************/

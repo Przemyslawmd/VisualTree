@@ -11,12 +11,8 @@ namespace Tests
         [TestMethod]
         public void ParserProperData()
         {
-            string data = "2,4,56,33,12,3,44,39, 31, 556,424";
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-            var expectedNodes = new List< int >() {  2, 4, 56, 33, 12, 3, 44, 39, 31, 556, 424 };
-            
-            CollectionAssert.AreEqual( nodes, expectedNodes );
+            var keys = new Parser().GetKeys( "2,4,56,33,12,3,44,39, 31, 556,424", out Result result );
+            CollectionAssert.AreEqual( keys, new List< int >(){ 2, 4, 56, 33, 12, 3, 44, 39, 31, 556, 424 } );
             Assert.AreEqual( result, Result.OK );
         }
 
@@ -24,13 +20,10 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void ParserImproperData()
+        public void ParserImproperData_1()
         {
-            string data = "2,4,56,33,12,3,44,3,3.556,44";
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-
-            Assert.IsNull( nodes );
+            var keys = new Parser().GetKeys( "2,4,56,33,12,3,44,3,3.556,44", out Result result );
+            Assert.IsNull( keys );
             Assert.AreEqual( result, Result.IMPROPER_DATA );
         }
 
@@ -38,14 +31,32 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void ParserDuplicatedData()
+        public void ParserImproperData_2()
         {
-            Settings.RemoveDuplicatedNodes = false;
-            string data = "2,4,56,33,12,3,44,3,3,556,44";
+            var keys = new Parser().GetKeys( "2,4,56,33,12,3,44s,3,556", out Result result );
+            Assert.IsNull( keys );
+            Assert.AreEqual( result, Result.IMPROPER_DATA );
+        }
 
-            var nodes = new Parser().GetNodesValues( data, out Result result );
+        /*******************************************************************************************/
+        /*******************************************************************************************/
 
-            Assert.IsNull( nodes );
+        [TestMethod]
+        public void ParserImproperData_3()
+        {
+            var keys = new Parser().GetKeys( "2,4,56,33,12,3,44,3, v, 44", out Result result );
+            Assert.IsNull( keys );
+            Assert.AreEqual( result, Result.IMPROPER_DATA );
+        }
+
+        /*******************************************************************************************/
+        /*******************************************************************************************/
+
+        [TestMethod]
+        public void ParserDuplicatedSymbol()
+        {
+            var keys = new Parser().GetKeys( "2,4,56,33,12,3,44,3,3,556,44", out Result result );
+            Assert.IsNull( keys );
             Assert.AreEqual( result, Result.DUPLICATED_SYMBOL );
         }
 
@@ -53,15 +64,10 @@ namespace Tests
         /*******************************************************************************************/
 
         [TestMethod]
-        public void ParserDuplicatedDataRemove()
+        public void ParserSpaceAsSeparator()
         {
-            Settings.RemoveDuplicatedNodes = true;
-            string data = "2,4,56,33,12,3,44,3,3,556,44";
-            var expectedNodes = new List< int >() {  2, 4, 56, 33, 12, 3, 44, 556 };
-            
-            var nodes = new Parser().GetNodesValues( data, out Result result );
-
-            CollectionAssert.AreEqual( nodes, expectedNodes );
+            var keys = new Parser().GetKeys( "2 4, 56 33  , 3 44, , 12    101,102", out Result result );
+            CollectionAssert.AreEqual( keys, new List< int >(){ 2, 4, 56, 33, 3, 44, 12, 101, 102 } );
             Assert.AreEqual( result, Result.OK );
         }
     }
