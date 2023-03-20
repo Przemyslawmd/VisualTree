@@ -8,9 +8,9 @@ namespace VisualTree
             Key = key;
         }
         
-        public int Key { get; set; }
+        public int Key { get; }
         
-        public int Level {  get; set; } = 1;
+        public int Level { get; set; } = 1;
 
         public Node Parent { get; set; } 
         public Node Left { get; set; } 
@@ -26,17 +26,17 @@ namespace VisualTree
 
         public bool IsParent()
         {
-            return Parent is null ? false : true;
+            return Parent != null;
         }
 
         public bool IsLeft()
         {
-            return Left is null ? false : true;
+            return Left != null;
         }
 
         public bool IsRight()
         {
-            return Right is null ? false : true;
+            return Right != null;
         }
 
         public bool IsLeaf()
@@ -46,7 +46,7 @@ namespace VisualTree
 
         public bool AreBothChildren()
         {
-            return IsLeft() && IsRight();
+            return Left != null && Right != null;
         }
 
         public NodeColor Color {  get; set; } = NodeColor.NONE;
