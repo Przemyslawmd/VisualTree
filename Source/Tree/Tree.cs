@@ -152,9 +152,9 @@ namespace VisualTree
             {
                 DetachNodeNoChildren( node );
             }
-            else if ( node.IsRight() && node.IsLeft() )
+            else if ( node.AreBothChildren() )
             {
-                DetachNodeTwoChildren( ref node );
+                DetachNodeTwoChildren( node );
             }
             else
             {
@@ -197,7 +197,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        public void DetachNodeTwoChildren( ref Node node )
+        public void DetachNodeTwoChildren( Node node )
         {
             Node lowestSuccessor = FindLowestNode( node.Right );
                         
