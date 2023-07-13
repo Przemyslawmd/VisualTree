@@ -56,7 +56,7 @@ namespace VisualTree
         
         public Result AddNodes( String text )
         {
-            var keys = CheckRequirementsToCreateTree( text, out Result result );
+            var keys = CheckRequirementsToAddNodes( text, out Result result );
             if ( keys is null )
             {
                 return result;
@@ -72,7 +72,7 @@ namespace VisualTree
 
         public Result AddNodesPrepareSteps( String text )
         {
-            var keys = CheckRequirementsToCreateTree( text, out Result result );
+            var keys = CheckRequirementsToAddNodes( text, out Result result );
             if ( keys is null )
             {
                 return result;
@@ -275,7 +275,7 @@ namespace VisualTree
         /*******************************************************************************************/
         /*******************************************************************************************/
 
-        private List< int > CheckRequirementsToCreateTree( String text, out Result result )
+        private List< int > CheckRequirementsToAddNodes( String text, out Result result )
         {
             if ( tree is null )
             {

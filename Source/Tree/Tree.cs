@@ -26,14 +26,7 @@ namespace VisualTree
 
         public bool AreKeysAllowedToAdd( List< int > keys )
         {
-            foreach( int key in keys )
-            {
-                if ( FindNodeByKey( key, Root ) != null )
-                {
-                    return false;
-                }
-            }
-            return true;
+            return keys.TrueForAll( key => FindNodeByKey( key, Root ) == null );
         }
         
         /*******************************************************************************************/
